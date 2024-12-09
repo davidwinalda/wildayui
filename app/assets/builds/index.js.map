@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../javascript/wilday_ui/components/button.js"],
+  "sourcesContent": ["document.addEventListener(\"DOMContentLoaded\", () => {\n  document.querySelectorAll(\".w-button\").forEach((button) => {\n    button.addEventListener(\"click\", (event) => {\n      if (button.disabled) {\n        event.preventDefault();\n      }\n    });\n  });\n});\n"],
+  "mappings": ";;AAAA,WAAS,iBAAiB,oBAAoB,MAAM;AAClD,aAAS,iBAAiB,WAAW,EAAE,QAAQ,CAAC,WAAW;AACzD,aAAO,iBAAiB,SAAS,CAAC,UAAU;AAC1C,YAAI,OAAO,UAAU;AACnB,gBAAM,eAAe;AAAA,QACvB;AAAA,MACF,CAAC;AAAA,IACH,CAAC;AAAA,EACH,CAAC;",
+  "names": []
+}
