@@ -3,5 +3,11 @@
     <%= attributes %>
     <%= "disabled" if disabled %>
 >
+    <% if icon_position == :left && icon.present? %>
+        <i class="w-button-icon-left <%= icon %>"></i>
+    <% end %>
     <%= content %>
+    <% if icon_position == :right && icon.present? %>
+        <i class="w-button-icon-right <%= icon %>"></i>
+    <% end %>
 </button>

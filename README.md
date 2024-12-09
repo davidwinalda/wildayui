@@ -1,13 +1,13 @@
 # Wilday UI
 
-Wilday UI is a simple, customizable UI component library for Ruby on Rails projects. It includes ready-to-use components such as buttons with customizable styles, sizes, and radii, making it easy to create beautiful, consistent UI elements.
+Wilday UI is a simple, customizable UI component library for Ruby on Rails projects. It includes ready-to-use components such as buttons with customizable styles, sizes, and radius, making it easy to create beautiful, consistent UI elements.
 
 ---
 
 ## Features
 
 - Prebuilt, customizable button component
-- Flexible variants, sizes, and border radii
+- Flexible variants, sizes, and border radius
 - Easy integration with Rails as an engine
 
 ---
@@ -17,6 +17,7 @@ Wilday UI is a simple, customizable UI component library for Ruby on Rails proje
 1. **Flexibility**: Users can style component without being restricted to predefined classes.
 2. **Extensibility**: Users can add attributes or integrate component with JavaScript, analytics, or accessibility tools.
 3. **Framework Integration**: Supports utility classes from frameworks like Bootstrap or Tailwind.
+4. **Library Integration**: Support to use with other libraries like Font Awesome, Bootstrap Icons, etc.
 
 ## Installation
 

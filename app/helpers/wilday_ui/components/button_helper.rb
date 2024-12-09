@@ -6,6 +6,8 @@ module WildayUi
         variant: :primary,
         size: :medium,
         radius: :rounded,
+        icon: nil,
+        icon_position: :left,
         disabled: false,
         additional_classes: "",
         **options
@@ -35,6 +37,8 @@ module WildayUi
             variant_class: variant_class,
             size_class: size_class,
             radius_class: radius_class,
+            icon: icon,
+            icon_position: icon_position,
             additional_classes: additional_classes,
             disabled: disabled,
             attributes: options.map { |key, value| "#{key}='#{value}'" }.join(" ")
