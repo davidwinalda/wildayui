@@ -5,7 +5,7 @@ Gem::Specification.new do |spec|
   spec.version     = WildayUi::VERSION
   spec.authors     = [ "davidwinalda" ]
   spec.email       = [ "davidwinalda94@gmail.com" ]
-  spec.homepage    = "https://github.com/davidwinalda/wilday_ui"
+  spec.homepage    = "https://github.com/davidwinalda/wildayui"
   spec.summary     = "A minimal UI component library for Rails applications"
   spec.description = "Reusable UI components for Rails applications"
   spec.license     = "MIT"
@@ -14,9 +14,9 @@ Gem::Specification.new do |spec|
   # to allow pushing to a single host or delete this section to allow pushing to any host.
   # spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
 
-  # spec.metadata["homepage_uri"] = spec.homepage
-  # spec.metadata["source_code_uri"] = "TODO: Put your gem's public repo URL here."
-  # spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
+  spec.metadata["homepage_uri"] = spec.homepage
+  spec.metadata["source_code_uri"] = "https://github.com/davidwinalda/wildayui"
+  spec.metadata["changelog_uri"] = "https://github.com/davidwinalda/wildayui/blob/main/CHANGELOG.md"
 
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
     Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
