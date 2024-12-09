@@ -99,5 +99,3 @@ Contributions are welcome! If you’d like to help improve Wilday UI, feel free 
 Wilday UI is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
 ---
-
-This version makes the README user-friendly and focused on practical usage, while being concise for developers exploring the gem. Let me know if you’d like further tweaks! 🚀
