@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    wilday_ui (0.2.2)
+    wilday_ui (0.2.3)
       rails (~> 7.2, >= 7.2.1)
 
 GEM
