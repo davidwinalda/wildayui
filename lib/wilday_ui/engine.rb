@@ -5,8 +5,8 @@ module WildayUi
     isolate_namespace WildayUi
 
     # Automatically check for updates
-    initializer "wilday_ui.version_check" do
-      Rails.application.config.after_initialize do
+    initializer "wilday_ui.version_check", after: :load_config_initializers do
+      Rails.application.reloader.to_prepare do
         Rails.logger.info "[Wilday UI] Version check initialized."
         WildayUi::VersionCheck.check_for_update
       end

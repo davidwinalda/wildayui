@@ -239,7 +239,7 @@ GEM
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    wilday_ui (0.2.1)
+    wilday_ui (0.1.0)
       rails (~> 7.2, >= 7.2.1)
     zeitwerk (2.7.1)
 
@@ -264,7 +264,7 @@ DEPENDENCIES
   rubocop-rails-omakase
   sprockets-rails
   sqlite3
-  wilday_ui
+  wilday_ui (= 0.1.0)
 
 BUNDLED WITH
    2.5.11

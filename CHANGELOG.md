@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.2.3] - 2024-12-10
+
+- Fixed notification through the console when a new version of the gem is available.
+
 ## [0.2.2] - 2024-12-10
 
 - Fixed notification through the console when a new version of the gem is available.
