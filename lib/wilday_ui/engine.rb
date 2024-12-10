@@ -1,3 +1,5 @@
+require "wilday_ui/version_check"
+
 module WildayUi
   class Engine < ::Rails::Engine
     isolate_namespace WildayUi
