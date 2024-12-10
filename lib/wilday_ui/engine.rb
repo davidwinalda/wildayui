@@ -2,6 +2,13 @@ module WildayUi
   class Engine < ::Rails::Engine
     isolate_namespace WildayUi
 
+    # Automatically check for updates
+    initializer "wilday_ui.version_check" do
+      ActiveSupport.on_load(:after_initialize) do
+        WildayUi::VersionCheck.check_for_update
+      end
+    end
+
     # Automatically include helpers in views
     initializer "wilday_ui.helpers" do
       ActiveSupport.on_load(:action_view) do
