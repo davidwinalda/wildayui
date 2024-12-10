@@ -6,7 +6,8 @@ module WildayUi
 
     # Automatically check for updates
     initializer "wilday_ui.version_check" do
-      ActiveSupport.on_load(:after_initialize) do
+      Rails.application.config.after_initialize do
+        Rails.logger.info "[Wilday UI] Version check initialized."
         WildayUi::VersionCheck.check_for_update
       end
     end
