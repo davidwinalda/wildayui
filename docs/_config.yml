@@ -2,7 +2,7 @@ title: WildayUI
 description: Documentation for the WildayUI Components Library for Rails
 url: https://davidwinalda.github.io
 baseurl: "/wildayui"
-theme: just-the-docs
+
 remote_theme: just-the-docs/just-the-docs
 
 # Color scheme
@@ -20,6 +20,10 @@ aux_links:
 
 # Makes Aux links open in a new tab
 aux_links_new_tab: true
+
+# Add plugins section
+plugins:
+  - jekyll-remote-theme
 
 # Exclude from processing (recommended)
 exclude:
