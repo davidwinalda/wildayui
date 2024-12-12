@@ -1,8 +1,9 @@
 title: WildayUI
 description: Documentation for the WildayUI Components Library for Rails
+url: https://davidwinalda.github.io
+baseurl: "/wildayui"
 theme: just-the-docs
-
-url: https://your-github-username.github.io/wilday_ui
+remote_theme: just-the-docs/just-the-docs
 
 # Color scheme
 color_scheme: light
@@ -19,3 +20,10 @@ aux_links:
 
 # Makes Aux links open in a new tab
 aux_links_new_tab: true
+
+# Exclude from processing (recommended)
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/
