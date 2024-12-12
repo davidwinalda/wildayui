@@ -11,7 +11,7 @@ WildayUI provides a collection of pre-built components to help you build your ap
 
 ## Available Components
 
-- [Buttons](./buttons)
+- [Buttons](./button)
 - Badges <span class="label label-yellow">coming soon</span>
 - Accordions <span class="label label-yellow">coming soon</span>
 - Tabs <span class="label label-yellow">coming soon</span>
