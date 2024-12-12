@@ -1,0 +1,11 @@
+{
+  "[markdown]": {
+    "editor.formatOnSave": false,
+    "editor.defaultFormatter": null,
+    "files.insertFinalNewline": false,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": false,
+    "prettier.proseWrap": "never",
+    "prettier.printWidth": 120
+  }
+}

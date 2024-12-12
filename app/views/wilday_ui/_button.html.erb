@@ -1,13 +1,36 @@
-<button
-    class="w-button <%= variant_class %> <%= size_class %> <%= radius_class %> <%= additional_classes %>"
-    <%= attributes %>
-    <%= "disabled" if disabled %>
->
+<%
+# Prepare base HTML options
+html_options = {
+  class: ["w-button", variant_class, size_class, radius_class, additional_classes, ("w-button-loading" if loading)].compact.join(" "),
+  disabled: disabled || loading,
+  "aria-busy": loading,
+  "aria-disabled": disabled || loading
+}
+
+# Only add Stimulus data attributes if they're in the passed options
+if local_assigns[:html_options]&.dig(:data, :controller)
+  html_options[:data] = (local_assigns[:html_options][:data] || {})
+end
+
+# Merge any remaining options
+html_options.merge!(local_assigns[:html_options] || {})
+
+tag_type = href.present? ? :a : :button
+%>
+
+<%= content_tag tag_type, html_options do %>
+  <% if loading %>
+    <span class="w-button-spinner"></span>
+    <%= loading_text %>
+  <% else %>
     <% if icon_position == :left && icon.present? %>
-        <i class="w-button-icon-left <%= icon %>"></i>
+      <i class="w-button-icon-left <%= icon %>"></i>
     <% end %>
+    
     <%= content %>
+    
     <% if icon_position == :right && icon.present? %>
-        <i class="w-button-icon-right <%= icon %>"></i>
+      <i class="w-button-icon-right <%= icon %>"></i>
     <% end %>
-</button>
+  <% end %>
+<% end %>

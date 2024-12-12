@@ -12,3 +12,36 @@
 <%= w_button "Icon Button", variant: :primary, icon: "fa-solid fa-user" %>
 <%= w_button "Icon Button Right", variant: :primary, icon: "fa-solid fa-user", icon_position: :right %>
 <%= w_button "Icon Button Left", variant: :primary, icon: "fa-solid fa-user", icon_position: :left %>
+
+<br><br>
+
+<%= w_button "Loading Button", variant: :primary, loading: true, loading_text: "Loading..." %>
+<%= w_button "Submit", variant: :primary, id: "custom-dev-button", loading_text: "Saving..." %>
+
+<%= w_button "Submit", loading_text: "Saving..." %>
+
+<br><br>
+
+<%= w_button "Go to Google", variant: :primary, href: "https://www.google.com", target: "_blank" %>
+
+<%= w_button "Process", 
+    variant: :primary,
+    href: "https://skilvul.com/",
+    loading_text: "Processing..." %>
+
+<br><br>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const button = document.getElementById('custom-dev-button');
+  
+  if (button) {
+    button.addEventListener('click', () => {
+      // Wait for the same duration as the loading state (2000ms)
+      setTimeout(() => {
+        alert('Process completed!');
+      }, 2000);
+    });
+  }
+});
+</script>

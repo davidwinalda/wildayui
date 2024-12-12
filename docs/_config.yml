@@ -1,0 +1,21 @@
+title: WildayUI
+description: Documentation for the WildayUI Components Library for Rails
+theme: just-the-docs
+
+url: https://your-github-username.github.io/wilday_ui
+
+# Color scheme
+color_scheme: light
+
+# Enable or disable heading anchors
+heading_anchors: true
+
+# Sort order for navigation links
+nav_sort: case_sensitive # backwards compatible with old configs
+
+aux_links:
+  "Edit this page on GitHub":
+    - "//github.com/davidwinalda/wildayui/docs"
+
+# Makes Aux links open in a new tab
+aux_links_new_tab: true
