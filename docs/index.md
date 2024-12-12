@@ -336,7 +336,8 @@ document.addEventListener("DOMContentLoaded", () => {
 This approach gives you full control of the component's behavior while maintaining the simplicity of using plain JavaScript.
 
 You can see another use case here
-[here →](./components/button/examples.html#customization-examples-with-plain-javascript){: .btn .btn-primary }
+
+[Button Usage Examples →](./components/button/examples.html#customization-examples-with-plain-javascript){: .btn .btn-primary }
 
 ---
 ## Customize Stimulus
