@@ -1,0 +1,51 @@
+/* Loading Spinner */
+.w-button-spinner {
+  display: none; /* Hide by default */
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.5rem;
+  border: 2px solid transparent;
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: w-button-spin 0.6s linear infinite;
+}
+
+@keyframes w-button-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Loading State */
+.w-button.w-button-loading {
+  pointer-events: none;
+  opacity: 0.8;
+  position: relative;
+}
+
+/* Show spinner when loading */
+.w-button.w-button-loading .w-button-spinner {
+  display: inline-block;
+}
+
+/* Hide content when loading */
+.w-button.w-button-loading .w-button-content {
+  display: none;
+}
+
+/* Initial loading state */
+.w-button[data-button-loading-initial="true"] {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.w-button[data-button-loading-initial="true"] .w-button-spinner {
+  display: inline-block;
+}
+
+.w-button[data-button-loading-initial="true"] .w-button-content {
+  display: none;
+}

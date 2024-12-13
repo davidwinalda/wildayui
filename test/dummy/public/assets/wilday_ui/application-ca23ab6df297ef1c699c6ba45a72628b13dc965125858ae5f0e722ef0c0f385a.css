@@ -1,0 +1,613 @@
+.w-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Variants */
+.w-button-primary {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+}
+
+.w-button-primary:hover {
+  background-color: #0056b3;
+}
+
+.w-button-secondary {
+  background-color: #6c757d;
+  color: #fff;
+  border: none;
+}
+
+.w-button-secondary:hover {
+  background-color: #5a6268;
+}
+
+.w-button-outline {
+  background-color: transparent;
+  color: #007bff;
+  border: 1px solid #007bff;
+}
+
+.w-button-outline:hover {
+  background-color: #e7f1ff;
+}
+
+/* Sizes */
+.w-button-small {
+  font-size: 0.875rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.w-button-medium {
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+.w-button-large {
+  font-size: 1.25rem;
+  padding: 0.75rem 1.5rem;
+}
+
+/* Disabled */
+.w-button:disabled {
+  background-color: #e0e0e0;
+  color: #6c757d;
+  cursor: not-allowed;
+}
+
+/* Radius Styles */
+.w-button-rounded {
+  border-radius: 0.375rem; /* Default rounded */
+}
+
+.w-button-pill {
+  border-radius: 9999px; /* Fully rounded */
+}
+
+.w-button-square {
+  border-radius: 0; /* No rounding */
+}
+
+/* Icon Button Styles */
+.w-button-icon-left {
+  margin-right: 0.5rem;
+}
+
+.w-button-icon-right {
+  margin-left: 0.5rem;
+}
+
+.w-button-icon-left,
+.w-button-icon-right {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Loading ButtonSpinner */
+.w-button-spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid transparent;
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: w-button-spin 0.6s linear infinite;
+}
+
+@keyframes w-button-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Loading Button State */
+.w-button.w-button-loading {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.w-button.w-button-loading .w-button-spinner {
+  display: inline-block;
+}
+
+.w-button.w-button-loading > *:not(.w-button-spinner) {
+  display: none;
+}
+
+/* Dropdown Wrapper */
+.w-button-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Button */
+.w-button-dropdown {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* Dropdown Arrow */
+.w-button-dropdown-arrow {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+/* CSS-only arrow when no custom icon is provided */
+.w-button-dropdown-arrow:not(i) {
+  width: 0.8em;
+  height: 0.8em;
+  border: 0.2em solid currentColor;
+  border-top: 0;
+  border-left: 0;
+  transform: translateY(-25%) rotate(45deg);
+}
+
+/* Arrow rotations for active state */
+.w-button.active .w-button-dropdown-arrow:not(i) {
+  transform: translateY(25%) rotate(225deg);
+}
+
+.w-button.active .w-button-dropdown-arrow i {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Menu */
+.w-button-dropdown-menu {
+  position: absolute;
+  display: none;
+  width: max-content;
+  min-width: 100%;
+  padding: 0.25rem 0;
+  margin: 0.125rem 0 0;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  z-index: 1000;
+  left: 0;
+  right: 0;
+  overflow: hidden; /* Add this to contain hover states */
+}
+
+.w-button-dropdown-menu.show {
+  display: block;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+/* Dropdown Items */
+.w-button-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: inherit;
+  line-height: inherit;
+  text-align: left;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+  color: #374151;
+  text-decoration: none;
+  transition: all 0.15s ease-in-out;
+}
+
+.w-button-dropdown-item:hover,
+.w-button-dropdown-item:focus {
+  background-color: #f3f4f6;
+  color: #111827;
+  outline: none;
+}
+
+/* Dropdown Divider */
+.w-button-dropdown-divider {
+  height: 0;
+  margin: 0.5rem 0;
+  overflow: hidden;
+  border-top: 1px solid #e9ecef;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Position Variations */
+.w-button-dropdown-menu[data-position="top"] {
+  bottom: 100%;
+  margin-bottom: 0.125rem;
+  margin-top: 0;
+}
+
+.w-button-dropdown-menu[data-position="right"] {
+  left: 100%;
+  margin-left: 0.125rem;
+  top: 0;
+}
+
+.w-button-dropdown-menu[data-position="left"] {
+  right: 100%;
+  margin-right: 0.125rem;
+  top: 0;
+}
+
+/* Alignment Variations */
+.w-button-dropdown-menu[data-align="end"] {
+  right: 0;
+}
+
+.w-button-dropdown-menu[data-align="center"] {
+  left: 50%;
+  transform: translateX(-50%);
+}
+/* Dropdown Button */
+.w-button-dropdown {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* Dropdown Arrow */
+.w-button-dropdown-arrow {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.w-button-dropdown-arrow:not(i) {
+  width: 0.8em;
+  height: 0.8em;
+  border: 0.2em solid currentColor;
+  border-top: 0;
+  border-left: 0;
+  transform: translateY(-25%) rotate(45deg);
+}
+
+/* Arrow Active States */
+.w-button.active .w-button-dropdown-arrow:not(i) {
+  transform: translateY(25%) rotate(225deg);
+}
+
+.w-button.active .w-button-dropdown-arrow i {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Menu */
+.w-button-dropdown-menu {
+  position: absolute;
+  display: none;
+  width: max-content;
+  min-width: 100%;
+  padding: 0.25rem 0;
+  margin: 0.125rem 0 0;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  z-index: 1000;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+}
+
+.w-button-dropdown-menu.show {
+  display: block;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+/* Dropdown Items */
+.w-button-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: inherit;
+  line-height: inherit;
+  text-align: left;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+  color: #374151;
+  text-decoration: none;
+  transition: all 0.15s ease-in-out;
+}
+
+.w-button-dropdown-item:hover,
+.w-button-dropdown-item:focus {
+  background-color: #f3f4f6;
+  color: #111827;
+  outline: none;
+}
+
+/* Dropdown Divider */
+.w-button-dropdown-divider {
+  height: 0;
+  margin: 0.5rem 0;
+  overflow: hidden;
+  border-top: 1px solid #e9ecef;
+}
+
+/* Position Variations */
+.w-button-dropdown-menu[data-position="top"] {
+  bottom: 100%;
+  margin-bottom: 0.125rem;
+  margin-top: 0;
+}
+
+.w-button-dropdown-menu[data-position="right"] {
+  left: 100%;
+  margin-left: 0.125rem;
+  top: 0;
+}
+
+.w-button-dropdown-menu[data-position="left"] {
+  right: 100%;
+  margin-right: 0.125rem;
+  top: 0;
+}
+
+/* Alignment Variations */
+.w-button-dropdown-menu[data-align="end"] {
+  right: 0;
+}
+
+.w-button-dropdown-menu[data-align="center"] {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* Icon Positioning */
+.w-button-icon-left {
+  margin-right: 0.5rem;
+}
+
+.w-button-icon-right {
+  margin-left: 0.5rem;
+}
+
+.w-button-icon-left,
+.w-button-icon-right {
+  display: inline-flex;
+  align-items: center;
+}
+/* Loading Spinner */
+.w-button-spinner {
+  display: none; /* Hide by default */
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.5rem;
+  border: 2px solid transparent;
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: w-button-spin 0.6s linear infinite;
+}
+
+@keyframes w-button-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Loading State */
+.w-button.w-button-loading {
+  pointer-events: none;
+  opacity: 0.8;
+  position: relative;
+}
+
+/* Show spinner when loading */
+.w-button.w-button-loading .w-button-spinner {
+  display: inline-block;
+}
+
+/* Hide content when loading */
+.w-button.w-button-loading .w-button-content {
+  display: none;
+}
+
+/* Initial loading state */
+.w-button[data-button-loading-initial="true"] {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.w-button[data-button-loading-initial="true"] .w-button-spinner {
+  display: inline-block;
+}
+
+.w-button[data-button-loading-initial="true"] .w-button-content {
+  display: none;
+}
+/* Tooltip */
+.w-button-tooltip {
+  position: absolute;
+  display: none;
+  padding: 0.5rem 1rem;
+  background-color: #1f2937;
+  color: white;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  z-index: 1000;
+}
+
+.w-button-tooltip.show {
+  display: block;
+  animation: tooltipFadeIn 0.2s ease-in-out;
+}
+
+/* Tooltip Positions */
+.w-button-tooltip[data-position="top"] {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-0.5rem);
+}
+
+.w-button-tooltip[data-position="bottom"] {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(0.5rem);
+}
+
+.w-button-tooltip[data-position="left"] {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%) translateX(-0.5rem);
+}
+
+.w-button-tooltip[data-position="right"] {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%) translateX(0.5rem);
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/* Import feature styles */
+@import "features/loading.css";
+@import "features/icon.css";
+@import "features/dropdown.css";
+@import "features/tooltip.css";
+
+/* Base Button */
+.w-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Variants */
+.w-button-primary {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+}
+
+.w-button-primary:hover {
+  background-color: #0056b3;
+}
+
+.w-button-secondary {
+  background-color: #6c757d;
+  color: #fff;
+  border: none;
+}
+
+.w-button-secondary:hover {
+  background-color: #5a6268;
+}
+
+.w-button-outline {
+  background-color: transparent;
+  color: #007bff;
+  border: 1px solid #007bff;
+}
+
+.w-button-outline:hover {
+  background-color: #e7f1ff;
+}
+
+/* Sizes */
+.w-button-small {
+  font-size: 0.875rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.w-button-medium {
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+.w-button-large {
+  font-size: 1.25rem;
+  padding: 0.75rem 1.5rem;
+}
+
+/* Radius Styles */
+.w-button-rounded {
+  border-radius: 0.375rem;
+}
+
+.w-button-pill {
+  border-radius: 9999px;
+}
+
+.w-button-square {
+  border-radius: 0;
+}
+
+/* Disabled State */
+.w-button:disabled {
+  background-color: #e0e0e0;
+  color: #6c757d;
+  cursor: not-allowed;
+}
+
+/* Common Wrapper */
+.w-button-wrapper {
+  position: relative;
+  display: inline-block;
+}
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+
+
+ */

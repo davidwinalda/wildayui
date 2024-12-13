@@ -4,7 +4,9 @@ html_options = {
   class: ["w-button", variant_class, size_class, radius_class, additional_classes, ("w-button-loading" if loading)].compact.join(" "),
   disabled: disabled || loading,
   "aria-busy": loading,
-  "aria-disabled": disabled || loading
+  "aria-disabled": disabled || loading,
+  "aria-expanded": dropdown ? "false" : nil,
+  "aria-haspopup": dropdown ? "true" : nil
 }
 
 # Only add Stimulus data attributes if they're in the passed options
@@ -18,9 +20,10 @@ html_options.merge!(local_assigns[:html_options] || {})
 tag_type = href.present? ? :a : :button
 %>
 
-<%= content_tag tag_type, html_options do %>
-  <% if loading %>
-    <span class="w-button-spinner"></span>
+<div <%= tag.attributes(wrapper_options) %>>
+  <%= content_tag tag_type, html_options do %>
+    <% if loading %>
+      <span class="w-button-spinner"></span>
     <%= loading_text %>
   <% else %>
     <% if icon_position == :left && icon.present? %>
@@ -28,9 +31,35 @@ tag_type = href.present? ? :a : :button
     <% end %>
     
     <%= content %>
+
+    <% if dropdown %>
+      <% if dropdown_icon.present? %>
+        <i class="w-button-dropdown-arrow <%= dropdown_icon %>"></i>
+      <% else %>
+        <span class="w-button-dropdown-arrow"></span>
+      <% end %>
+    <% end %>
     
     <% if icon_position == :right && icon.present? %>
       <i class="w-button-icon-right <%= icon %>"></i>
     <% end %>
   <% end %>
 <% end %>
+
+  <% if dropdown && dropdown_items %>
+    <div class="w-button-dropdown-menu" data-dropdown-target="menu" role="menu">
+      <% dropdown_items.each do |item| %>
+        <% if item[:divider] %>
+          <div class="w-button-dropdown-divider" role="separator"></div>
+        <% else %>
+          <%= link_to item[:text], 
+              item[:href], 
+              class: "w-button-dropdown-item",
+              role: "menuitem",
+              tabindex: "-1" 
+          %>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

@@ -31,6 +31,19 @@
 
 <br><br>
 
+<!-- Basic Dropdown -->
+<%= w_button "Dropdown", 
+    variant: :primary,
+    dropdown: true,
+    dropdown_icon: "fa-solid fa-chevron-down",
+    dropdown_items: [
+      { text: "Profile", href: "#profile" },
+      { text: "Settings", href: "#settings" },
+      { divider: true },
+      { text: "Logout", href: "#logout" }
+    ] 
+%>
+
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const button = document.getElementById('custom-dev-button');
@@ -43,5 +56,19 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 2000);
     });
   }
+
+  // Debug all buttons with loading_text
+  const loadingButtons = document.querySelectorAll('[data-button-loading-text-value]');
+  console.log('Found Loading Buttons:', loadingButtons.length);
+  
+  loadingButtons.forEach((btn, index) => {
+    console.log(`Loading Button ${index}:`, {
+      text: btn.innerText,
+      dataset: btn.dataset,
+      controllers: btn.dataset.controller,
+      actions: btn.dataset.action,
+      loadingText: btn.dataset.buttonLoadingTextValue
+    });
+  });
 });
 </script>

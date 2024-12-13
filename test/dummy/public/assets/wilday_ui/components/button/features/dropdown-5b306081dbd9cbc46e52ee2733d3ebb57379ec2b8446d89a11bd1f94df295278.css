@@ -1,0 +1,128 @@
+/* Dropdown Button */
+.w-button-dropdown {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* Dropdown Arrow */
+.w-button-dropdown-arrow {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.w-button-dropdown-arrow:not(i) {
+  width: 0.8em;
+  height: 0.8em;
+  border: 0.2em solid currentColor;
+  border-top: 0;
+  border-left: 0;
+  transform: translateY(-25%) rotate(45deg);
+}
+
+/* Arrow Active States */
+.w-button.active .w-button-dropdown-arrow:not(i) {
+  transform: translateY(25%) rotate(225deg);
+}
+
+.w-button.active .w-button-dropdown-arrow i {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Menu */
+.w-button-dropdown-menu {
+  position: absolute;
+  display: none;
+  width: max-content;
+  min-width: 100%;
+  padding: 0.25rem 0;
+  margin: 0.125rem 0 0;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  z-index: 1000;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+}
+
+.w-button-dropdown-menu.show {
+  display: block;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+/* Dropdown Items */
+.w-button-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: inherit;
+  line-height: inherit;
+  text-align: left;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+  color: #374151;
+  text-decoration: none;
+  transition: all 0.15s ease-in-out;
+}
+
+.w-button-dropdown-item:hover,
+.w-button-dropdown-item:focus {
+  background-color: #f3f4f6;
+  color: #111827;
+  outline: none;
+}
+
+/* Dropdown Divider */
+.w-button-dropdown-divider {
+  height: 0;
+  margin: 0.5rem 0;
+  overflow: hidden;
+  border-top: 1px solid #e9ecef;
+}
+
+/* Position Variations */
+.w-button-dropdown-menu[data-position="top"] {
+  bottom: 100%;
+  margin-bottom: 0.125rem;
+  margin-top: 0;
+}
+
+.w-button-dropdown-menu[data-position="right"] {
+  left: 100%;
+  margin-left: 0.125rem;
+  top: 0;
+}
+
+.w-button-dropdown-menu[data-position="left"] {
+  right: 100%;
+  margin-right: 0.125rem;
+  top: 0;
+}
+
+/* Alignment Variations */
+.w-button-dropdown-menu[data-align="end"] {
+  right: 0;
+}
+
+.w-button-dropdown-menu[data-align="center"] {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

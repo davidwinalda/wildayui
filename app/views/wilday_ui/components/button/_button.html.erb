@@ -1,0 +1,46 @@
+<%
+# Prepare base HTML options
+html_options = {
+  class: ["w-button", variant_class, size_class, radius_class, additional_classes, ("w-button-loading" if local_assigns[:loading])].compact.join(" "),
+  disabled: disabled || local_assigns[:loading],
+  "aria-busy": local_assigns[:loading],
+  "aria-disabled": disabled || local_assigns[:loading]
+}
+
+# Only add Stimulus data attributes if they're in the passed options
+if local_assigns[:html_options]&.dig(:data, :controller)
+  html_options[:data] = local_assigns[:html_options][:data]
+end
+
+# Merge any remaining options
+html_options.merge!(local_assigns[:html_options] || {})
+
+tag_type = href.present? ? :a : :button
+%>
+
+<% if local_assigns[:wrapper_options].present? %>
+  <div <%= tag.attributes(wrapper_options) %>>
+<% end %>
+
+<%= content_tag tag_type, html_options do %>
+  <%= render "wilday_ui/components/button/content", 
+      content: content,
+      icon: icon,
+      icon_position: icon_position,
+      loading: local_assigns[:loading],
+      loading_text: local_assigns[:loading_text],
+      dropdown: local_assigns[:dropdown],
+      dropdown_icon: local_assigns[:dropdown_icon]
+  %>
+<% end %>
+
+<%= render "wilday_ui/components/button/features/dropdown_menu",
+    items: local_assigns[:dropdown_items] if local_assigns[:dropdown] && local_assigns[:dropdown_items] %>
+
+<%= render "wilday_ui/components/button/features/tooltip",
+    text: local_assigns[:tooltip],
+    position: local_assigns[:tooltip_position] if local_assigns[:tooltip] %>
+
+<% if local_assigns[:wrapper_options].present? %>
+  </div>
+<% end %>

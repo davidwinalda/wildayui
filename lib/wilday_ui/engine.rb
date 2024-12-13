@@ -75,7 +75,17 @@ module WildayUi
 
       # Precompile only the bundled JavaScript file
       app.config.assets.precompile += css_files
-      app.config.assets.precompile += %w[wilday_ui/index.js]
+      # app.config.assets.precompile += %w[
+      #   wilday_ui/index.js
+      #   wilday_ui/controllers/button/index.js
+      #   wilday_ui/controllers/button/base_controller.js
+      #   wilday_ui/controllers/button/features/loading.js
+      #   wilday_ui/controllers/button/features/dropdown.js
+      #   wilday_ui/controllers/button/features/tooltip.js
+      # ]
+      app.config.assets.precompile += %w[
+        wilday_ui/index.js
+      ]
 
       Rails.logger.info "[Wilday UI] CSS files precompiled: #{css_files}"
       Rails.logger.info "[Wilday UI] JS files precompiled: wilday_ui/index.js"

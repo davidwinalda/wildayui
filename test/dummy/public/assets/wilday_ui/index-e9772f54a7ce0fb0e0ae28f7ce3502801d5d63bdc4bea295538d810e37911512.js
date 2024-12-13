@@ -2446,76 +2446,201 @@ Controller.targets = [];
 Controller.outlets = [];
 Controller.values = {};
 
-// app/javascript/wilday_ui/controllers/button_controller.js
-var ButtonController = class extends Controller {
-  static values = {
-    loadingDuration: { type: Number, default: 2e3 }
-  };
-  initialize() {
-  }
+// app/javascript/wilday_ui/controllers/button/base_controller.js
+var base_controller_default = class extends Controller {
   connect() {
-  }
-  toggleLoading(event) {
-    const button = this.element;
-    const isLink = button.tagName.toLowerCase() === "a";
-    const hasLoadingText = button.dataset.buttonLoadingText;
-    if (hasLoadingText) {
-      event.preventDefault();
-      if (button.disabled || button.classList.contains("w-button-loading")) {
-        return;
-      }
-      this.startLoading(button);
-      setTimeout(() => {
-        this.stopLoading(button);
-        if (isLink && button.href) {
-          window.location.href = button.href;
-        }
-      }, this.loadingDurationValue);
+    console.log("Button base controller connected");
+    if (this.element.disabled) {
+      this.element.style.pointerEvents = "none";
     }
   }
-  startLoading(button) {
-    this.originalContent = button.innerHTML;
-    const loadingText = button.dataset.buttonLoadingText;
-    button.classList.add("w-button-loading");
-    button.setAttribute("aria-busy", "true");
-    button.style.pointerEvents = "none";
-    button.disabled = true;
-    button.innerHTML = `<span class="w-button-spinner"></span> ${loadingText}`;
-  }
-  stopLoading(button) {
-    button.classList.remove("w-button-loading");
-    button.removeAttribute("aria-busy");
-    button.style.pointerEvents = "";
-    button.disabled = false;
-    button.innerHTML = this.originalContent;
+  click(event) {
+    console.log("Button base controller click");
+    if (this.element.disabled) {
+      event.preventDefault();
+      return;
+    }
   }
 };
 
-// app/javascript/wilday_ui/controllers/index.js
+// app/javascript/wilday_ui/controllers/button/features/loading.js
+var loading_default = class extends Controller {
+  static values = {
+    buttonLoadingText: String
+  };
+  connect() {
+    this.originalContent = this.element.innerHTML;
+    this.originalClasses = this.element.className;
+    console.log("\u{1F535} Loading Controller connected:", {
+      element: this.element.className,
+      hasText: false,
+      text: null,
+      dataset: this.element.dataset
+    });
+    if (this.element.dataset.loading === "true") {
+      requestAnimationFrame(() => this.startLoading());
+    }
+  }
+  toggle(event) {
+    if (event) event.preventDefault();
+    if (this.element.hasAttribute("aria-busy")) return;
+    this.startLoading();
+    setTimeout(() => {
+      this.stopLoading();
+    }, 2e3);
+  }
+  startLoading() {
+    this.element.setAttribute("aria-busy", "true");
+    this.element.disabled = true;
+    const loadingText = this.buttonLoadingTextValue;
+    this.element.innerHTML = `
+      <span class="w-button-spinner"></span>
+      <span class="w-button-content">${loadingText}</span>
+    `;
+  }
+  stopLoading() {
+    this.element.removeAttribute("aria-busy");
+    this.element.disabled = false;
+    this.element.innerHTML = this.originalContent;
+  }
+};
+
+// app/javascript/wilday_ui/controllers/button/features/dropdown.js
+var dropdown_default = class extends Controller {
+  static targets = ["button", "menu"];
+  static values = {
+    trigger: { type: String, default: "click" },
+    position: { type: String, default: "bottom" },
+    align: { type: String, default: "start" }
+  };
+  connect() {
+    this.setupEventListeners();
+    this.updatePosition();
+  }
+  disconnect() {
+    document.removeEventListener("click", this.handleClickOutside);
+  }
+  setupEventListeners() {
+    if (this.triggerValue === "hover") {
+      this.element.addEventListener("mouseenter", () => this.show());
+      this.element.addEventListener("mouseleave", () => this.hide());
+    }
+    this.handleClickOutside = this.handleClickOutside.bind(this);
+    document.addEventListener("click", this.handleClickOutside);
+    this.element.addEventListener("keydown", this.handleKeydown.bind(this));
+  }
+  toggle(event) {
+    if (this.triggerValue === "click") {
+      event.preventDefault();
+      event.stopPropagation();
+      this.isOpen ? this.hide() : this.show();
+    }
+  }
+  show() {
+    this.menuTarget.classList.add("show");
+    this.buttonTarget.classList.add("active");
+    this.buttonTarget.setAttribute("aria-expanded", "true");
+    this.focusFirstItem();
+  }
+  hide() {
+    this.menuTarget.classList.remove("show");
+    this.buttonTarget.classList.remove("active");
+    this.buttonTarget.setAttribute("aria-expanded", "false");
+  }
+  handleClickOutside(event) {
+    if (!this.element.contains(event.target) && this.isOpen) {
+      this.hide();
+    }
+  }
+  handleKeydown(event) {
+    if (!this.isOpen && event.key === "Enter") {
+      this.show();
+      return;
+    }
+    if (this.isOpen) {
+      switch (event.key) {
+        case "Escape":
+          this.hide();
+          this.buttonTarget.focus();
+          break;
+        case "ArrowDown":
+          event.preventDefault();
+          this.focusNextItem();
+          break;
+        case "ArrowUp":
+          event.preventDefault();
+          this.focusPreviousItem();
+          break;
+        case "Tab":
+          this.hide();
+          break;
+      }
+    }
+  }
+  focusFirstItem() {
+    const firstItem = this.menuTarget.querySelector(".w-button-dropdown-item");
+    if (firstItem) firstItem.focus();
+  }
+  focusNextItem() {
+    const items = this.getMenuItems();
+    const currentIndex = items.indexOf(document.activeElement);
+    const nextIndex = currentIndex + 1 < items.length ? currentIndex + 1 : 0;
+    items[nextIndex].focus();
+  }
+  focusPreviousItem() {
+    const items = this.getMenuItems();
+    const currentIndex = items.indexOf(document.activeElement);
+    const previousIndex = currentIndex > 0 ? currentIndex - 1 : items.length - 1;
+    items[previousIndex].focus();
+  }
+  getMenuItems() {
+    return Array.from(
+      this.menuTarget.querySelectorAll(".w-button-dropdown-item")
+    );
+  }
+  updatePosition() {
+    this.menuTarget.setAttribute("data-position", this.positionValue);
+    this.menuTarget.setAttribute("data-align", this.alignValue);
+  }
+  get isOpen() {
+    return this.menuTarget.classList.contains("show");
+  }
+};
+
+// app/javascript/wilday_ui/controllers/button/features/tooltip.js
+var tooltip_default = class extends Controller {
+  static targets = ["content"];
+  static values = {
+    text: String,
+    position: { type: String, default: "top" }
+  };
+  connect() {
+    this.element.addEventListener("mouseenter", () => this.show());
+    this.element.addEventListener("mouseleave", () => this.hide());
+  }
+  show() {
+    this.contentTarget.classList.add("show");
+  }
+  hide() {
+    this.contentTarget.classList.remove("show");
+  }
+};
+
+// app/javascript/wilday_ui/controllers/button/index.js
 var application = Application.start();
 window.Stimulus = application;
-application.register("button", ButtonController);
+application.register("button", base_controller_default);
+application.register("button-loading", loading_default);
+application.register("button-dropdown", dropdown_default);
+application.register("button-tooltip", tooltip_default);
 if (window.Stimulus) {
-  console.log("\u2705 Stimulus is loaded and initialized.");
+  console.log("\u2705 Button controllers registered");
 } else {
-  console.error("\u274C Stimulus failed to load.");
+  console.error("\u274C Failed to register button controllers");
 }
 
-// app/javascript/wilday_ui/components/button.js
-document.addEventListener("DOMContentLoaded", () => {
-  console.log("Button component loaded heah");
-  document.querySelectorAll(".w-button").forEach((button) => {
-    button.addEventListener("click", (event) => {
-      if (button.disabled) {
-        event.preventDefault();
-        return;
-      }
-    });
-  });
-});
-
 // app/javascript/wilday_ui/index.js
-console.log("JavaScript loaded");
+console.log("WildayUI JavaScript loaded");
 //# sourceMappingURL=/assets/wilday_ui/index.js.map
 //!
 ;

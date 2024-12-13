@@ -1,4 +1,3 @@
-import "./controllers";
-import "./components/button";
+import "./controllers/button";
 
-console.log("JavaScript loaded");
+console.log("WildayUI JavaScript loaded");

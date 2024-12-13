@@ -1,0 +1,14 @@
+<div class="w-button-dropdown-menu" data-dropdown-target="menu" role="menu">
+  <% items.each do |item| %>
+    <% if item[:divider] %>
+      <div class="w-button-dropdown-divider" role="separator"></div>
+    <% else %>
+      <%= link_to item[:text], 
+          item[:href], 
+          class: "w-button-dropdown-item",
+          role: "menuitem",
+          tabindex: "-1" 
+      %>
+    <% end %>
+  <% end %>
+</div>

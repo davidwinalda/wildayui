@@ -1,0 +1,17 @@
+<% if loading %>
+  <%= render "wilday_ui/components/button/features/loading",
+      text: loading_text %>
+<% else %>
+  <%= render "wilday_ui/components/button/features/icon",
+      icon: icon,
+      position: :left if icon_position == :left && icon.present? %>
+  
+  <%= content %>
+
+  <%= render "wilday_ui/components/button/features/dropdown_arrow",
+      icon: dropdown_icon if dropdown %>
+  
+  <%= render "wilday_ui/components/button/features/icon",
+      icon: icon,
+      position: :right if icon_position == :right && icon.present? %>
+<% end %>

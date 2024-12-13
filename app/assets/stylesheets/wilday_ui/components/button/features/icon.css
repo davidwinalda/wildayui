@@ -1,0 +1,14 @@
+/* Icon Positioning */
+.w-button-icon-left {
+  margin-right: 0.5rem;
+}
+
+.w-button-icon-right {
+  margin-left: 0.5rem;
+}
+
+.w-button-icon-left,
+.w-button-icon-right {
+  display: inline-flex;
+  align-items: center;
+}
