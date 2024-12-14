@@ -91,6 +91,9 @@ module WildayUi
             })
           end
 
+          # Pass nested dropdown_items to the partial
+          dropdown_items = normalize_dropdown_items(dropdown_items)
+
           # Create wrapper options
           wrapper_options = {
             class: [ "w-button-wrapper", additional_classes ].compact.join(" "),
@@ -127,6 +130,22 @@ module WildayUi
             dropdown_icon: dropdown_icon,
             wrapper_options: wrapper_options
           }
+      end
+
+      private
+
+      # Recursive normalization of dropdown items
+      def normalize_dropdown_items(items)
+        return [] unless items
+
+        items.map do |item|
+          {
+            text: item[:text],
+            href: item[:href],
+            divider: item[:divider],
+            children: normalize_dropdown_items(item[:children]) # Handle nested items
+          }.compact
+        end
       end
     end
   end

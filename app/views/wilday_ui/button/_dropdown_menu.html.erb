@@ -1,14 +1,22 @@
-<div class="w-button-dropdown-menu" data-dropdown-target="menu" role="menu">
-  <% items.each do |item| %>
-    <% if item[:divider] %>
-      <div class="w-button-dropdown-divider" role="separator"></div>
-    <% else %>
-      <%= link_to item[:text], 
-          item[:href], 
-          class: "w-button-dropdown-item",
-          role: "menuitem",
-          tabindex: "-1" 
-      %>
+<% if items.present? %>
+  <div class="w-button-dropdown-menu" data-dropdown-target="menu" role="menu">
+    <% items.each do |item| %>
+      <% if item[:divider] %>
+        <div class="w-button-dropdown-divider" role="separator"></div>
+      <% elsif item[:children].present? %>
+        <div class="w-button-dropdown-item w-button-dropdown-parent" role="menuitem">
+          <%= item[:text] %>
+          <span class="w-button-dropdown-arrow"></span>
+          <%= render partial: "wilday_ui/button/dropdown_menu", locals: { items: item[:children] } %>
+        </div>
+      <% else %>
+        <%= link_to item[:text], 
+            item[:href], 
+            class: "w-button-dropdown-item",
+            role: "menuitem",
+            tabindex: "-1" 
+        %>
+      <% end %>
     <% end %>
-  <% end %>
-</div>
+  </div>
+<% end %>

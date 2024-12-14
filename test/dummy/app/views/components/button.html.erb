@@ -43,16 +43,46 @@
     ] 
 %>
 
+<%= w_button "Menu", 
+    variant: :primary,
+    use_default_controller: false,
+    dropdown: { position: :bottom, align: :start, trigger: :hover },
+    dropdown_items: [
+        { text: "Option 1", href: "#1" },
+        { 
+            text: "Option 2 (With Submenu)", 
+            children: [
+                { text: "Sub Option 1", href: "#2-1" },
+                { text: "Sub Option 2", href: "#2-2" },
+                { 
+                    text: "Sub Option 3 (With Submenu)", 
+                    children: [
+                        { text: "Sub Sub Option 1", href: "#2-3-1" },
+                        { text: "Sub Sub Option 2", href: "#2-3-2" },
+                        { text: "Sub Sub Option 3 (With Submenu)", children: [
+                            { text: "Sub Sub Sub Option 1", href: "#2-3-3-1" },
+                            { text: "Sub Sub Sub Option 2", href: "#2-3-3-2" },
+                        ] }
+                    ] 
+                }
+            ]
+        },
+        { text: "Option 3", href: "#3" }
+    ] 
+%>
+
+
 <!-- Custom Dropdown Position -->
 <%= w_button "Top Dropdown", 
     variant: :outline,
     dropdown: {
       position: :bottom,
-      align: :center
+      align: :start
     },
     dropdown_items: [
-      { text: "Option 1", href: "#1" },
-      { text: "Option 2", href: "#2" }
+      { text: "Option 1 dsdsdsd dsdsdsds", href: "#1" },
+      { text: "Option 2 dsdsdsdsdsdsdsdsdsdsd", href: "#2" },
+      { text: "Option 3", href: "#3" }
     ] 
 %>
 

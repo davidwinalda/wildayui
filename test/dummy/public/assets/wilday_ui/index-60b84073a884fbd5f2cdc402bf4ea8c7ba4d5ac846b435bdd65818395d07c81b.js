@@ -2493,7 +2493,7 @@ var ButtonController = class extends Controller {
 
 // app/javascript/wilday_ui/controllers/dropdown_controller.js
 var dropdown_controller_default = class extends Controller {
-  static targets = ["button", "menu"];
+  static targets = ["button", "menu", "submenu"];
   static values = {
     trigger: { type: String, default: "click" },
     position: { type: String, default: "bottom" },
@@ -2529,6 +2529,7 @@ var dropdown_controller_default = class extends Controller {
     }
     this.element.addEventListener("keydown", this.handleKeydown.bind(this));
     document.addEventListener("click", this.handleClickOutside.bind(this));
+    this.setupSubmenus();
   }
   disconnect() {
     document.removeEventListener("click", this.handleClickOutside.bind(this));
@@ -2592,10 +2593,73 @@ var dropdown_controller_default = class extends Controller {
           event.preventDefault();
           this.focusPreviousItem();
           break;
+        case "ArrowRight":
+          this.openSubmenu(event.target);
+          break;
+        case "ArrowLeft":
+          this.closeSubmenu(event.target);
+          break;
         case "Tab":
           this.hide();
           break;
       }
+    }
+  }
+  setupSubmenus() {
+    this.element.querySelectorAll(".w-button-dropdown-parent").forEach((parent) => {
+      const submenu = parent.querySelector(".w-button-dropdown-menu");
+      if (submenu) {
+        if (this.triggerValue === "hover") {
+          parent.addEventListener(
+            "mouseenter",
+            () => this.showSubmenu(submenu)
+          );
+          parent.addEventListener(
+            "mouseleave",
+            () => this.hideSubmenu(submenu)
+          );
+        } else {
+          parent.addEventListener("click", (event) => {
+            event.stopPropagation();
+            this.toggleSubmenu(submenu);
+          });
+        }
+      }
+    });
+  }
+  toggleSubmenu(submenu) {
+    if (submenu.classList.contains("show")) {
+      this.hideSubmenu(submenu);
+    } else {
+      this.showSubmenu(submenu);
+    }
+  }
+  showSubmenu(submenu) {
+    submenu.classList.add("show");
+    submenu.setAttribute("aria-expanded", "true");
+  }
+  hideSubmenu(submenu) {
+    submenu.classList.remove("show");
+    submenu.setAttribute("aria-expanded", "false");
+  }
+  closeAllSubmenus() {
+    this.element.querySelectorAll(".w-button-dropdown-menu.show").forEach((menu) => {
+      menu.classList.remove("show");
+      menu.setAttribute("aria-expanded", "false");
+    });
+  }
+  openSubmenu(parentItem) {
+    const submenu = parentItem.querySelector(".w-button-dropdown-menu");
+    if (submenu) {
+      this.showSubmenu(submenu);
+      submenu.querySelector(".w-button-dropdown-item").focus();
+    }
+  }
+  closeSubmenu(parentItem) {
+    const submenu = parentItem.closest(".w-button-dropdown-menu");
+    if (submenu) {
+      this.hideSubmenu(submenu);
+      parentItem.closest(".w-button-dropdown-parent").focus();
     }
   }
   focusNextItem() {

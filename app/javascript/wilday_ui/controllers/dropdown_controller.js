@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["button", "menu"];
+  static targets = ["button", "menu", "submenu"];
   static values = {
     trigger: { type: String, default: "click" },
     position: { type: String, default: "bottom" },
@@ -51,6 +51,9 @@ export default class extends Controller {
 
     // Close on click outside
     document.addEventListener("click", this.handleClickOutside.bind(this));
+
+    // Set up parent dropdown items to handle submenus
+    this.setupSubmenus();
   }
 
   disconnect() {
@@ -103,8 +106,10 @@ export default class extends Controller {
   }
 
   handleClickOutside(event) {
-    if (!this.element.contains(event.target) && this.isOpen) {
-      this.hide();
+    if (!this.element.contains(event.target)) {
+      console.log("Click outside detected. Closing all dropdowns.");
+      this.closeAllSubmenus();
+      this.hide(); // Close the main dropdown
     }
   }
 
@@ -128,10 +133,155 @@ export default class extends Controller {
           event.preventDefault();
           this.focusPreviousItem();
           break;
+        case "ArrowRight":
+          this.openSubmenu(event.target);
+          break;
+        case "ArrowLeft":
+          this.closeSubmenu(event.target);
+          break;
         case "Tab":
           this.hide();
           break;
       }
+    }
+  }
+
+  setupSubmenus() {
+    console.log("Setting up submenus...");
+
+    this.element
+      .querySelectorAll(".w-button-dropdown-parent")
+      .forEach((parent) => {
+        const submenu = parent.querySelector(".w-button-dropdown-menu");
+        const arrow = parent.querySelector(".w-button-dropdown-arrow");
+
+        if (!submenu) {
+          console.warn("No submenu found for parent:", parent);
+          return;
+        }
+
+        console.log("Submenu found for parent:", parent);
+
+        // Determine the trigger (hover or click)
+        const trigger =
+          parent.closest(".w-button-wrapper")?.dataset.dropdownTriggerValue ||
+          "click";
+
+        if (trigger === "hover") {
+          parent.addEventListener("mouseenter", () => {
+            console.log("Hovering over parent:", parent);
+            this.showSubmenu(submenu, arrow);
+          });
+          parent.addEventListener("mouseleave", () => {
+            console.log("Leaving parent:", parent);
+            this.hideSubmenu(submenu, arrow);
+          });
+        } else if (trigger === "click") {
+          parent.addEventListener("click", (event) => {
+            event.stopPropagation(); // Prevent closing parent dropdown
+            console.log("Click event on parent:", parent);
+            this.toggleSubmenu(submenu, arrow);
+          });
+
+          // Close the submenu when clicking outside
+          document.addEventListener("click", (event) => {
+            if (!parent.contains(event.target)) {
+              console.log("Click outside detected");
+              this.hideSubmenu(submenu, arrow);
+            }
+          });
+        }
+      });
+  }
+
+  toggleSubmenu(submenu, arrow) {
+    console.log("Toggling submenu:", submenu);
+    if (submenu.classList.contains("show")) {
+      this.hideSubmenu(submenu, arrow);
+    } else {
+      this.showSubmenu(submenu, arrow);
+    }
+  }
+
+  showSubmenu(submenu, arrow) {
+    console.log("Showing submenu:", submenu);
+    submenu.classList.add("show");
+    submenu.setAttribute("aria-expanded", "true");
+
+    // Rotate arrow if present
+    if (arrow) {
+      arrow.classList.add("active");
+    }
+  }
+
+  hideSubmenu(submenu, arrow) {
+    console.log("Hiding submenu:", submenu);
+    submenu.classList.remove("show");
+    submenu.setAttribute("aria-expanded", "false");
+
+    // Reset arrow rotation if present
+    if (arrow) {
+      arrow.classList.remove("active");
+    }
+  }
+
+  isParentOpen(parent) {
+    const parentMenu = parent.closest(".w-button-dropdown-menu");
+    return parentMenu && parentMenu.classList.contains("show");
+  }
+
+  // showSubmenu(submenu) {
+  //   console.log("Showing submenu:", submenu);
+
+  //   // Log the inner HTML of the submenu
+  //   console.log("Submenu innerHTML:", submenu.innerHTML);
+  //   submenu.classList.add("show");
+  //   submenu.setAttribute("aria-expanded", "true");
+
+  //   // Log computed styles for debugging
+  //   const styles = window.getComputedStyle(submenu);
+  //   console.log("Submenu styles:", {
+  //     display: styles.display,
+  //     visibility: styles.visibility,
+  //     position: styles.position,
+  //     top: styles.top,
+  //     left: styles.left,
+  //     zIndex: styles.zIndex,
+  //   });
+
+  //   // Debug bounding box
+  //   const boundingBox = submenu.getBoundingClientRect();
+  //   console.log("Submenu bounding box:", boundingBox);
+  // }
+
+  // hideSubmenu(submenu) {
+  //   console.log("Hiding submenu:", submenu);
+  //   submenu.classList.remove("show");
+  //   submenu.setAttribute("aria-expanded", "false");
+  // }
+
+  closeAllSubmenus() {
+    this.element
+      .querySelectorAll(".w-button-dropdown-menu.show")
+      .forEach((menu) => {
+        menu.classList.remove("show");
+        menu.setAttribute("aria-expanded", "false");
+      });
+  }
+
+  openSubmenu(parentItem) {
+    const submenu = parentItem.querySelector(".w-button-dropdown-menu");
+    if (submenu) {
+      this.showSubmenu(submenu);
+      submenu.querySelector(".w-button-dropdown-item").focus();
+    }
+  }
+
+  closeSubmenu(parentItem) {
+    const submenu = parentItem.closest(".w-button-dropdown-menu");
+    if (submenu) {
+      this.hideSubmenu(submenu);
+      parentItem.closest(".w-button-dropdown-parent").focus();
     }
   }
 
