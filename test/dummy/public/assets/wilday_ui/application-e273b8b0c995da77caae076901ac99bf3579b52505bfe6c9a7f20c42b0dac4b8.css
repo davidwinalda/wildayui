@@ -126,12 +126,13 @@
 
 /* Dropdown Wrapper */
 .w-button-wrapper {
-  position: relative;
+  position: relative !important;
   display: inline-block;
 }
 
 /* Dropdown Button */
 .w-button-dropdown {
+  position: relative !important;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -167,7 +168,7 @@
 
 /* Dropdown Menu */
 .w-button-dropdown-menu {
-  position: absolute;
+  position: absolute !important;
   display: none;
   width: max-content;
   min-width: 100%;
@@ -180,11 +181,16 @@
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
   z-index: 1000;
   overflow: hidden; /* Add this to contain hover states */
+  /* Reset all positioning */
+  top: 100% !important;
+  margin-top: 0.125rem !important;
+  left: auto !important;
+  right: auto !important;
 }
 
 .w-button-dropdown-menu.show {
-  display: block;
-  animation: fadeIn 0.2s ease-in-out;
+  display: block !important;
+  animation: fadeIn 0.2s ease-in-out forwards;
 }
 
 /* Dropdown Items */
@@ -222,73 +228,35 @@
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translate(var(--translate-x, 0), var(--translate-y, 0));
+    transform: translateY(var(--translate-y, -10px));
   }
   to {
     opacity: 1;
-    transform: translate(0, 0);
+    transform: translateY(0);
   }
 }
 
-/* Position Variations */
-.w-button-dropdown-menu[data-position="top"] {
-  bottom: 100%;
-  left: 0;
-  margin-bottom: 0.125rem;
-  --translate-y: -10px;
+/* Alignment variations - maximum specificity */
+.w-button-wrapper
+  .w-button-dropdown
+  .w-button-dropdown-menu.w-button-dropdown-menu-end.show {
+  right: 0 !important;
+  left: auto !important;
 }
 
-/* .w-button-dropdown-menu[data-position="top"].show {
-  --translate-y: -10px;
-} */
-
-.w-button-dropdown-menu[data-position="bottom"] {
-  top: 100%;
-  left: 0;
-  margin-top: 0.125rem;
-  --translate-y: 10px;
+.w-button-wrapper
+  .w-button-dropdown
+  .w-button-dropdown-menu.w-button-dropdown-menu-start.show {
+  left: 0 !important;
+  right: auto !important;
 }
 
-.w-button-dropdown-menu[data-position="right"] {
-  left: 100%;
-  margin-left: 0.125rem;
-  top: 0;
-  --translate-x: 10px;
-  --translate-y: 0;
-}
-
-.w-button-dropdown-menu[data-position="left"] {
-  right: 100%;
-  margin-right: 0.125rem;
-  left: auto;
-  top: 0;
-  --translate-x: -10px;
-  --translate-y: 0;
-}
-
-/* Alignment Variations - Only for top/bottom positions */
-.w-button-dropdown-menu[data-position="top"][data-align="start"],
-.w-button-dropdown-menu[data-position="bottom"][data-align="start"] {
-  left: 0;
-  right: auto;
-}
-
-.w-button-dropdown-menu[data-position="top"][data-align="end"],
-.w-button-dropdown-menu[data-position="bottom"][data-align="end"] {
-  left: auto;
-  right: 0;
-}
-
-.w-button-dropdown-menu[data-position="top"][data-align="center"],
-.w-button-dropdown-menu[data-position="bottom"][data-align="center"] {
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-/* Show state with alignment */
-.w-button-dropdown-menu[data-position="top"][data-align="center"].show,
-.w-button-dropdown-menu[data-position="bottom"][data-align="center"].show {
-  transform: translateX(-50%) translateY(0);
+.w-button-wrapper
+  .w-button-dropdown
+  .w-button-dropdown-menu.w-button-dropdown-menu-center.show {
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
 }
 
 /* Hover trigger support */
@@ -313,7 +281,7 @@
 }
 
 /* Dark mode support */
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   .w-button-dropdown-menu {
     background-color: #1f2937;
     border-color: rgba(255, 255, 255, 0.1);
@@ -331,10 +299,10 @@
   .w-button-dropdown-divider {
     border-color: #4b5563;
   }
-}
+} */
 
 /* Mobile responsiveness */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .w-button-dropdown-menu[data-position="right"],
   .w-button-dropdown-menu[data-position="left"] {
     position: absolute;
@@ -347,4 +315,19 @@
     --translate-x: 0;
     --translate-y: 10px;
   }
-}
+} */
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+
+
+ */

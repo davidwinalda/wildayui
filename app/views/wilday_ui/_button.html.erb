@@ -4,7 +4,9 @@ html_options = {
   class: ["w-button", variant_class, size_class, radius_class, additional_classes, ("w-button-loading" if loading)].compact.join(" "),
   disabled: disabled || loading,
   "aria-busy": loading,
-  "aria-disabled": disabled || loading
+  "aria-disabled": disabled || loading,
+  "aria-expanded": dropdown ? "false" : nil,
+  "aria-haspopup": dropdown ? "true" : nil
 }
 
 # Only add Stimulus data attributes if they're in the passed options
@@ -16,21 +18,21 @@ end
 html_options.merge!(local_assigns[:html_options] || {})
 
 tag_type = href.present? ? :a : :button
-%>
 
-<%= content_tag tag_type, html_options do %>
-  <% if loading %>
-    <span class="w-button-spinner"></span>
-    <%= loading_text %>
-  <% else %>
-    <% if icon_position == :left && icon.present? %>
-      <i class="w-button-icon-left <%= icon %>"></i>
+# Render with or without wrapper based on wrapper_options
+if local_assigns[:wrapper_options].present?
+%>
+  <div <%= tag.attributes(wrapper_options) %>>
+    <%= content_tag tag_type, html_options do %>
+      <%= render partial: "wilday_ui/button/content", locals: local_assigns %>
     <% end %>
-    
-    <%= content %>
-    
-    <% if icon_position == :right && icon.present? %>
-      <i class="w-button-icon-right <%= icon %>"></i>
+
+    <% if dropdown && dropdown_items %>
+      <%= render partial: "wilday_ui/button/dropdown_menu", locals: { items: dropdown_items, dropdown: dropdown } %>
     <% end %>
+  </div>
+<% else %>
+  <%= content_tag tag_type, html_options do %>
+    <%= render partial: "wilday_ui/button/content", locals: local_assigns %>
   <% end %>
 <% end %>
