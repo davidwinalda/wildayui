@@ -128,6 +128,8 @@
 .w-button-wrapper {
   position: relative;
   display: inline-block;
+  padding: 0;
+  margin: 0;
 }
 
 /* Dropdown Button */
@@ -171,8 +173,6 @@
   display: none;
   width: max-content;
   min-width: 100%;
-  padding: 0.25rem 0;
-  /* margin: 0.125rem 0 0; */
   background-color: white;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 0.5rem;
@@ -180,6 +180,8 @@
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
   z-index: 1000;
   overflow: hidden; /* Add this to contain hover states */
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .w-button-dropdown-menu.show {
@@ -238,10 +240,6 @@
   --translate-y: -10px;
 }
 
-/* .w-button-dropdown-menu[data-position="top"].show {
-  --translate-y: -10px;
-} */
-
 .w-button-dropdown-menu[data-position="bottom"] {
   top: 100%;
   left: 0;
@@ -269,20 +267,21 @@
 /* Alignment Variations - Only for top/bottom positions */
 .w-button-dropdown-menu[data-position="top"][data-align="start"],
 .w-button-dropdown-menu[data-position="bottom"][data-align="start"] {
-  left: 0;
-  right: auto;
+  left: 0 !important;
+  right: auto !important;
 }
 
 .w-button-dropdown-menu[data-position="top"][data-align="end"],
 .w-button-dropdown-menu[data-position="bottom"][data-align="end"] {
-  left: auto;
-  right: 0;
+  left: auto !important;
+  right: 0 !important;
+  margin-right: 0 !important;
 }
 
 .w-button-dropdown-menu[data-position="top"][data-align="center"],
 .w-button-dropdown-menu[data-position="bottom"][data-align="center"] {
-  left: 50%;
-  transform: translateX(-50%);
+  left: 50% !important;
+  transform: translateX(-50%) !important;
 }
 
 /* Show state with alignment */
@@ -304,33 +303,6 @@
 
 .w-button-large .w-button-dropdown-menu {
   font-size: 1.25rem;
-}
-
-/* Focus states for accessibility */
-.w-button-dropdown-item:focus-visible {
-  outline: 2px solid #007bff;
-  outline-offset: -2px;
-}
-
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  .w-button-dropdown-menu {
-    background-color: #1f2937;
-    border-color: rgba(255, 255, 255, 0.1);
-  }
-
-  .w-button-dropdown-item {
-    color: #e5e7eb;
-  }
-
-  .w-button-dropdown-item:hover {
-    background-color: #374151;
-    color: #ffffff;
-  }
-
-  .w-button-dropdown-divider {
-    border-color: #4b5563;
-  }
 }
 
 /* Mobile responsiveness */

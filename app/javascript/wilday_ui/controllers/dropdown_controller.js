@@ -13,6 +13,22 @@ export default class extends Controller {
     console.log("Menu Target:", this.menuTarget);
     console.log("Button Target:", this.buttonTarget);
 
+    console.log("Initial position value:", this.positionValue);
+    console.log("Initial align value:", this.alignValue);
+
+    // Check if targets are accessible
+    if (this.menuTarget) {
+      console.log("Menu Target Found:", this.menuTarget);
+    } else {
+      console.error("Menu Target Missing");
+    }
+
+    if (this.buttonTarget) {
+      console.log("Button Target Found:", this.buttonTarget);
+    } else {
+      console.error("Button Target Missing");
+    }
+
     const position = this.element.dataset.dropdownPositionValue;
     const align = this.element.dataset.dropdownAlignValue;
 
@@ -144,10 +160,17 @@ export default class extends Controller {
     const position = this.hasPositionValue ? this.positionValue : "bottom";
     const align = this.hasAlignValue ? this.alignValue : "start";
 
-    console.log("Setting position:", position, "align:", align); // Debug log
+    console.log("Dropdown Update Position Triggered");
+    console.log("Dropdown position value:", position);
+    console.log("Dropdown align value:", align);
 
     this.menuTarget.setAttribute("data-position", position);
     this.menuTarget.setAttribute("data-align", align);
+
+    console.log(
+      "Dropdown menu current styles:",
+      window.getComputedStyle(this.menuTarget)
+    );
   }
 
   get isOpen() {
