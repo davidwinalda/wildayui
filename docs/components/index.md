@@ -5,6 +5,12 @@ nav_order: 2
 has_children: true
 ---
 
+## Table of Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
 # Components
 
 WildayUI provides a collection of pre-built components to help you build your application faster.

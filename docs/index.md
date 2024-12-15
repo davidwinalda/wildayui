@@ -13,6 +13,8 @@ nav_order: 1
 # What is WildayUI
 WildayUI is a simple, minimalist, and customizable library of pre-built components for Ruby on Rails applications. It empowers developers to quickly build user interfaces, enabling them to focus on bringing their ideas to life and creating impactful websites.
 
+WildayUI's main goal is to provide **static components** (such as buttons, badges, etc.) and **dynamic components** (such as dropdowns, modals, etc.) that are easily customizable and extendable. Each page in the component documentation is divided into sections for static and dynamic components.
+
 ---
 ## Installation
 To start using Wilday UI, add it to your Gemfile:

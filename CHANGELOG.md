@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.4.0] - 2024-12-15
+
+- Added basic dropdown and nested dropdown features for button `w_button` component
+- Updated the documentation to include the new features
+
 ## [0.3.0] - 2024-12-12
 
 - Added loading state for `w_button`.

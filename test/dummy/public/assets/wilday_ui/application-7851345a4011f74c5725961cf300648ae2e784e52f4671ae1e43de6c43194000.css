@@ -126,10 +126,11 @@
 
 /* Dropdown Wrapper */
 .w-button-wrapper {
-  position: relative;
-  display: inline-block;
+  position: relative !important;
+  display: inline-block !important;
   padding: 0;
   margin: 0;
+  overflow: visible !important;
 }
 
 /* Dropdown Button */
@@ -148,7 +149,6 @@
   transition: transform 0.2s ease;
 }
 
-/* CSS-only arrow when no custom icon is provided */
 .w-button-dropdown-arrow:not(i) {
   width: 0.5em;
   height: 0.5em;
@@ -158,13 +158,18 @@
   transform: translateY(-25%) rotate(45deg);
 }
 
-/* Arrow rotations for active state */
+/* Arrow Active State */
 .w-button.active .w-button-dropdown-arrow:not(i) {
   transform: translateY(25%) rotate(225deg);
 }
 
 .w-button.active .w-button-dropdown-arrow i {
   transform: rotate(180deg);
+}
+
+/* Reset Arrow State */
+.w-button-dropdown-arrow i:not(.active) {
+  transform: rotate(0);
 }
 
 /* Dropdown Menu */
@@ -179,7 +184,7 @@
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
   z-index: 1000;
-  overflow: hidden; /* Add this to contain hover states */
+  overflow: visible;
   margin: 0 !important;
   padding: 0 !important;
 }
@@ -199,10 +204,11 @@
   text-align: left;
   white-space: nowrap;
   background-color: transparent;
-  border: 0;
   color: #374151;
   text-decoration: none;
   transition: all 0.15s ease-in-out;
+  box-sizing: border-box;
+  cursor: pointer;
 }
 
 .w-button-dropdown-item:hover,
@@ -252,7 +258,6 @@
   margin-left: 0.125rem;
   top: 0;
   --translate-x: 10px;
-  --translate-y: 0;
 }
 
 .w-button-dropdown-menu[data-position="left"] {
@@ -261,10 +266,8 @@
   left: auto;
   top: 0;
   --translate-x: -10px;
-  --translate-y: 0;
 }
 
-/* Alignment Variations - Only for top/bottom positions */
 .w-button-dropdown-menu[data-position="top"][data-align="start"],
 .w-button-dropdown-menu[data-position="bottom"][data-align="start"] {
   left: 0 !important;
@@ -275,7 +278,6 @@
 .w-button-dropdown-menu[data-position="bottom"][data-align="end"] {
   left: auto !important;
   right: 0 !important;
-  margin-right: 0 !important;
 }
 
 .w-button-dropdown-menu[data-position="top"][data-align="center"],
@@ -284,40 +286,71 @@
   transform: translateX(-50%) !important;
 }
 
-/* Show state with alignment */
 .w-button-dropdown-menu[data-position="top"][data-align="center"].show,
 .w-button-dropdown-menu[data-position="bottom"][data-align="center"].show {
   transform: translateX(-50%) translateY(0);
 }
 
-/* Hover trigger support */
-.w-button-wrapper[data-dropdown-trigger-value="hover"]:hover
-  .w-button-dropdown-menu {
-  display: block;
-}
-
-/* Size variations for dropdown */
-.w-button-small .w-button-dropdown-menu {
-  font-size: 0.875rem;
-}
-
-.w-button-large .w-button-dropdown-menu {
-  font-size: 1.25rem;
-}
-
-/* Parent item with submenu */
+/* Submenu */
 .w-button-dropdown-parent {
   position: relative;
+  cursor: pointer;
 }
 
 .w-button-dropdown-parent .w-button-dropdown-menu {
+  position: absolute;
   top: 0;
-  left: 100%; /* Position submenu to the right of parent */
+  left: 100%;
+  z-index: 1100;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-10px);
+  transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+  min-width: 10rem;
+  background-color: white;
+  padding: 0.5rem 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.375rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.w-button-dropdown-parent .w-button-dropdown-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
 }
 
 .w-button-dropdown-parent .w-button-dropdown-menu[data-position="left"] {
   left: auto;
-  right: 100%; /* Position submenu to the left of parent */
+  right: 100%;
+}
+
+/* Nested Submenu Styling */
+.w-button-dropdown-menu .w-button-dropdown-parent .w-button-dropdown-menu {
+  top: 0;
+  left: 100%;
+  z-index: 1200;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-10px);
+  transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+}
+
+.w-button-dropdown-menu .w-button-dropdown-parent .w-button-dropdown-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+/* Arrow State for Submenus */
+.w-button-dropdown-parent .w-button-dropdown-arrow:not(i).active {
+  transform: translateY(25%) rotate(225deg);
+}
+
+.w-button-dropdown-arrow i.active {
+  transform: rotate(180deg);
 }
 
 /* Mobile responsiveness */

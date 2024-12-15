@@ -2501,76 +2501,100 @@ var dropdown_controller_default = class extends Controller {
   };
   connect() {
     console.log("Dropdown controller connected:", this.element);
-    console.log("Menu Target:", this.menuTarget);
-    console.log("Button Target:", this.buttonTarget);
     console.log("Initial position value:", this.positionValue);
     console.log("Initial align value:", this.alignValue);
-    if (this.menuTarget) {
-      console.log("Menu Target Found:", this.menuTarget);
-    } else {
-      console.error("Menu Target Missing");
-    }
-    if (this.buttonTarget) {
-      console.log("Button Target Found:", this.buttonTarget);
-    } else {
-      console.error("Button Target Missing");
-    }
     const position = this.element.dataset.dropdownPositionValue;
     const align = this.element.dataset.dropdownAlignValue;
     if (position) this.positionValue = position;
     if (align) this.alignValue = align;
-    console.log("Dropdown connected with:", {
-      position: this.positionValue,
-      align: this.alignValue
-    });
     if (this.triggerValue === "hover") {
-      this.element.addEventListener("mouseenter", () => this.show());
-      this.element.addEventListener("mouseleave", () => this.hide());
+      const menuElement = this.element.querySelector(".w-button-dropdown-menu");
+      this.element.addEventListener("mouseenter", () => {
+        console.log("Mouse enter - showing menu");
+        this.handleHover(true);
+      });
+      this.element.addEventListener("mouseleave", () => {
+        console.log("Mouse leave - hiding menu");
+        this.handleHover(false);
+      });
     }
     this.element.addEventListener("keydown", this.handleKeydown.bind(this));
     document.addEventListener("click", this.handleClickOutside.bind(this));
     this.setupSubmenus();
   }
+  handleHover(show) {
+    const menuElement = this.element.querySelector(".w-button-dropdown-menu");
+    const buttonElement = this.element.querySelector(
+      "[data-dropdown-target='button']"
+    );
+    if (show) {
+      menuElement.classList.add("show");
+      buttonElement.classList.add("active");
+      buttonElement.setAttribute("aria-expanded", "true");
+    } else {
+      menuElement.classList.remove("show");
+      buttonElement.classList.remove("active");
+      buttonElement.setAttribute("aria-expanded", "false");
+    }
+  }
   disconnect() {
     document.removeEventListener("click", this.handleClickOutside.bind(this));
   }
+  // toggle(event) {
+  //   console.log("Toggle method triggered");
+  //   console.log("Menu target:", this.menuTarget);
+  //   if (this.triggerValue === "click") {
+  //     event.preventDefault();
+  //     event.stopPropagation();
+  //     if (this.isOpen) {
+  //       this.hide();
+  //     } else {
+  //       this.show();
+  //     }
+  //   }
+  // }
   toggle(event) {
     console.log("Toggle method triggered");
-    console.log("Menu target:", this.menuTarget);
-    if (this.triggerValue === "click") {
-      event.preventDefault();
-      event.stopPropagation();
-      if (this.isOpen) {
-        this.hide();
-      } else {
-        this.show();
-      }
+    const menuElement = this.element.querySelector(".w-button-dropdown-menu");
+    console.log("Menu element:", menuElement);
+    event.preventDefault();
+    event.stopPropagation();
+    if (this.isOpen) {
+      console.log("Attempting to hide");
+      menuElement.classList.remove("show");
+    } else {
+      console.log("Attempting to show");
+      menuElement.classList.add("show");
     }
   }
   show() {
     console.log("Show method triggered");
-    this.updatePosition();
-    this.menuTarget.classList.add("show");
-    this.buttonTarget.classList.add("active");
-    this.buttonTarget.setAttribute("aria-expanded", "true");
-    this.menuTarget.dataset.position = this.positionValue || "bottom";
-    this.menuTarget.dataset.align = this.alignValue || "start";
-    console.log(
-      "Setting position:",
-      this.positionValue,
-      "align:",
-      this.alignValue
+    const menuElement = this.element.querySelector(".w-button-dropdown-menu");
+    const buttonElement = this.element.querySelector(
+      "[data-dropdown-target='button']"
     );
-    const firstItem = this.menuTarget.querySelector(".w-button-dropdown-item");
+    this.updatePosition();
+    menuElement.classList.add("show");
+    buttonElement.classList.add("active");
+    buttonElement.setAttribute("aria-expanded", "true");
+    menuElement.dataset.position = this.positionValue || "bottom";
+    menuElement.dataset.align = this.alignValue || "start";
+    const firstItem = menuElement.querySelector(".w-button-dropdown-item");
     if (firstItem) firstItem.focus();
   }
   hide() {
-    this.menuTarget.classList.remove("show");
-    this.buttonTarget.classList.remove("active");
-    this.buttonTarget.setAttribute("aria-expanded", "false");
+    const menuElement = this.element.querySelector(".w-button-dropdown-menu");
+    const buttonElement = this.element.querySelector(
+      "[data-dropdown-target='button']"
+    );
+    menuElement.classList.remove("show");
+    buttonElement.classList.remove("active");
+    buttonElement.setAttribute("aria-expanded", "false");
   }
   handleClickOutside(event) {
-    if (!this.element.contains(event.target) && this.isOpen) {
+    if (!this.element.contains(event.target)) {
+      console.log("Click outside detected. Closing all dropdowns.");
+      this.closeAllSubmenus();
       this.hide();
     }
   }
@@ -2606,42 +2630,93 @@ var dropdown_controller_default = class extends Controller {
     }
   }
   setupSubmenus() {
+    console.log("Setting up submenus...");
     this.element.querySelectorAll(".w-button-dropdown-parent").forEach((parent) => {
       const submenu = parent.querySelector(".w-button-dropdown-menu");
-      if (submenu) {
-        if (this.triggerValue === "hover") {
-          parent.addEventListener(
-            "mouseenter",
-            () => this.showSubmenu(submenu)
-          );
-          parent.addEventListener(
-            "mouseleave",
-            () => this.hideSubmenu(submenu)
-          );
-        } else {
-          parent.addEventListener("click", (event) => {
-            event.stopPropagation();
-            this.toggleSubmenu(submenu);
-          });
-        }
+      const arrow = parent.querySelector(".w-button-dropdown-arrow");
+      if (!submenu) {
+        console.warn("No submenu found for parent:", parent);
+        return;
+      }
+      console.log("Submenu found for parent:", parent);
+      const trigger = parent.closest(".w-button-wrapper")?.dataset.dropdownTriggerValue || "click";
+      if (trigger === "hover") {
+        parent.addEventListener("mouseenter", () => {
+          console.log("Hovering over parent:", parent);
+          this.showSubmenu(submenu, arrow);
+        });
+        parent.addEventListener("mouseleave", () => {
+          console.log("Leaving parent:", parent);
+          this.hideSubmenu(submenu, arrow);
+        });
+      } else if (trigger === "click") {
+        parent.addEventListener("click", (event) => {
+          event.stopPropagation();
+          console.log("Click event on parent:", parent);
+          this.toggleSubmenu(submenu, arrow);
+        });
+        document.addEventListener("click", (event) => {
+          if (!parent.contains(event.target)) {
+            console.log("Click outside detected");
+            this.hideSubmenu(submenu, arrow);
+          }
+        });
       }
     });
   }
-  toggleSubmenu(submenu) {
+  toggleSubmenu(submenu, arrow) {
+    console.log("Toggling submenu:", submenu);
     if (submenu.classList.contains("show")) {
-      this.hideSubmenu(submenu);
+      this.hideSubmenu(submenu, arrow);
     } else {
-      this.showSubmenu(submenu);
+      this.showSubmenu(submenu, arrow);
     }
   }
-  showSubmenu(submenu) {
+  showSubmenu(submenu, arrow) {
+    console.log("Showing submenu:", submenu);
     submenu.classList.add("show");
     submenu.setAttribute("aria-expanded", "true");
+    if (arrow) {
+      arrow.classList.add("active");
+    }
   }
-  hideSubmenu(submenu) {
+  hideSubmenu(submenu, arrow) {
+    console.log("Hiding submenu:", submenu);
     submenu.classList.remove("show");
     submenu.setAttribute("aria-expanded", "false");
+    if (arrow) {
+      arrow.classList.remove("active");
+    }
   }
+  isParentOpen(parent) {
+    const parentMenu = parent.closest(".w-button-dropdown-menu");
+    return parentMenu && parentMenu.classList.contains("show");
+  }
+  // showSubmenu(submenu) {
+  //   console.log("Showing submenu:", submenu);
+  //   // Log the inner HTML of the submenu
+  //   console.log("Submenu innerHTML:", submenu.innerHTML);
+  //   submenu.classList.add("show");
+  //   submenu.setAttribute("aria-expanded", "true");
+  //   // Log computed styles for debugging
+  //   const styles = window.getComputedStyle(submenu);
+  //   console.log("Submenu styles:", {
+  //     display: styles.display,
+  //     visibility: styles.visibility,
+  //     position: styles.position,
+  //     top: styles.top,
+  //     left: styles.left,
+  //     zIndex: styles.zIndex,
+  //   });
+  //   // Debug bounding box
+  //   const boundingBox = submenu.getBoundingClientRect();
+  //   console.log("Submenu bounding box:", boundingBox);
+  // }
+  // hideSubmenu(submenu) {
+  //   console.log("Hiding submenu:", submenu);
+  //   submenu.classList.remove("show");
+  //   submenu.setAttribute("aria-expanded", "false");
+  // }
   closeAllSubmenus() {
     this.element.querySelectorAll(".w-button-dropdown-menu.show").forEach((menu) => {
       menu.classList.remove("show");
@@ -2680,20 +2755,18 @@ var dropdown_controller_default = class extends Controller {
     );
   }
   updatePosition() {
+    const menuElement = this.element.querySelector(".w-button-dropdown-menu");
     const position = this.hasPositionValue ? this.positionValue : "bottom";
     const align = this.hasAlignValue ? this.alignValue : "start";
-    console.log("Dropdown Update Position Triggered");
-    console.log("Dropdown position value:", position);
-    console.log("Dropdown align value:", align);
-    this.menuTarget.setAttribute("data-position", position);
-    this.menuTarget.setAttribute("data-align", align);
-    console.log(
-      "Dropdown menu current styles:",
-      window.getComputedStyle(this.menuTarget)
-    );
+    menuElement.setAttribute("data-position", position);
+    menuElement.setAttribute("data-align", align);
   }
+  // get isOpen() {
+  //   return this.menuTarget.classList.contains("show");
+  // }
   get isOpen() {
-    return this.menuTarget.classList.contains("show");
+    const menuElement = this.element.querySelector(".w-button-dropdown-menu");
+    return menuElement && menuElement.classList.contains("show");
   }
 };
 

@@ -7,7 +7,11 @@
         <div class="w-button-dropdown-item w-button-dropdown-parent" role="menuitem">
           <%= item[:text] %>
           <span class="w-button-dropdown-arrow"></span>
-          <%= render partial: "wilday_ui/button/dropdown_menu", locals: { items: item[:children] } %>
+          <%= render partial: "wilday_ui/button/dropdown_menu", 
+                     locals: { 
+                       items: item[:children],
+                       parent_id: item[:id]
+                     } %>
         </div>
       <% else %>
         <%= link_to item[:text], 

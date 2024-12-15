@@ -5,6 +5,12 @@ parent: Button
 nav_order: 1
 ---
 
+## Table of Contents
+{: .no_toc .text-delta }
+
+1. TOC
+{:toc}
+
 # Button Component Usage Examples
 
 Here are some examples of how to use the button component.
@@ -118,7 +124,7 @@ Here are some additional use case examples where you might want to customize the
 
 ---
 
-### **1. Dynamic Content Updates**
+### Dynamic Content Updates
 
 Users might want the button text or behavior to change dynamically based on user input or application state.
 
@@ -150,7 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 ---
 
-### **2. Conditional Button Visibility**
+### Conditional Button Visibility
 
 Users may hide or show buttons based on application logic or user actions.
 
@@ -177,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 ---
 
-### **3. Toggle Button State**
+### Toggle Button State
 
 Users might need to enable or disable the button dynamically based on form validation or other conditions.
 
@@ -202,7 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 ---
 
-### **4. Perform AJAX Calls**
+### Perform AJAX Calls
 
 Users might want the button to trigger an asynchronous operation like submitting data without reloading the page.
 
@@ -240,7 +246,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 ---
 
-### **5. Trigger Navigation**
+### Trigger Navigation
 
 Users might need the button to navigate programmatically, for example, after a successful operation.
 
@@ -275,7 +281,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 ---
 
-### **6. Customize Hover Effects**
+### Customize Hover Effects
 
 Users might want to add custom behavior on hover.
 
@@ -303,7 +309,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 ---
 
-### **7. Debounce Click Events**
+### Debounce Click Events
 
 Users might want to prevent multiple rapid clicks on a button.
 

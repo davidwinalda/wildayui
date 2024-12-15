@@ -19,7 +19,7 @@ html_options.merge!(local_assigns[:html_options] || {})
 
 tag_type = href.present? ? :a : :button
 
-# Render with or without wrapper based on wrapper_options
+# Conditionally render wrapper for dropdowns or advanced features
 if local_assigns[:wrapper_options].present?
 %>
   <div <%= tag.attributes(wrapper_options) %>>

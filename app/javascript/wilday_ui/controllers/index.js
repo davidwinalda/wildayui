@@ -10,8 +10,8 @@ window.Stimulus = application;
 application.register("button", ButtonController);
 application.register("dropdown", DropdownController);
 // Debug check to ensure Stimulus is loaded
-if (window.Stimulus) {
-  console.log("✅ Stimulus is loaded and initialized.");
-} else {
-  console.error("❌ Stimulus failed to load.");
-}
+// if (window.Stimulus) {
+//   console.log("✅ Stimulus is loaded and initialized.");
+// } else {
+//   console.error("❌ Stimulus failed to load.");
+// }

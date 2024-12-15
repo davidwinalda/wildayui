@@ -15,10 +15,10 @@
 
 <br><br>
 
-<%= w_button "Loading Button", variant: :primary, loading: false, loading_text: "Loading..." %>
+<%= w_button "Loading Button", variant: :primary, loading: true, loading_text: "Loading...", use_default_controller: false %>
 <%= w_button "Submit", variant: :primary, id: "custom-dev-button", loading_text: "Saving..." %>
 
-<%= w_button "Submit", loading_text: "Saving..." %>
+<%= w_button "Submit", loading_text: "Saving...", use_default_controller: false %>
 
 <br><br>
 
@@ -30,6 +30,7 @@
     loading_text: "Processing..." %>
 
 <br><br>
+
 
 <!-- Basic Dropdown -->
 <%= w_button "Dropdown", 
@@ -45,7 +46,6 @@
 
 <%= w_button "Menu", 
     variant: :primary,
-    use_default_controller: false,
     dropdown: { position: :bottom, align: :start, trigger: :hover },
     dropdown_items: [
         { text: "Option 1", href: "#1" },
