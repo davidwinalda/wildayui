@@ -59,19 +59,24 @@ module WildayUi
 
       # Add all asset paths to Rails
       engine_asset_paths.each { |path| app.config.assets.paths << path }
+      app.config.assets.css_compressor = nil
       Rails.logger.info "[Wilday UI] Asset paths added: #{app.config.assets.paths}"
 
       # Automatically precompile all CSS files in wilday_ui directory
-      css_files = Dir[root.join("app/assets/stylesheets/wilday_ui/**/*.css")].map do |file|
-        Pathname.new(file).relative_path_from(root.join("app/assets/stylesheets")).to_s
-      end.select { |f| f.start_with?("wilday_ui/") }  # Safety check
+      # css_files = Dir[root.join("app/assets/stylesheets/wilday_ui/**/*.css")].map do |file|
+      #   Pathname.new(file).relative_path_from(root.join("app/assets/stylesheets")).to_s
+      # end.select { |f| f.start_with?("wilday_ui/") }  # Safety check
 
       # Precompile only the bundled JavaScript file
-      app.config.assets.precompile += css_files
-      app.config.assets.precompile += %w[wilday_ui/index.js]
+      # app.config.assets.precompile += css_files
+      # app.config.assets.precompile += %w[wilday_ui/index.js]
+      app.config.assets.precompile += %w[
+        wilday_ui/components/button/index.css
+        wilday_ui/index.js
+      ]
 
-      Rails.logger.info "[Wilday UI] CSS files precompiled: #{css_files}"
-      Rails.logger.info "[Wilday UI] JS files precompiled: wilday_ui/index.js"
+      # Rails.logger.info "[Wilday UI] CSS files precompiled: #{css_files}"
+      # Rails.logger.info "[Wilday UI] JS files precompiled: wilday_ui/index.js"
     end
   end
 end
