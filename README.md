@@ -14,6 +14,33 @@ Then install the gem:
 $ bundle install
 ```
 
+Then in your application layout file: `app/views/layouts/application.html.erb`, add the JavaScript tag to your application layout using the `w_js` helper:
+
+```erb
+<%= w_js %>
+```
+
+Place it in the `<head>` section, before your application's JavaScript:
+
+```erb
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    
+    <%= w_js %>  # Add this line in head
+    
+    <%= stylesheet_link_tag "application" %>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>
+```
+
+This helper automatically includes the necessary JavaScript file for WildayUI in your application.
+
 ---
 ## Seamless Rails Integration
 WildayUI is built as a Rails engine, allowing effortless setup and native integration into your Rails applications without additional configuration.

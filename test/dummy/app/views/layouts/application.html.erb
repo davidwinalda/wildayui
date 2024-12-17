@@ -15,8 +15,7 @@
     <link rel="apple-touch-icon" href="/icon.png"> %>
     <script src="https://kit.fontawesome.com/c0742580eb.js" crossorigin="anonymous"></script>
     <%= stylesheet_link_tag "application" %>
-    <%= javascript_include_tag "wilday_ui/index", type: "module", cache: false if Rails.env.development? %>
-    <%= javascript_include_tag "wilday_ui/index", type: "module" if Rails.env.production? %>
+    <%= w_js %>
   </head>
 
   <body>

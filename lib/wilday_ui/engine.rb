@@ -1,6 +1,5 @@
 require "wilday_ui/version_check"
 require "wilday_ui/config/theme"
-
 module WildayUi
   class Engine < ::Rails::Engine
     isolate_namespace WildayUi

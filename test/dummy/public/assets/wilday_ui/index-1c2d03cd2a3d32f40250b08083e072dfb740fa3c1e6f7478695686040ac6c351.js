@@ -2507,11 +2507,9 @@ var dropdown_controller_default = class extends Controller {
     this.updatePosition();
     if (this.triggerValue === "hover") {
       this.element.addEventListener("mouseenter", () => {
-        console.log("Mouse enter - showing menu");
         this.handleHover(true);
       });
       this.element.addEventListener("mouseleave", () => {
-        console.log("Mouse leave - hiding menu");
         this.handleHover(false);
       });
     }
@@ -2573,7 +2571,6 @@ var dropdown_controller_default = class extends Controller {
   }
   handleClickOutside(event) {
     if (!this.element.contains(event.target)) {
-      console.log("Click outside detected. Closing all dropdowns.");
       this.closeAllSubmenus();
       this.hide();
     }
@@ -2729,9 +2726,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
-
-// app/javascript/wilday_ui/index.js
-console.log("JavaScript loaded");
-//# sourceMappingURL=/assets/wilday_ui/index.js-ca344ff7563a9db8e2550165d17edb62f04ad2a6fc5412cd55110be08c1c7c28.map
+//# sourceMappingURL=/assets/wilday_ui/index.js-2698266d2b8ec7ac08fe9126c81f5e4edf0ed51dce8e40e3d3d83516531f125e.map
 //!
 ;

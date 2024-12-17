@@ -2716,7 +2716,6 @@ application.register("dropdown", dropdown_controller_default);
 
 // app/javascript/wilday_ui/components/button.js
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("Button component loaded heah");
   document.querySelectorAll(".w-button").forEach((button) => {
     button.addEventListener("click", (event) => {
       if (button.disabled) {

@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.5.6] - 2024-12-18
+
+- Added `w_js` helper to use in your application layout file
+- This helper `w_js` automatically includes the necessary JavaScript file for WildayUI in your application.
+
 ## [0.5.5] - 2024-12-17
 
 - Fixed error javascript not loaded when rails application uses `wilday_ui` gem and deployed to production.
