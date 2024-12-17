@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.5.1] - 2024-12-17
+
+- Added `require "wilday_ui/version"` in `version.rb` to check for the latest version of the gem.
+
 ## [0.5.0] - 2024-12-17
 
 - Added new parameter `theme` for `w_button` component.
