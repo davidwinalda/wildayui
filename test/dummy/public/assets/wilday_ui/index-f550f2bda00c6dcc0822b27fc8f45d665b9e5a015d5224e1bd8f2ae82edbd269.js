@@ -2729,6 +2729,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
-//# sourceMappingURL=/assets/wilday_ui/index.js-9438c42da1b825f5969a83d73bc41e5d0a27f7237743dffd7181ac2856e07d82.map
+
+// app/javascript/wilday_ui/index.js
+console.log("JavaScript loaded");
+//# sourceMappingURL=/assets/wilday_ui/index.js-ca344ff7563a9db8e2550165d17edb62f04ad2a6fc5412cd55110be08c1c7c28.map
 //!
 ;

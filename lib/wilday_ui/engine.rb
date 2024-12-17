@@ -60,6 +60,7 @@ module WildayUi
       # Add all asset paths to Rails
       engine_asset_paths.each { |path| app.config.assets.paths << path }
       app.config.assets.css_compressor = nil
+      app.config.javascript_compressor = nil
       Rails.logger.info "[Wilday UI] Asset paths added: #{app.config.assets.paths}"
 
       # Automatically precompile all CSS files in wilday_ui directory

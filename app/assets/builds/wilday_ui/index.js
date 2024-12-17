@@ -2507,11 +2507,9 @@ var dropdown_controller_default = class extends Controller {
     this.updatePosition();
     if (this.triggerValue === "hover") {
       this.element.addEventListener("mouseenter", () => {
-        console.log("Mouse enter - showing menu");
         this.handleHover(true);
       });
       this.element.addEventListener("mouseleave", () => {
-        console.log("Mouse leave - hiding menu");
         this.handleHover(false);
       });
     }
@@ -2573,7 +2571,6 @@ var dropdown_controller_default = class extends Controller {
   }
   handleClickOutside(event) {
     if (!this.element.contains(event.target)) {
-      console.log("Click outside detected. Closing all dropdowns.");
       this.closeAllSubmenus();
       this.hide();
     }
