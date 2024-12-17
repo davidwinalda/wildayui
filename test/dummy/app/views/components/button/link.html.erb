@@ -1,0 +1,40 @@
+<style>
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .separator {
+    margin: 2rem 0;
+    border-bottom: 1px solid #e0e0e0;
+  }
+</style>
+
+<div class="container">
+  <h1>Wilday UI Button Component</h1>
+
+  <h2>Default Link with Underline</h2>
+  <div>
+    <%= w_button "Home", href: "#", variant: :plain %>
+    <%= w_button "About", href: "#", variant: :plain, theme: { name: :primary } %>
+    <%= w_button "Contact", href: "#", variant: :plain, theme: { name: :secondary } %>
+  </div>
+
+  <h2>Default Link without Underline</h2>
+  <div>
+    <%= w_button "Home", href: "#", variant: :plain, underline: false %>
+    <%= w_button "About", href: "#", variant: :plain, theme: { name: :primary }, underline: false %>
+    <%= w_button "Contact", href: "#", variant: :plain, theme: { name: :secondary }, underline: false %>
+  </div>
+
+  <h2>Link to External URL</h2>
+  <%= w_button "Go to Google", href: "https://www.google.com", variant: :plain, target: :blank %>
+
+  <div class="separator"></div>
+
+<h2>Button Link</h2>
+  <div>
+    <%= w_button "Go to Google", href: "https://www.google.com", variant: :solid, target: :blank, underline: false %>
+    <%= w_button "Submit Form", href: "#", method: :post, variant: :solid, loading_text: "Submitting...", underline: false %>
+  </div>
+</div>

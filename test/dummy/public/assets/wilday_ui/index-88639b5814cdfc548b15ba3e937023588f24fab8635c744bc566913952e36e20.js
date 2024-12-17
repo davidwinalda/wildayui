@@ -2500,15 +2500,11 @@ var dropdown_controller_default = class extends Controller {
     align: { type: String, default: "start" }
   };
   connect() {
-    console.log("Dropdown controller connected:", this.element);
-    console.log("Initial position value:", this.positionValue);
-    console.log("Initial align value:", this.alignValue);
     const position = this.element.dataset.dropdownPositionValue;
     const align = this.element.dataset.dropdownAlignValue;
     if (position) this.positionValue = position;
     if (align) this.alignValue = align;
     if (this.triggerValue === "hover") {
-      const menuElement = this.element.querySelector(".w-button-dropdown-menu");
       this.element.addEventListener("mouseenter", () => {
         console.log("Mouse enter - showing menu");
         this.handleHover(true);
@@ -2522,53 +2518,30 @@ var dropdown_controller_default = class extends Controller {
     document.addEventListener("click", this.handleClickOutside.bind(this));
     this.setupSubmenus();
   }
-  handleHover(show) {
-    const menuElement = this.element.querySelector(".w-button-dropdown-menu");
-    const buttonElement = this.element.querySelector(
-      "[data-dropdown-target='button']"
-    );
-    if (show) {
-      menuElement.classList.add("show");
-      buttonElement.classList.add("active");
-      buttonElement.setAttribute("aria-expanded", "true");
-    } else {
-      menuElement.classList.remove("show");
-      buttonElement.classList.remove("active");
-      buttonElement.setAttribute("aria-expanded", "false");
-    }
-  }
   disconnect() {
     document.removeEventListener("click", this.handleClickOutside.bind(this));
   }
-  // toggle(event) {
-  //   console.log("Toggle method triggered");
-  //   console.log("Menu target:", this.menuTarget);
-  //   if (this.triggerValue === "click") {
-  //     event.preventDefault();
-  //     event.stopPropagation();
-  //     if (this.isOpen) {
-  //       this.hide();
-  //     } else {
-  //       this.show();
-  //     }
-  //   }
-  // }
+  handleHover(show) {
+    if (show) {
+      this.menuTarget.classList.add("show");
+      this.buttonTarget.classList.add("active");
+      this.buttonTarget.setAttribute("aria-expanded", "true");
+    } else {
+      this.menuTarget.classList.remove("show");
+      this.buttonTarget.classList.remove("active");
+      this.buttonTarget.setAttribute("aria-expanded", "false");
+    }
+  }
   toggle(event) {
-    console.log("Toggle method triggered");
-    const menuElement = this.element.querySelector(".w-button-dropdown-menu");
-    console.log("Menu element:", menuElement);
     event.preventDefault();
     event.stopPropagation();
     if (this.isOpen) {
-      console.log("Attempting to hide");
-      menuElement.classList.remove("show");
+      this.menuTarget.classList.remove("show");
     } else {
-      console.log("Attempting to show");
-      menuElement.classList.add("show");
+      this.menuTarget.classList.add("show");
     }
   }
   show() {
-    console.log("Show method triggered");
     const menuElement = this.element.querySelector(".w-button-dropdown-menu");
     const buttonElement = this.element.querySelector(
       "[data-dropdown-target='button']"
@@ -2630,34 +2603,27 @@ var dropdown_controller_default = class extends Controller {
     }
   }
   setupSubmenus() {
-    console.log("Setting up submenus...");
     this.element.querySelectorAll(".w-button-dropdown-parent").forEach((parent) => {
       const submenu = parent.querySelector(".w-button-dropdown-menu");
       const arrow = parent.querySelector(".w-button-dropdown-arrow");
       if (!submenu) {
-        console.warn("No submenu found for parent:", parent);
         return;
       }
-      console.log("Submenu found for parent:", parent);
       const trigger = parent.closest(".w-button-wrapper")?.dataset.dropdownTriggerValue || "click";
       if (trigger === "hover") {
         parent.addEventListener("mouseenter", () => {
-          console.log("Hovering over parent:", parent);
           this.showSubmenu(submenu, arrow);
         });
         parent.addEventListener("mouseleave", () => {
-          console.log("Leaving parent:", parent);
           this.hideSubmenu(submenu, arrow);
         });
       } else if (trigger === "click") {
         parent.addEventListener("click", (event) => {
           event.stopPropagation();
-          console.log("Click event on parent:", parent);
           this.toggleSubmenu(submenu, arrow);
         });
         document.addEventListener("click", (event) => {
           if (!parent.contains(event.target)) {
-            console.log("Click outside detected");
             this.hideSubmenu(submenu, arrow);
           }
         });
@@ -2665,7 +2631,6 @@ var dropdown_controller_default = class extends Controller {
     });
   }
   toggleSubmenu(submenu, arrow) {
-    console.log("Toggling submenu:", submenu);
     if (submenu.classList.contains("show")) {
       this.hideSubmenu(submenu, arrow);
     } else {
@@ -2673,7 +2638,6 @@ var dropdown_controller_default = class extends Controller {
     }
   }
   showSubmenu(submenu, arrow) {
-    console.log("Showing submenu:", submenu);
     submenu.classList.add("show");
     submenu.setAttribute("aria-expanded", "true");
     if (arrow) {
@@ -2681,7 +2645,6 @@ var dropdown_controller_default = class extends Controller {
     }
   }
   hideSubmenu(submenu, arrow) {
-    console.log("Hiding submenu:", submenu);
     submenu.classList.remove("show");
     submenu.setAttribute("aria-expanded", "false");
     if (arrow) {
@@ -2692,31 +2655,6 @@ var dropdown_controller_default = class extends Controller {
     const parentMenu = parent.closest(".w-button-dropdown-menu");
     return parentMenu && parentMenu.classList.contains("show");
   }
-  // showSubmenu(submenu) {
-  //   console.log("Showing submenu:", submenu);
-  //   // Log the inner HTML of the submenu
-  //   console.log("Submenu innerHTML:", submenu.innerHTML);
-  //   submenu.classList.add("show");
-  //   submenu.setAttribute("aria-expanded", "true");
-  //   // Log computed styles for debugging
-  //   const styles = window.getComputedStyle(submenu);
-  //   console.log("Submenu styles:", {
-  //     display: styles.display,
-  //     visibility: styles.visibility,
-  //     position: styles.position,
-  //     top: styles.top,
-  //     left: styles.left,
-  //     zIndex: styles.zIndex,
-  //   });
-  //   // Debug bounding box
-  //   const boundingBox = submenu.getBoundingClientRect();
-  //   console.log("Submenu bounding box:", boundingBox);
-  // }
-  // hideSubmenu(submenu) {
-  //   console.log("Hiding submenu:", submenu);
-  //   submenu.classList.remove("show");
-  //   submenu.setAttribute("aria-expanded", "false");
-  // }
   closeAllSubmenus() {
     this.element.querySelectorAll(".w-button-dropdown-menu.show").forEach((menu) => {
       menu.classList.remove("show");
@@ -2761,12 +2699,8 @@ var dropdown_controller_default = class extends Controller {
     menuElement.setAttribute("data-position", position);
     menuElement.setAttribute("data-align", align);
   }
-  // get isOpen() {
-  //   return this.menuTarget.classList.contains("show");
-  // }
   get isOpen() {
-    const menuElement = this.element.querySelector(".w-button-dropdown-menu");
-    return menuElement && menuElement.classList.contains("show");
+    return this.menuTarget.classList.contains("show");
   }
 };
 
@@ -2775,11 +2709,6 @@ var application = Application.start();
 window.Stimulus = application;
 application.register("button", ButtonController);
 application.register("dropdown", dropdown_controller_default);
-if (window.Stimulus) {
-  console.log("\u2705 Stimulus is loaded and initialized.");
-} else {
-  console.error("\u274C Stimulus failed to load.");
-}
 
 // app/javascript/wilday_ui/components/button.js
 document.addEventListener("DOMContentLoaded", () => {
@@ -2793,9 +2722,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
-
-// app/javascript/wilday_ui/index.js
-console.log("JavaScript loaded");
 //# sourceMappingURL=/assets/wilday_ui/index.js.map
 //!
 ;

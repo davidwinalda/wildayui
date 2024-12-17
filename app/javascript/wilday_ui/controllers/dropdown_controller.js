@@ -15,6 +15,8 @@ export default class extends Controller {
     if (position) this.positionValue = position;
     if (align) this.alignValue = align;
 
+    this.updatePosition();
+
     // Set up hover events if trigger is hover
     if (this.triggerValue === "hover") {
       this.element.addEventListener("mouseenter", () => {
@@ -44,6 +46,7 @@ export default class extends Controller {
 
   handleHover(show) {
     if (show) {
+      this.updatePosition();
       this.menuTarget.classList.add("show");
       this.buttonTarget.classList.add("active");
       this.buttonTarget.setAttribute("aria-expanded", "true");
@@ -60,8 +63,13 @@ export default class extends Controller {
 
     if (this.isOpen) {
       this.menuTarget.classList.remove("show");
+      this.buttonTarget.classList.remove("active");
+      this.buttonTarget.setAttribute("aria-expanded", "false");
     } else {
+      this.updatePosition();
       this.menuTarget.classList.add("show");
+      this.buttonTarget.classList.add("active");
+      this.buttonTarget.setAttribute("aria-expanded", "true");
     }
   }
 
@@ -256,7 +264,8 @@ export default class extends Controller {
   }
 
   updatePosition() {
-    const menuElement = this.element.querySelector(".w-button-dropdown-menu");
+    // const menuElement = this.element.querySelector(".w-button-dropdown-menu");
+    const menuElement = this.menuTarget;
     const position = this.hasPositionValue ? this.positionValue : "bottom";
     const align = this.hasAlignValue ? this.alignValue : "start";
 

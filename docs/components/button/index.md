@@ -17,9 +17,11 @@ has_children: true
 You can add buttons using the `w_button` helper:
 
 ```erb
-<%= w_button "Primary Button", variant: :primary %>
-<%= w_button "Disabled Button", variant: :outline, disabled: true %>
-<%= w_button "Go to Google", href: "https://www.google.com", target: "_blank" %>
+<%= w_button "Basic Button" %>
+<%= w_button "Outline Button", variant: :outline %>
+<%= w_button "Primary Button", variant: :solid, theme: { name: :primary } %>
+<%= w_button "Disabled Button", variant: :solid, disabled: true %>
+<%= w_button "Go to Google", variant: :plain, href: "https://www.google.com", target: "_blank" %>
 ```
 
 ---
@@ -30,7 +32,8 @@ You can add buttons using the `w_button` helper:
 
 | Option | Description | Example | Default |
 |--------|-------------|----------|---------|
-| **`variant`** | Button style (`:primary`, `:secondary`, `:outline`) | `variant: :primary` | `:primary` |
+| **`variant`** | Button style (`:solid`, `:subtle`, `:surface`, `:outline`, `:ghost`, `:plain`) | `variant: :solid` | `:solid` |
+| **`theme`** | Theme configuration with name or custom properties | `theme: { name: :primary } or theme: { custom: { color: "#fff" } }` | `{}` |
 | **`size`** | Button size (`:small`, `:medium`, `:large`) | `size: :large` | `:medium` |
 | **`radius`** | Button shape (`:rounded`, `:pill`, `:square`) | `radius: :pill` | `:rounded` |
 | **`icon`** | Add an icon (e.g., FontAwesome class) | `icon: "fa-solid fa-user"` | `nil` |
@@ -55,9 +58,45 @@ You can add buttons using the `w_button` helper:
 ### Variants
 
 ```erb
-<%= w_button "Primary", variant: :primary %>
-<%= w_button "Secondary", variant: :secondary %>
-<%= w_button "Outline", variant: :outline %>
+<%# Solid - Default, high emphasis actions %>
+<%= w_button "Save Changes", variant: :solid %>
+
+<%# Subtle - Secondary actions %>
+<%= w_button "Filter", variant: :subtle %>
+
+<%# Surface - Card or elevated contexts %>
+<%= w_button "Select Plan", variant: :surface %>
+
+<%# Outline - Secondary actions with clear boundaries %>
+<%= w_button "Learn More", variant: :outline %>
+
+<%# Ghost - Minimal emphasis actions %>
+<%= w_button "Cancel", variant: :ghost %>
+
+<%# Plain - Link-like buttons %>
+<%= w_button "View Details", variant: :plain %>
+```
+
+### Themed Variants
+
+```erb
+<%= w_button "Primary", variant: :solid, theme: { name: :primary } %>
+<%= w_button "Secondary", variant: :solid, theme: { name: :secondary } %>
+<%= w_button "Success", variant: :solid, theme: { name: :success } %>
+<%= w_button "Danger", variant: :solid, theme: { name: :danger } %>
+<%= w_button "Warning", variant: :solid, theme: { name: :warning } %>
+<%= w_button "Info", variant: :solid, theme: { name: :info } %>
+<%= w_button "Light", variant: :solid, theme: { name: :light } %>
+<%= w_button "Dark", variant: :solid, theme: { name: :dark } %>
+
+<%= w_button "Subtle", variant: :subtle, theme: { name: :primary } %>
+<%= w_button "Secondary", variant: :subtle, theme: { name: :secondary } %>
+<%= w_button "Success", variant: :subtle, theme: { name: :success } %>
+<%= w_button "Danger", variant: :subtle, theme: { name: :danger } %>
+<%= w_button "Warning", variant: :subtle, theme: { name: :warning } %>
+<%= w_button "Info", variant: :subtle, theme: { name: :info } %>
+<%= w_button "Light", variant: :subtle, theme: { name: :light } %>
+<%= w_button "Dark", variant: :subtle, theme: { name: :dark } %>
 ```
 
 ### Sizes
@@ -86,8 +125,18 @@ You can add buttons using the `w_button` helper:
 ### Link Buttons
 
 ```erb
-<%= w_button "Go to Google", href: "https://www.google.com", target: "_blank" %>
-<%= w_button "Submit Form", href: "/submit", method: :post, loading_text: "Submitting..." %>
+<%# Default link with underline %>
+<%= w_button "Home", href: "#", variant: :plain %>
+<%= w_button "About", href: "#", variant: :plain, theme: { name: :primary } %>
+
+<%# Default link without underline %>
+<%= w_button "Home", href: "#", variant: :plain, underline: false %>
+<%= w_button "About", href: "#", variant: :plain, theme: { name: :primary }, underline: false %>
+<%= w_button "Contact", href: "#", variant: :plain, theme: { name: :secondary }, underline: false %>
+
+<%# Button link %>
+<%= w_button "Go to Google", href: "https://www.google.com", variant: :solid, target: :blank, underline: false %>
+<%= w_button "Submit Form", href: "#", method: :post, variant: :solid, loading_text: "Submitting...", underline: false %>
 ```
 
 ---
@@ -111,7 +160,8 @@ The button component supports two types of loading states to handle different�
 Use when you need a button that starts in a loading state.
 ```
 <%= w_button "Loading Button",
-    variant: :primary,
+    variant: :solid,
+    theme: { name: :primary },
     loading: true,
     loading_text: "Loading..." %>
 ```
@@ -288,7 +338,8 @@ Support for multi-level dropdown menus:
 More deep nested dropdowns are supported.
 ```erb
 <%= w_button "Menu", 
-    variant: :primary,
+    variant: :surface,
+    theme: { name: :primary },
     dropdown: { position: :bottom, align: :start, trigger: :hover },
     dropdown_items: [
         { text: "Option 1", href: "#1" },
@@ -321,7 +372,8 @@ Dropdowns can be customized with variants and sizes:
 
 ```erb
 <%= w_button "Large Menu", 
-    variant: :primary,
+    variant: :solid,
+    theme: { name: :primary },
     size: :large,
     icon: "fa-solid fa-bars",
     dropdown: true,

@@ -1,8 +1,21 @@
 require "wilday_ui/version_check"
+require "wilday_ui/config/theme"
 
 module WildayUi
   class Engine < ::Rails::Engine
     isolate_namespace WildayUi
+
+    # Add lib to autoload paths
+    config.autoload_paths << root.join("lib")
+    config.eager_load_paths << root.join("lib")
+
+    # Initialize theme configuration
+    initializer "wilday_ui.configuration", before: :load_config_initializers do
+      Rails.application.reloader.to_prepare do
+        Rails.logger.info "[Wilday UI] Theme configuration initialized."
+        WildayUi::Config::Theme.configuration ||= WildayUi::Config::Theme::Configuration.new
+      end
+    end
 
     # Automatically check for updates
     initializer "wilday_ui.version_check", after: :load_config_initializers do
@@ -18,27 +31,6 @@ module WildayUi
         include WildayUi::ApplicationHelper
       end
     end
-
-    # # Configure asset paths and automatic precompilation
-    # initializer "wilday_ui.assets" do |app|
-    #   app.config.assets.paths << root.join("app/assets/stylesheets")
-    #   app.config.assets.paths << root.join("app/javascript")
-    #   app.config.assets.paths << root.join("app/assets/builds")
-
-    #   Rails.logger.info "[Wilday UI] Asset paths added: #{app.config.assets.paths}"
-
-    #   # Automatically precompile all CSS files in wilday_ui directory
-    #   css_files = Dir[root.join("app/assets/stylesheets/wilday_ui/**/*.css")].map do |file|
-    #     file.split("app/assets/stylesheets/").last
-    #   end
-
-    #   # Precompile only the bundled JavaScript file
-    #   app.config.assets.precompile += css_files
-    #   app.config.assets.precompile += %w[wilday_ui/index.js]
-
-    #   Rails.logger.info "[Wilday UI] CSS files precompiled: #{css_files}"
-    #   Rails.logger.info "[Wilday UI] JS files precompiled: wilday_ui/index.js"
-    # end
 
     # Configure asset paths and automatic precompilation
     initializer "wilday_ui.assets" do |app|

@@ -1,0 +1,26 @@
+/* Icon Button Styles */
+.w-button-icon-left {
+  margin-right: 0.5rem;
+}
+
+.w-button-icon-right {
+  margin-left: 0.5rem;
+}
+
+.w-button-icon-left,
+.w-button-icon-right {
+  display: inline-flex;
+  align-items: center;
+}
+
+.w-button-icon-only {
+  padding: 0.5rem; /* Equal padding for square shape */
+  aspect-ratio: 1; /* Make it perfectly square */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.w-button-icon-only .w-button-icon {
+  margin: 0; /* Remove any margin */
+}

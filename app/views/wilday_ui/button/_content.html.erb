@@ -2,21 +2,25 @@
   <span class="w-button-spinner"></span>
   <%= loading_text %>
 <% else %>
-  <% if icon_position == :left && icon.present? %>
-    <i class="w-button-icon-left <%= icon %>"></i>
-  <% end %>
-  
-  <%= content %>
-
-  <% if dropdown %>
-    <% if dropdown_icon.present? %>
-      <i class="w-button-dropdown-arrow <%= dropdown_icon %>"></i>
-    <% else %>
-      <span class="w-button-dropdown-arrow"></span>
+  <% if icon_only %>
+    <i class="w-button-icon <%= icon %>"></i>
+  <% else %>
+    <% if icon_position == :left && icon.present? %>
+      <i class="w-button-icon-left <%= icon %>"></i>
     <% end %>
-  <% end %>
-  
-  <% if icon_position == :right && icon.present? %>
-    <i class="w-button-icon-right <%= icon %>"></i>
+    
+    <%= content %>
+
+    <% if dropdown %>
+      <% if dropdown_icon.present? %>
+        <i class="w-button-dropdown-arrow <%= dropdown_icon %>"></i>
+      <% else %>
+        <span class="w-button-dropdown-arrow"></span>
+      <% end %>
+    <% end %>
+    
+    <% if icon_position == :right && icon.present? %>
+      <i class="w-button-icon-right <%= icon %>"></i>
+    <% end %>
   <% end %>
 <% end %>

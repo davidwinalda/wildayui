@@ -22,11 +22,12 @@ module WildayUi
 
       def w_button(
         content,
-        variant: :primary,
+        variant: :solid,
         size: :medium,
         radius: :rounded,
         icon: nil,
         icon_position: :left,
+        icon_only: false,
         loading: false,
         loading_text: nil,
         disabled: false,
@@ -35,16 +36,24 @@ module WildayUi
         href: nil,
         method: :get,
         target: nil,
+        underline: true,
         dropdown: false,
         dropdown_items: nil,
         dropdown_icon: nil,
+        theme: nil,
         **options
       )
-        content_for(:head) { stylesheet_link_tag "wilday_ui/button", media: "all" }
+        content_for(:head) { stylesheet_link_tag "wilday_ui/components/button/index", media: "all" }
 
         options[:data] ||= {}
         wrapper_data = {}
         wrapper_options = nil
+
+        # Process theme styles
+        if theme.present?
+          theme_styles = process_theme(variant, theme)
+          options[:style] = theme_styles if theme_styles.present?
+        end
 
         variant_class = get_variant_class(variant)
         size_class = get_size_class(size)
@@ -86,12 +95,14 @@ module WildayUi
           radius_class,
           icon,
           icon_position,
+          icon_only,
           loading,
           loading_text,
           additional_classes,
           disabled,
           options,
           href,
+          underline,
           dropdown,
           dropdown_items,
           dropdown_icon,
@@ -101,12 +112,23 @@ module WildayUi
 
       private
 
+      # def get_variant_class(variant)
+      #   {
+      #     primary: "w-button-primary",
+      #     secondary: "w-button-secondary",
+      #     outline: "w-button-outline"
+      #   }[variant] || "w-button-primary"
+      # end
+
       def get_variant_class(variant)
         {
-          primary: "w-button-primary",
-          secondary: "w-button-secondary",
-          outline: "w-button-outline"
-        }[variant] || "w-button-primary"
+          solid: "w-button-solid",
+          subtle: "w-button-subtle",
+          surface: "w-button-surface",
+          outline: "w-button-outline",
+          ghost: "w-button-ghost",
+          plain: "w-button-plain"
+        }[variant] || "w-button-solid"
       end
 
       def get_size_class(size)
@@ -123,6 +145,95 @@ module WildayUi
           pill: "w-button-pill",
           square: "w-button-square"
         }[radius] || "w-button-rounded"
+      end
+
+      def process_theme(variant, theme)
+        return nil unless theme[:name] || theme[:custom]
+
+        Rails.logger.debug "[Wilday UI] Processing theme for variant: #{variant}"
+        Rails.logger.debug "[Wilday UI] Theme config: #{theme.inspect}"
+
+        styles = {}
+
+        if theme[:name]
+          theme_colors = get_theme_colors(variant, theme[:name])
+          styles.merge!(theme_colors)
+        end
+
+        if theme[:custom]
+          custom_styles = process_custom_theme(theme[:custom])
+          styles.merge!(custom_styles)
+        end
+
+        generate_styles(styles)
+      end
+
+      def get_theme_colors(variant, theme_name)
+        config = WildayUi::Config::Theme.configuration
+        # Convert theme_name to string
+        return {} unless config&.colors&.[](theme_name.to_s)
+
+        colors = config.colors[theme_name.to_s]
+
+        case variant
+        when :solid
+          {
+            "--w-button-color": "#FFFFFF",
+            "--w-button-bg": colors["500"],
+            "--w-button-hover-bg": colors["600"]
+          }
+        when :subtle
+          {
+            "--w-button-color": colors["500"],
+            "--w-button-bg": colors["50"],
+            "--w-button-hover-bg": colors["100"]
+          }
+        when :surface
+          {
+            "--w-button-color": colors["500"],
+            "--w-button-bg": colors["50"],
+            "--w-button-hover-bg": colors["100"],
+            "--w-button-border": colors["100"]
+          }
+        when :outline
+          {
+            "--w-button-color": colors["500"],
+            "--w-button-border": colors["200"],
+            "--w-button-hover-bg": colors["50"]
+          }
+        when :ghost
+          {
+            "--w-button-color": colors["500"],
+            "--w-button-hover-bg": colors["50"]
+          }
+        when :plain
+          {
+            "--w-button-color": colors["500"],
+            "--w-button-hover-color": colors["600"]
+          }
+        else
+          {}
+        end
+      end
+
+      def process_custom_theme(custom)
+        return {} unless custom
+
+        {
+          "--w-button-color": custom[:color],
+          "--w-button-bg": custom[:background],
+          "--w-button-border": custom[:border],
+          "--w-button-hover-color": custom.dig(:hover, :color),
+          "--w-button-hover-bg": custom.dig(:hover, :background),
+          "--w-button-hover-border": custom.dig(:hover, :border),
+          "--w-button-active-color": custom.dig(:active, :color),
+          "--w-button-active-bg": custom.dig(:active, :background),
+          "--w-button-active-border": custom.dig(:active, :border)
+        }.compact
+      end
+
+      def generate_styles(styles)
+        styles.map { |k, v| "#{k}: #{v}" }.join(";")
       end
 
       def determine_active_features(loading, dropdown, loading_text = nil, use_default_controller = true)
@@ -247,9 +358,10 @@ module WildayUi
         "#{base}#{index}"
       end
 
-      def render_button(content, variant_class, size_class, radius_class, icon, icon_position,
-                       loading, loading_text, additional_classes, disabled, options, href,
+      def render_button(content, variant_class, size_class, radius_class, icon, icon_position, icon_only,
+                       loading, loading_text, additional_classes, disabled, options, href, underline,
                        dropdown, dropdown_items, dropdown_icon, wrapper_options)
+
         render partial: "wilday_ui/button",
           locals: {
             content: content,
@@ -258,12 +370,14 @@ module WildayUi
             radius_class: radius_class,
             icon: icon,
             icon_position: icon_position,
+            icon_only: icon_only,
             loading: loading,
             loading_text: loading_text,
             additional_classes: additional_classes,
             disabled: disabled,
             html_options: options,
             href: href,
+            underline: underline,
             dropdown: dropdown,
             dropdown_items: dropdown_items,
             dropdown_icon: dropdown_icon,

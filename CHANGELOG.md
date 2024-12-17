@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.5.0] - 2024-12-17
+
+- Added new parameter `theme` for `w_button` component.
+- Now you can use basic variants for `w_button` component like `solid`, `outline`, `surface`, `ghost`, `link`.
+- Also can use `theme` parameter to change the color of the button like `primary`, `secondary`, `success`, `danger`, `warning`, `info`, `light`, `dark`.
+- You can combine `variant` and `theme` parameter like `variant: :solid, theme: { name: :primary }`.
+- You can custom theme color for `w_button` component like:
+  ```erb
+  <%= w_button "Custom", 
+      variant: :solid, 
+      theme: { 
+        custom: { 
+          color: "#ffffff",
+          background: "#8b5cf6",
+          hover: {
+            background: "#7c3aed"
+          }
+        } 
+      } 
+  %>
+  ```
+
 ## [0.4.0] - 2024-12-15
 
 - Added basic dropdown and nested dropdown features for button `w_button` component

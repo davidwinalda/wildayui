@@ -1,0 +1,32 @@
+/* Loading ButtonSpinner */
+.w-button-spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid transparent;
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: w-button-spin 0.6s linear infinite;
+}
+
+@keyframes w-button-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Loading Button State */
+.w-button.w-button-loading {
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.w-button.w-button-loading .w-button-spinner {
+  display: inline-block;
+}
+
+.w-button.w-button-loading > *:not(.w-button-spinner) {
+  display: none;
+}

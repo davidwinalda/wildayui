@@ -1,0 +1,15 @@
+/* Sizes */
+.w-button-small {
+  font-size: 0.875rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.w-button-medium {
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+.w-button-large {
+  font-size: 1.25rem;
+  padding: 0.75rem 1.5rem;
+}

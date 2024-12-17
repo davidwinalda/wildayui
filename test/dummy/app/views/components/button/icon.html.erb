@@ -1,0 +1,38 @@
+<style>
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+</style>
+
+<div class="container">
+  <h1>Wilday UI Button Component</h1>
+
+  <h2>Default Icon</h2>
+
+  <div>
+    <%= w_button "Save",
+    variant: :solid,
+    theme: { name: :primary },
+    icon: "fa-solid fa-save" %>
+
+    <%= w_button "Next",
+        variant: :solid,
+        theme: { name: :primary },
+        icon: "fa-solid fa-arrow-right",
+        icon_position: :right %>
+
+    <%# Icon-only button %>
+    <%= w_button "",
+        icon: "fa-solid fa-thumbs-up",
+        icon_only: true
+    %>
+
+    <%# Icon-only button %>
+    <%= w_button "",
+        radius: :pill,
+        icon: "fa-solid fa-thumbs-up",
+        icon_only: true
+    %>
+  </div>
+</div>

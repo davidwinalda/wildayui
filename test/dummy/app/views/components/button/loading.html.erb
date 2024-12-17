@@ -1,0 +1,20 @@
+<style>
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+</style>
+
+<div class="container">
+  <h1>Wilday UI Button Component</h1>
+
+  <h2>Loading Button</h2>
+
+  <div>
+    <h3>Pre Loading State</h3>
+    <%= w_button "Loading", variant: :solid, loading: true, loading_text: "Loading..." %>
+
+    <h3>Interactive Loading State</h3>
+    <%= w_button "Submit", variant: :solid, loading_text: "Processing..." %>
+  </div>
+</div>

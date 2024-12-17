@@ -1,8 +1,18 @@
 <%
 # Prepare base HTML options
 html_options = {
-  class: ["w-button", variant_class, size_class, radius_class, additional_classes, ("w-button-loading" if loading)].compact.join(" "),
+  class: [
+    "w-button",
+    variant_class,
+    size_class,
+    radius_class,
+    additional_classes,
+    ("w-button-loading" if loading),
+    ("w-button-icon-only" if icon_only),
+    (href.present? ? (local_assigns[:underline] == false ? "w-button-no-underline" : "w-button-underline") : nil)
+  ].compact.join(" "),
   disabled: disabled || loading,
+  style: local_assigns[:html_options]&.dig(:style),
   "aria-busy": loading,
   "aria-disabled": disabled || loading,
   "aria-expanded": dropdown ? "false" : nil,

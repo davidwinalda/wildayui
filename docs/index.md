@@ -33,13 +33,13 @@ WildayUI is built as a Rails engine, allowing effortless setup and native integr
 For example, after installing WildayUI, you can instantly use the prebuilt `w_button` helper in your views like this:
 
 ```erb
-<%= w_button "Click Me", variant: :primary %>
+<%= w_button "Click Me", variant: :solid %>
 ```
 
 This renders a styled, ready-to-use button in your Rails application:
 
 ```html
-<button class="w-button w-button-primary">Click Me</button>
+<button class="w-button w-button-solid">Click Me</button>
 ```
 
 No need to manually add assets or write repetitive HTML/CSS. WildayUI handles it for you!
@@ -57,7 +57,7 @@ WildayUI simplifies creating buttons with different styles, sizes, and functiona
 
 ```erb
 # A primary button with default styling
-<%= w_button "Primary Button", variant: :primary %>
+<%= w_button "Primary Button", variant: :solid, theme: { name: :primary } %>
 
 # A secondary button with rounded corners
 <%= w_button "Rounded Button", variant: :secondary, radius: :rounded %>
@@ -69,10 +69,10 @@ WildayUI simplifies creating buttons with different styles, sizes, and functiona
 <%= w_button "External Link", href: "https://example.com", target: "_blank", variant: :outline %>
 
 # A primary button with an icon positioned to the right of the text
-<%= w_button "Icon Button Right", variant: :primary, icon: "fa-solid fa-user", icon_position: :right %>
+<%= w_button "Icon Button Right", variant: :solid, theme: { name: :primary }, icon: "fa-solid fa-user", icon_position: :right %>
 
 # A primary button with an icon positioned to the left of the text
-<%= w_button "Icon Button Left", variant: :primary, icon: "fa-solid fa-user", icon_position: :left %>
+<%= w_button "Icon Button Left", variant: :solid, theme: { name: :primary }, icon: "fa-solid fa-user", icon_position: :left %>
 ```
 
 WildayUI handles the underlying CSS and JavaScript logic, so you can focus on building functionality while keeping your codebase clean and maintainable.
@@ -129,20 +129,35 @@ You can override WildayUI's default classes in your application's CSS:
 ```css
 /* app/assets/stylesheets/application.css */
 
-/* Custom primary button */
+/* Override primary theme */
+.w-button[data-theme="primary"] {
+  /* Default state */
+  --w-button-color: white;
+  --w-button-bg: #8b5cf6;      /* Custom purple */
+  --w-button-border: #8b5cf6;
 
-.w-button-primary {
+  /* Hover state */
+  --w-button-hover-color: white;
+  --w-button-hover-bg: #7c3aed;
+  --w-button-hover-border: #7c3aed;
 
-background-color: #4f46e5; /* Indigo */
-
-color: white;
-
+  /* Active state */
+  --w-button-active-color: white;
+  --w-button-active-bg: #6d28d9;
+  --w-button-active-border: #6d28d9;
 }
 
-.w-button-primary:hover {
-
-background-color: #4338ca;
-
+/* Override secondary theme */
+.w-button[data-theme="secondary"] {
+  --w-button-color: white;
+  --w-button-bg: #64748b;      /* Custom slate */
+  --w-button-border: #64748b;
+  --w-button-hover-color: white;
+  --w-button-hover-bg: #475569;
+  --w-button-hover-border: #475569;
+  --w-button-active-color: white;
+  --w-button-active-bg: #334155;
+  --w-button-active-border: #334155;
 }
 
 /* Custom medium size */
@@ -173,7 +188,9 @@ background: linear-gradient(to right, #4338ca, #6d28d9);
 ```
 
 ```erb
-<%= w_button "Custom Primary", variant: :primary %>
+<%= w_button "Primary", variant: :solid, theme: { name: :primary } %>
+
+<%= w_button "Secondary", theme: { name: :secondary } %>
 
 <%= w_button "Gradient", additional_classes: "w-button-gradient" %>
 ```
@@ -184,7 +201,8 @@ Use the `additional_classes` parameter to add your own classes:
 
 ```erb
 <%= w_button "Custom Button",
-             variant: :primary,
+             variant: :solid,
+             theme: { name: :primary },
              additional_classes: "my-custom-button" %>
 ```
 
@@ -198,24 +216,50 @@ Use the `additional_classes` parameter to add your own classes:
 
 ### Create New Variants
 
-Extend the button with your own variants by combining custom classes:
+Extend the button with your own themes by combining custom classes:
 
 ```css
-/* Custom success variant */
-.w-button-success {
-  background-color: #10b981;
-  color: white;
+/* app/assets/stylesheets/application.css */
+
+/* Custom neon variant */
+.w-button-neon {
+  background-color: transparent;
+  color: #00ff00;
+  border: 2px solid #00ff00;
+  text-shadow: 0 0 5px #00ff00;
+  box-shadow: 0 0 10px #00ff00;
 }
 
-.w-button-success:hover {
-  background-color: #059669;
+.w-button-neon:hover {
+  background-color: rgba(0, 255, 0, 0.1);
+  box-shadow: 0 0 20px #00ff00;
+}
+
+/* Custom retro variant */
+.w-button-retro {
+  background: #ffd700;
+  color: #800080;
+  border: 3px solid #800080;
+  box-shadow: 3px 3px 0 #800080;
+  transform: translate(-3px, -3px);
+}
+
+.w-button-retro:hover {
+  transform: translate(0, 0);
+  box-shadow: 0 0 0 #800080;
 }
 ```
 
 ```erb
-<%= w_button "Save Changes",
-	 additional_classes: "w-button-success",
-	 icon: "fa-solid fa-check"
+<%= w_button "Neon Button",
+    variant: :solid,
+    additional_classes: "w-button-neon",
+    icon: "fa-solid fa-bolt"
+%>
+
+<%= w_button "Retro Style",
+    variant: :solid,
+    additional_classes: "w-button-retro"
 %>
 ```
 
@@ -442,7 +486,8 @@ export default class extends Controller {
 Use it in your view:
 ```erb
 <%= w_button "Submit Form",
-             variant: :primary,
+             variant: :solid,
+             theme: { name: :primary },
              loading_text: "Submitting...",
              data: { 
                controller: "submit-button",
@@ -507,7 +552,8 @@ For a button component:
 
 ```erb
 <%= w_button "Custom Submit", 
-    variant: :primary, 
+    variant: :solid,
+    theme: { name: :primary },
     loading_text: "Processing...", 
     use_default_controller: false, 
     data: { controller: "custom-handler", action: "click->custom-handler#onClick" } %>
@@ -527,7 +573,8 @@ WildayUI components are designed to work seamlessly with Tailwind CSS. You can l
 
 ```erb
 <%= w_button "Tailwind Button", 
-	 variant: :primary, 
+	 variant: :solid,
+	 theme: { name: :primary },
 	 additional_classes: "bg-indigo-600 hover:bg-indigo-700" 
 %>
 ```
@@ -555,7 +602,8 @@ You can mix WildayUI's built-in variants with Tailwind utilities for maximum fle
 
 ```erb
 <%= w_button "Hybrid Button",
-             variant: :primary,
+             variant: :solid,
+             theme: { name: :primary },
              radius: :rounded,
              additional_classes: "shadow-lg hover:shadow-xl transition-shadow duration-300" %>
 ```
@@ -572,7 +620,8 @@ When using both WildayUI and Bootstrap classes, you might encounter styling conf
 ```erb
 # NOT RECOMMENDED - Style Conflict
 <%= w_button "Bootstrap Button", 
-             variant: :primary, 
+             variant: :solid,
+             theme: { name: :primary },
              additional_classes: "btn btn-primary" %>
 ```
 
@@ -590,7 +639,8 @@ Choose one styling system for each button:
 ```erb
 # Option 1: Pure WildayUI styling
 <%= w_button "WildayUI Button", 
-             variant: :primary %>
+             variant: :solid,
+             theme: { name: :primary } %>
 
 # Option 2: Pure Bootstrap styling
 <%= w_button "Bootstrap Button",
@@ -605,7 +655,8 @@ If you need to use both libraries, create custom classes that don't conflict:
 ```erb
 # Custom integration with Bootstrap utilities
 <%= w_button "Hybrid Button",
-             variant: :primary,
+             variant: :solid,
+             theme: { name: :primary },
              additional_classes: "shadow-sm d-inline-block" %>
 ```
 
@@ -614,7 +665,7 @@ If you need to use both libraries, create custom classes that don't conflict:
 1. **Choose One Base Style:**
    ```erb
    # Use WildayUI's base styles
-   <%= w_button "Primary Button", variant: :primary %>
+   <%= w_button "Primary Button", variant: :solid, theme: { name: :primary } %>
    
    # OR use Bootstrap's base styles
    <%= w_button "Bootstrap Button", 
@@ -626,7 +677,8 @@ If you need to use both libraries, create custom classes that don't conflict:
    ```erb
    # Add Bootstrap utilities that don't conflict with core button styles
    <%= w_button "Enhanced Button",
-                variant: :primary,
+                variant: :solid,
+                theme: { name: :primary },
                 additional_classes: "mt-3 d-inline-block shadow-sm" %>
    ```
 
@@ -662,13 +714,13 @@ For icon libraries that use different HTML structures (like SVG-based icons), yo
 
 ```erb
 # Material Icons (needs block syntax)
-<%= w_button variant: :primary do %>
+<%= w_button variant: :solid do %>
   <span class="material-icons">face</span>
   User Profile
 <% end %>
 
 # Heroicons (SVG-based)
-<%= w_button variant: :primary do %>
+<%= w_button variant: :solid do %>
   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
     <!-- SVG path -->
   </svg>
@@ -689,7 +741,7 @@ For icon libraries that use different HTML structures (like SVG-based icons), yo
 2. **Using Block Syntax**
    ```erb
    # For other icon libraries or custom icons
-   <%= w_button variant: :primary do %>
+   <%= w_button variant: :solid do %>
      <!-- Your custom icon HTML here -->
      <span>Button Text</span>
    <% end %>
@@ -712,39 +764,26 @@ While WildayUI provides core UI components, you can enhance them by integrating 
 # Enhanced select dropdowns
 
 <%= w_button "Select Options",
+  data: {
+    controller: "select2",
+    action: "click->select2#open"
+  } 
+%>
 
-data: {
-
-controller: "select2",
-
-action: "click->select2#open"
-
-} %>
-
-  
 
 # JavaScript setup
 
 import Select2 from 'select2'
-
-  
-
 // In your Stimulus controller
-
 export default class extends Controller {
 
-connect() {
+  connect() {
+  this.select2 = new Select2(...)
+  }
 
-this.select2 = new Select2(...)
-
-}
-
-open() {
-
-this.select2.open()
-
-}
-
+  open() {
+  this.select2.open()
+  }
 }
 
 ```
