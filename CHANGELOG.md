@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.5.2] - 2024-12-17
+
+- Fixed error when rails application uses `wilday_ui` gem and deployed to production.
+
 ## [0.5.1] - 2024-12-17
 
 - Added `require "wilday_ui/version"` in `version.rb` to check for the latest version of the gem.

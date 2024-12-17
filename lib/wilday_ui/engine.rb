@@ -6,8 +6,8 @@ module WildayUi
     isolate_namespace WildayUi
 
     # Add lib to autoload paths
-    config.autoload_paths << root.join("lib")
-    config.eager_load_paths << root.join("lib")
+    # config.autoload_paths << root.join("lib")
+    # config.eager_load_paths << root.join("lib")
 
     # Initialize theme configuration
     initializer "wilday_ui.configuration", before: :load_config_initializers do
