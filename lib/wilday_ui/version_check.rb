@@ -1,5 +1,6 @@
 require "net/http"
 require "json"
+require "wilday_ui/version"
 
 module WildayUi
   class VersionCheck
