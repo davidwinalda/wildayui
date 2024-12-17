@@ -36,10 +36,11 @@ module WildayUi
     initializer "wilday_ui.assets" do |app|
       # Add engine asset paths
       engine_asset_paths = [
+        root.join("app/assets/builds"),
+        root.join("app/assets/config"),
         root.join("app/assets/stylesheets"),
-        root.join("app/javascript"),
-        root.join("app/assets/builds")
-      ]
+        root.join("app/javascript")
+      ].select(&:exist?)
 
       # Add dummy app assets path in development
       if Rails.env.development?
@@ -62,8 +63,8 @@ module WildayUi
 
       # Automatically precompile all CSS files in wilday_ui directory
       css_files = Dir[root.join("app/assets/stylesheets/wilday_ui/**/*.css")].map do |file|
-        file.split("app/assets/stylesheets/").last
-      end
+        Pathname.new(file).relative_path_from(root.join("app/assets/stylesheets")).to_s
+      end.select { |f| f.start_with?("wilday_ui/") }  # Safety check
 
       # Precompile only the bundled JavaScript file
       app.config.assets.precompile += css_files
