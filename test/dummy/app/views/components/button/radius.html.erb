@@ -1,16 +1,15 @@
-<style>
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-</style>
 
-<div class="container">
-  <h1>Wilday UI Button Component</h1>
+<% content_for :sidebar do %>
+    <a href="#wilday-ui-button" class="sidebar-link" data-level="1">Wilday UI - Button Component</a>
+    <a href="#default-radius" class="sidebar-link" data-level="2">Default Radius</a>
+<% end %>
 
-  <h2>Default Radius</h2>
+<div>
+  <h1 id="wilday-ui-button">Wilday UI Button Component</h1>
 
-  <div>
+  <h2 id="default-radius">Default Radius</h2>
+
+  <div class="component-item">
     <%= w_button "Save Changes", radius: :rounded %>
     <%= w_button "Save Changes", radius: :pill %>
     <%= w_button "Save Changes", radius: :square %>

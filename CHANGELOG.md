@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.6.0] - 2024-12-18
+
+- Added `:gradient` parameter for `w_button` component to use gradient color.
+- Updated the documentation to include the new features.
+
 ## [0.5.6] - 2024-12-18
 
 - Added `w_js` helper to use in your application layout file

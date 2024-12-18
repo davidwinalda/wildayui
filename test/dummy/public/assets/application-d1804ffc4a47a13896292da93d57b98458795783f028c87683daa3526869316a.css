@@ -10,8 +10,8 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
- *= require_self
+
+
  */
 
 /* app/assets/stylesheets/application.css */
@@ -105,7 +105,7 @@
   padding: 0.5rem;
   border-radius: 4px;
   transition: all 0.2s;
-  font-size: 1rem;
+  font-size: 0.875rem;
 }
 
 .sidebar-link:hover {
@@ -133,16 +133,6 @@
 .container {
   flex: 1;
   max-width: 800px;
-  padding: 0;
-}
-
-/* Content typography adjustments */
-.container h1:first-child {
-  margin-top: 0; /* Remove top margin from first heading */
-}
-
-.container > *:first-child {
-  margin-top: 0; /* Remove top margin from first element */
 }
 
 .separator {
@@ -313,7 +303,7 @@
 .nav-link {
   color: #4b5563;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 0.875rem;
   padding: 0.5rem;
   border-radius: 4px;
   transition: all 0.2s;
@@ -356,7 +346,7 @@
   padding: 0.5rem;
   color: #4b5563;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 0.875rem;
   border-radius: 4px;
   transition: all 0.2s;
 }

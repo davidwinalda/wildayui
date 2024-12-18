@@ -1,20 +1,25 @@
-<style>
-    .container {
-        max-width: 800px;
-        margin: 0 auto;
-    }
-</style>
 
-<div class="container">
-  <h1>Wilday UI Button Component</h1>
+<% content_for :sidebar do %>
+    <a href="#wilday-ui-button" class="sidebar-link" data-level="1">Wilday UI - Button Component</a>
+    <a href="#loading-button" class="sidebar-link" data-level="2">Loading Button</a>
+    <a href="#pre-loading-state" class="sidebar-link" data-level="3">Pre Loading State</a>
+    <a href="#interactive-loading-state" class="sidebar-link" data-level="3">Interactive Loading State</a>
+<% end %>
 
-  <h2>Loading Button</h2>
+<div>
+  <h1 id="wilday-ui-button">Wilday UI Button Component</h1>
+
+  <h2 id="loading-button">Loading Button</h2>
 
   <div>
-    <h3>Pre Loading State</h3>
-    <%= w_button "Loading", variant: :solid, loading: true, loading_text: "Loading..." %>
+    <h3 id="pre-loading-state">Pre Loading State</h3>
+    <div class="component-item">
+      <%= w_button "Loading", variant: :solid, loading: true, loading_text: "Loading..." %>
+    </div>
 
-    <h3>Interactive Loading State</h3>
-    <%= w_button "Submit", variant: :solid, loading_text: "Processing..." %>
+    <h3 id="interactive-loading-state">Interactive Loading State</h3>
+    <div class="component-item">
+      <%= w_button "Submit", variant: :solid, loading_text: "Processing..." %>
+    </div>
   </div>
 </div>

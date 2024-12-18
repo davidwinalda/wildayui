@@ -32,6 +32,10 @@ module Components
       def dropdown
         render "components/button/dropdown"
       end
+
+      def gradient
+        render "components/button/gradient"
+      end
     end
   end
 end

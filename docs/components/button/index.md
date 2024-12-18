@@ -36,6 +36,7 @@ You can add buttons using the `w_button` helper:
 | **`theme`** | Theme configuration with name or custom properties | `theme: { name: :primary } or theme: { custom: { color: "#fff" } }` | `{}` |
 | **`size`** | Button size (`:small`, `:medium`, `:large`) | `size: :large` | `:medium` |
 | **`radius`** | Button shape (`:rounded`, `:pill`, `:square`) | `radius: :pill` | `:rounded` |
+| **`gradient`** | Apply gradient background (predefined or custom). Predefined consists of 10 colors. `:blue`, `:purple`, `:green`, `:sunset`, `:indigo`, `:slate`, `:ocean`, `:rose`, `:amber`, `:emerald` | `gradient: :blue` or `gradient: { from: "#ff6b6b", to: "#4ecdc4" }` | `nil` |
 | **`icon`** | Add an icon (e.g., FontAwesome class) | `icon: "fa-solid fa-user"` | `nil` |
 | **`icon_position`** | Position of the icon (`:left`, `:right`) | `icon_position: :right` | `:left` |
 | **`loading`** | Enable loading state (`true`, `false`) | `loading: true` | `false` |
@@ -113,6 +114,30 @@ You can add buttons using the `w_button` helper:
 <%= w_button "Rounded", radius: :rounded %>
 <%= w_button "Pill", radius: :pill %>
 <%= w_button "Square", radius: :square %>
+```
+
+### Gradient
+
+```erb
+<%# Predefined gradients %>
+<%= w_button "Blue Gradient", gradient: :blue %>
+<%= w_button "Purple Gradient", gradient: :purple %>
+<%= w_button "Green Gradient", gradient: :green %>
+<%= w_button "Sunset Gradient", gradient: :sunset %>
+<%= w_button "Indigo Gradient", gradient: :indigo %>
+<%= w_button "Slate Gradient", gradient: :slate %>
+<%= w_button "Ocean Gradient", gradient: :ocean %>
+<%= w_button "Rose Gradient", gradient: :rose %>
+<%= w_button "Amber Gradient", gradient: :amber %>
+<%= w_button "Emerald Gradient", gradient: :emerald %>
+
+<%# Custom gradients - Two colors gradient %>
+<%= w_button "Custom - Coral Reef", gradient: { from: "#ff6b6b", to: "#4ecdc4" } %>
+<%= w_button "Custom - Ocean Breeze", gradient: { from: "#2193b0", to: "#6dd5ed" } %>
+
+<%# Custom gradients - Three colors gradient %>
+<%= w_button "Custom - Coral Reef", gradient: { from: "#ff6b6b", to: "#4ecdc4", via: "#4ecdc4" } %>
+<%= w_button "Custom - Forest Mist", gradient: { from: "#2AF598", via: "#08AEEA", to: "#02CCBA" } %>
 ```
 
 ### Icons

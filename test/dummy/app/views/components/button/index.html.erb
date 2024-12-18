@@ -1,10 +1,4 @@
 <style>
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem;
-  }
-
   .nav-links {
     display: flex;
     gap: 1rem;
@@ -24,20 +18,27 @@
   }
 </style>
 
+<% content_for :sidebar do %>
+  <a href="#wilday-ui-button" class="sidebar-link" data-level="1">Wilday UI Button</a>
+  <a href="#static-button" class="sidebar-link" data-level="2">Static Button</a>
+  <a href="#dynamic-button" class="sidebar-link" data-level="2">Dynamic Button</a>
+<% end %>
+
 <div class="container">
-  <h1>Wilday UI Button Component</h1>
+  <h1 id="wilday-ui-button">Wilday UI Button Component</h1>
 
   <nav class="nav-links">
-    <h2>Static Button</h2>
+    <h2 id="static-button">Static Button</h2>
     <div>
         <%= link_to "Variant", components_button_variant_path, class: "nav-link" %>
+        <%= link_to "Gradient", components_button_gradient_path, class: "nav-link" %>
         <%= link_to "Icon", components_button_icon_path, class: "nav-link" %>
         <%= link_to "Size", components_button_size_path, class: "nav-link" %>
         <%= link_to "Radius", components_button_radius_path, class: "nav-link" %>
         <%= link_to "Link", components_button_link_path, class: "nav-link" %>
     </div>
 
-    <h2>Dynamic Button</h2>
+    <h2 id="dynamic-button">Dynamic Button</h2>
     <div>
         <%= link_to "Loading", components_button_loading_path, class: "nav-link" %>
         <%= link_to "Dropdown", components_button_dropdown_path, class: "nav-link" %>

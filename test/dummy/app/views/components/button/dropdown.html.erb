@@ -1,18 +1,9 @@
 <style>
-    .container {
-        max-width: 800px;
-        margin: 50px auto;
-    }
-
-    .separator {
-        margin: 2rem 0;
-        border-bottom: 1px solid #e0e0e0;
-    }
-
     .dropdown-position-container {
         display: flex;
         flex-direction: row;
         gap: 2rem;
+        flex-wrap: wrap;
     }
 
     .dropdown-align-container {
@@ -20,50 +11,63 @@
         flex-direction: row;
         gap: 2rem;
         margin-bottom: 200px;
+        flex-wrap: wrap;
     }
 </style>
 
-<div class="container">
-  <h1>Wilday UI Button Component</h1>
+<% content_for :sidebar do %>
+    <a href="#wilday-ui-button" class="sidebar-link" data-level="1">Wilday UI - Button Component</a>
+    <a href="#dropdown-button" class="sidebar-link" data-level="2">Dropdown Button</a>
+    <a href="#hover-to-open" class="sidebar-link" data-level="2">Hover to Open</a>
+    <a href="#nested-dropdown" class="sidebar-link" data-level="2">Nested Dropdown</a>
+    <a href="#dropdown-position" class="sidebar-link" data-level="2">Dropdown Position</a>
+    <a href="#dropdown-align" class="sidebar-link" data-level="2">Dropdown Align</a>
+<% end %>
 
-  <h2>Dropdown Button</h2>
+<div>
+  <h1 id="wilday-ui-button">Wilday UI Button Component</h1>
+
+  <h2 id="dropdown-button">Dropdown Button</h2>
     <div class="separator"></div>
     
     <div>
-        <h3>Default Dropdown</h3>
+        <h3 id="default-dropdown">Default Dropdown</h3>
         <div>
             <h3>Click to Open</h3>
-            <%= w_button "Dropdown",
-                variant: :surface,
-                theme: { name: :outline }, 
-                dropdown: true,
-                dropdown_items: [
-                { text: "Profile", href: "#profile" },
-                { text: "Settings", href: "#settings" },
-                { divider: true },
-                { text: "Logout", href: "#logout" }
-                ] 
-            %>
+            <div class="component-item">
+                <%= w_button "Dropdown",
+                    variant: :surface,
+                    theme: { name: :outline }, 
+                    dropdown: true,
+                    dropdown_items: [
+                    { text: "Profile", href: "#profile" },
+                    { text: "Settings", href: "#settings" },
+                    { divider: true },
+                    { text: "Logout", href: "#logout" }
+                    ] 
+                %>
 
-            <%= w_button "Menu with Icon", 
-                variant: :primary,
-                icon: "fa-solid fa-bars",
-                dropdown: true,
-                dropdown_items: [
-                { text: "Dashboard", href: "#dashboard" },
-                { text: "Reports", href: "#reports" },
-                { divider: true },
-                { text: "Help", href: "#help" }
-                ] 
-            %>
+                <%= w_button "Menu with Icon", 
+                    variant: :primary,
+                    icon: "fa-solid fa-bars",
+                    dropdown: true,
+                    dropdown_items: [
+                    { text: "Dashboard", href: "#dashboard" },
+                    { text: "Reports", href: "#reports" },
+                    { divider: true },
+                    { text: "Help", href: "#help" }
+                    ] 
+                %>
+            </div>
         </div>
 
         <div>
-            <h3>Hover to Open</h3>
-            <%= w_button "Dropdown", 
-                variant: :surface,
-                theme: { name: :outline },
-                dropdown: { trigger: :hover },
+            <h3 id="hover-to-open">Hover to Open</h3>
+            <div class="component-item">
+                <%= w_button "Dropdown", 
+                    variant: :surface,
+                    theme: { name: :outline },
+                    dropdown: { trigger: :hover },
                 dropdown_items: [
                 { text: "Profile", href: "#profile" },
                 { text: "Settings", href: "#settings" },
@@ -71,14 +75,15 @@
                 { text: "Logout", href: "#logout" }
                 ] 
             %>
+            </div>
         </div>
     </div>
   
     <div class="separator"></div>
 
-    <h3>Nested Dropdown</h3>
+    <h3 id="nested-dropdown">Nested Dropdown</h3>
 
-    <div>
+    <div class="component-item">
         <%= w_button "Menu", 
             variant: :surface,
             theme: { name: :outline },
@@ -126,7 +131,7 @@
 
     <div class="separator"></div>
 
-    <h3>Dropdown Position</h3>
+    <h3 id="dropdown-position">Dropdown Position</h3>
     <div class="dropdown-position-container">
         <div>
             <h3>Bottom</h3>
@@ -191,7 +196,7 @@
 
     <div class="separator"></div>
 
-    <h3>Dropdown Align</h3>
+    <h3 id="dropdown-align">Dropdown Align</h3>
     <div class="dropdown-align-container">
         <div>
             <h3>Start</h3>

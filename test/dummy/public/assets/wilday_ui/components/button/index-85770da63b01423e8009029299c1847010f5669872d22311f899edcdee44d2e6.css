@@ -7,6 +7,7 @@
 
 
 
+
 */
 
 /* Your direct CSS code can go here */
@@ -550,4 +551,113 @@ a.w-button.w-button-no-underline:hover {
     --translate-x: 0;
     --translate-y: 10px;
   }
+}
+/* Predefined gradient variations */
+.w-button-gradient-blue {
+  background: linear-gradient(135deg, #60a5fa, #3b82f6);
+  color: white;
+}
+
+.w-button-gradient-blue:hover {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+.w-button-gradient-purple {
+  background: linear-gradient(135deg, #c084fc, #a855f7);
+  color: white;
+}
+
+.w-button-gradient-purple:hover {
+  background: linear-gradient(135deg, #a855f7, #9333ea);
+}
+
+.w-button-gradient-green {
+  background: linear-gradient(135deg, #4ade80, #22c55e);
+  color: white;
+}
+
+.w-button-gradient-green:hover {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+.w-button-gradient-sunset {
+  background: linear-gradient(135deg, #f97316, #ef4444);
+  color: white;
+}
+
+.w-button-gradient-sunset:hover {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+/* New gradients */
+.w-button-gradient-ocean {
+  background: linear-gradient(135deg, #0ea5e9, #2563eb);
+  color: white;
+}
+
+.w-button-gradient-ocean:hover {
+  background: linear-gradient(135deg, #0284c7, #1d4ed8);
+}
+
+.w-button-gradient-rose {
+  background: linear-gradient(135deg, #fb7185, #e11d48);
+  color: white;
+}
+
+.w-button-gradient-rose:hover {
+  background: linear-gradient(135deg, #f43f5e, #be123c);
+}
+
+.w-button-gradient-amber {
+  background: linear-gradient(135deg, #fbbf24, #d97706);
+  color: white;
+}
+
+.w-button-gradient-amber:hover {
+  background: linear-gradient(135deg, #f59e0b, #b45309);
+}
+
+.w-button-gradient-emerald {
+  background: linear-gradient(135deg, #34d399, #059669);
+  color: white;
+}
+
+.w-button-gradient-emerald:hover {
+  background: linear-gradient(135deg, #10b981, #047857);
+}
+
+.w-button-gradient-indigo {
+  background: linear-gradient(135deg, #818cf8, #4f46e5);
+  color: white;
+}
+
+.w-button-gradient-indigo:hover {
+  background: linear-gradient(135deg, #6366f1, #4338ca);
+}
+
+.w-button-gradient-slate {
+  background: linear-gradient(135deg, #64748b, #334155);
+  color: white;
+}
+
+.w-button-gradient-slate:hover {
+  background: linear-gradient(135deg, #475569, #1e293b);
+}
+
+/* Custom gradient support */
+.w-button-gradient-custom {
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.w-button-gradient-custom:hover {
+  filter: brightness(0.9);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.w-button-gradient-custom:active {
+  filter: brightness(0.85);
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }

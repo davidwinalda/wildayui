@@ -1,0 +1,256 @@
+
+<% content_for :sidebar do %>
+    <a href="#wilday-ui-button" class="sidebar-link" data-level="1">Wilday UI - Button Component</a>
+    <a href="#gradient-button" class="sidebar-link" data-level="2">Gradient Button</a>
+    <a href="#predefined-gradients" class="sidebar-link" data-level="3">Predefined Gradients</a>
+    <a href="#usage-recommendation" class="sidebar-link" data-level="3">Usage Recommendation</a>
+    <a href="#basic-gradients" class="sidebar-link" data-level="4">Basic Gradients</a>
+    <a href="#modern-gradients" class="sidebar-link" data-level="4">Modern Gradients</a>
+    <a href="#neutral-gradients" class="sidebar-link" data-level="4">Neutral Gradients</a>
+    <a href="#custom-gradient" class="sidebar-link" data-level="3">Custom Gradient</a>
+    <a href="#combined-features" class="sidebar-link" data-level="3">Combined Features</a>
+    <a href="#brand-gradients" class="sidebar-link" data-level="3">Brand Gradients</a>
+<% end %>
+
+<div>
+    <h1 id="wilday-ui-button">Wilday UI - Button Component</h1>
+
+    <h2 id="gradient-button">Gradient Button</h2>
+    <p>Gradient buttons are buttons that have a gradient background.</p>
+    <div class="separator"></div>
+
+    <div>
+        <h3 id="predefined-gradients">Predefined gradients</h3>
+        <p>Predefined gradients are pre-defined gradients that you can use in your project.</p>
+        <%# Predefined gradients %>
+        <div class="component-item">
+            <%= w_button "Blue Gradient", gradient: :blue %>
+            <%= w_button "Purple Gradient", gradient: :purple %>
+            <%= w_button "Green Gradient", gradient: :green %>
+            <%= w_button "Sunset Gradient", gradient: :sunset %>
+            <%= w_button "Indigo Gradient", gradient: :indigo %>
+            <%= w_button "Slate Gradient", gradient: :slate %>
+            <%= w_button "Ocean Gradient", gradient: :ocean %>
+            <%= w_button "Rose Gradient", gradient: :rose %>
+            <%= w_button "Amber Gradient", gradient: :amber %>
+            <%= w_button "Emerald Gradient", gradient: :emerald %>
+        </div>
+
+        <h3 id="usage-recommendation">Predefined gradients usage recommendation</h3>
+        <div>
+            <%# Basic gradients %>
+            <h4 id="basic-gradients">Basic gradients</h4>
+            <div class="component-item">
+                <%= w_button "Primary Action", gradient: :blue %>
+                <%= w_button "Secondary Action", gradient: :purple %>
+                <%= w_button "Success Action", gradient: :green %>
+                <%= w_button "Warning Action", gradient: :amber %>
+            </div>
+
+            <%# Modern gradients %>
+            <h4 id="modern-gradients">Modern gradients</h4>
+            <div class="component-item">
+                <%= w_button "Ocean Theme", gradient: :ocean %>
+                <%= w_button "Rose Theme", gradient: :rose %>
+                <%= w_button "Emerald Theme", gradient: :emerald %>
+                <%= w_button "Indigo Theme", gradient: :indigo %>
+            </div>
+
+            <%# Neutral gradients %>
+            <h4 id="neutral-gradients">Neutral gradients</h4>
+            <div class="component-item">
+                <%= w_button "Slate Theme", gradient: :slate %>
+                <%= w_button "Sunset Theme", gradient: :sunset %>
+            </div>
+        </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <div>
+        <h3 id="custom-gradient">Custom gradient</h3>
+        <p>You can use your own colors to create a gradient button.</p>
+        <%# Custom gradient %>
+        <div class="component-item">
+            <%= w_button "Custom - Coral Reef", 
+                gradient: { from: "#ff6b6b", to: "#4ecdc4" } %>
+
+            <%= w_button "Custom - Sunset Vibes", 
+                gradient: { from: "#FF512F", to: "#F09819" } %>
+
+            <%= w_button "Custom - Ocean Breeze", 
+                gradient: { from: "#2193b0", to: "#6dd5ed" } %>
+
+            <%= w_button "Custom - Forest Mist", 
+                gradient: { from: "#2AF598", via: "#08AEEA", to: "#02CCBA" } %>
+
+            <%= w_button "Custom - Berry Blend", 
+                gradient: { from: "#8E2DE2", to: "#4A00E0" } %>
+        </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <div>
+        <h3 id="combined-features">Combined with other features</h3>
+        <p>You can combine the gradient button with other features.</p>
+        <%# Combined with other features %>
+        <div class="component-item">
+            <%= w_button "Gradient Button",
+                gradient: :blue,
+                size: :large,
+                radius: :pill,
+                icon: "fa-solid fa-star" %>
+
+            <%= w_button "Download App",
+                gradient: { from: "#FF512F", to: "#F09819" },
+                size: :large,
+                radius: :rounded,
+                icon: "fa-solid fa-download",
+                icon_position: :right %>
+
+            <%= w_button "Get Started",
+                gradient: { from: "#2AF598", via: "#08AEEA", to: "#02CCBA" },
+                size: :large,
+                radius: :pill,
+                icon: "fa-solid fa-rocket",
+                loading_text: "Loading..." %>
+        </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <div>
+        <h3 id="brand-gradients">Brand Gradients</h3>
+        <p>You can use your own brand colors to create a gradient button.</p>
+        <div class="component-item">
+            <%# Instagram-style Gradient %>
+            <%= w_button "Instagram", 
+            gradient: { from: "#833AB4", to: "#FD1D1D" } %>
+
+            <%# Longer Instagram gradient with more colors %>
+            <%= w_button "Instagram Full", 
+                gradient: { from: "#405DE6", to: "#E1306C", via: "#5851DB" } %>
+
+            <%# Stripe-style Gradient %>
+            <%= w_button "Stripe", 
+                gradient: { from: "#6772E5", to: "#4B5CDB" } %>
+
+            <%# Discord-style Gradient %>
+            <%= w_button "Discord", 
+                gradient: { from: "#5865F2", to: "#4752C4" } %>
+
+            <%# Messenger-style Gradient %>
+            <%= w_button "Messenger", 
+                gradient: { from: "#00C6FF", to: "#0078FF" } %>
+
+            <%# Firefox-style Gradient %>
+            <%= w_button "Firefox", 
+                gradient: { from: "#FF9500", to: "#FF0090" } %>
+
+            <%# Asana-style Gradient %>
+            <%= w_button "Asana", 
+                gradient: { from: "#FF2F6E", to: "#FF8F6E" } %>
+
+            <%# Behance-style Gradient %>
+            <%= w_button "Behance", 
+                gradient: { from: "#1769FF", to: "#0050E0" } %>
+
+            <%# Twitch-style Gradient %>
+            <%= w_button "Twitch", 
+                gradient: { from: "#9146FF", to: "#6441A5" } %>
+
+            <%# Hubspot-style Gradient %>
+            <%= w_button "Hubspot", 
+                gradient: { from: "#FF7A59", to: "#FF5C3E" } %>
+
+            <%# LinkedIn-style Gradient %>
+            <%= w_button "LinkedIn", 
+                gradient: { from: "#0077B5", to: "#0066CC" } %>
+
+            <%# Figma-style Gradient %>
+            <%= w_button "Figma", 
+                gradient: { from: "#F24E1E", to: "#FF7262" } %>
+
+            <%# Notion-style Gradient %>
+            <%= w_button "Notion", 
+                gradient: { from: "#000000", to: "#2F2F2F" } %>
+
+                <%# Spotify-style Gradient %>
+            <%= w_button "Spotify", 
+                gradient: { from: "#1DB954", to: "#1ED760" } %>
+
+            <%# Snapchat-style Gradient %>
+            <%= w_button "Snapchat", 
+                gradient: { from: "#FFFC00", to: "#FFE300" } %>
+
+            <%# TikTok-style Gradient %>
+            <%= w_button "TikTok", 
+                gradient: { from: "#FF0050", to: "#00F2EA" } %>
+
+            <%# Duolingo-style Gradient %>
+            <%= w_button "Duolingo", 
+                gradient: { from: "#58CC02", to: "#7AE22C" } %>
+
+            <%# Slack-style Gradient %>
+            <%= w_button "Slack", 
+                gradient: { from: "#36C5F0", to: "#2EB67D" } %>
+
+            <%# Microsoft-style Gradient %>
+            <%= w_button "Microsoft", 
+                gradient: { from: "#00A4EF", to: "#FFB900" } %>
+
+            <%# Opera-style Gradient %>
+            <%= w_button "Opera", 
+                gradient: { from: "#FF1B2D", to: "#FF1B2D" } %>
+
+            <%# Brave Browser Gradient %>
+            <%= w_button "Brave", 
+                gradient: { from: "#FB542B", to: "#343546" } %>
+
+            <%# Cloudflare-style Gradient %>
+            <%= w_button "Cloudflare", 
+                gradient: { from: "#F48120", to: "#F69E55" } %>
+
+            <%# Adobe-style Gradient %>
+            <%= w_button "Adobe", 
+                gradient: { from: "#FA0F00", to: "#FF4C4C" } %>
+
+            <%# GitHub Dark Mode Gradient %>
+            <%= w_button "GitHub Dark", 
+                gradient: { from: "#2EA043", to: "#238636" } %>
+
+            <%# GitLab-style Gradient %>
+            <%= w_button "GitLab", 
+                gradient: { from: "#FCA326", to: "#FC6D26" } %>
+
+            <%# Salesforce-style Gradient %>
+            <%= w_button "Salesforce", 
+                gradient: { from: "#00A1E0", to: "#1589EE" } %>
+
+            <%# Zoom-style Gradient %>
+            <%= w_button "Zoom", 
+                gradient: { from: "#2D8CFF", to: "#0E71EB" } %>
+
+            <%# Coinbase-style Gradient %>
+            <%= w_button "Coinbase", 
+                gradient: { from: "#0052FF", to: "#1E4DD8" } %>
+
+            <%# Airbnb-style Gradient %>
+            <%= w_button "Airbnb", 
+                gradient: { from: "#FF385C", to: "#E31C5F" } %>
+
+            <%# Netflix-style Gradient %>
+            <%= w_button "Netflix", 
+                gradient: { from: "#E50914", to: "#B81D24" } %>
+
+            <%# Amazon-style Gradient %>
+            <%= w_button "Amazon", 
+                gradient: { from: "#FF9900", to: "#FFC300" } %>
+
+            <%# PayPal-style Gradient %>
+            <%= w_button "PayPal", 
+                gradient: { from: "#003087", to: "#009CDE" } %>
+        </div>
+    </div>
+</div>

@@ -2716,7 +2716,6 @@ application.register("dropdown", dropdown_controller_default);
 
 // app/javascript/wilday_ui/components/button.js
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("Button component loaded heah");
   document.querySelectorAll(".w-button").forEach((button) => {
     button.addEventListener("click", (event) => {
       if (button.disabled) {
@@ -2726,6 +2725,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
-//# sourceMappingURL=/assets/wilday_ui/index.js-2698266d2b8ec7ac08fe9126c81f5e4edf0ed51dce8e40e3d3d83516531f125e.map
+//# sourceMappingURL=/assets/wilday_ui/index.js.map
 //!
 ;

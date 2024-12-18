@@ -1,23 +1,32 @@
-<style>
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-  }
 
-  .separator {
-    height: 1px;
-    background-color: #e0e0e0;
-    margin: 20px 0;
-  }
-</style>
+<% content_for :sidebar do %>
+    <a href="#wilday-ui-button" class="sidebar-link" data-level="1">Wilday UI - Button Component</a>
+    <a href="#default-variants" class="sidebar-link" data-level="2">Default Variants</a>
+    <a href="#themed-variants" class="sidebar-link" data-level="2">Themed Variants</a>
+    <a href="#solid" class="sidebar-link" data-level="3">Solid</a>
+    <a href="#subtle" class="sidebar-link" data-level="3">Subtle</a>
+    <a href="#surface" class="sidebar-link" data-level="3">Surface</a>
+    <a href="#outline" class="sidebar-link" data-level="3">Outline</a>
+    <a href="#ghost" class="sidebar-link" data-level="3">Ghost</a>
+    <a href="#plain" class="sidebar-link" data-level="3">Plain</a>
+    <a href="#custom-variants" class="sidebar-link" data-level="2">Custom Variants and Themes</a>
+    <a href="#custom-solid" class="sidebar-link" data-level="3">Custom Solid</a>
+    <a href="#custom-subtle" class="sidebar-link" data-level="3">Custom Subtle</a>
+    <a href="#custom-surface" class="sidebar-link" data-level="3">Custom Surface</a>
+    <a href="#custom-outline" class="sidebar-link" data-level="3">Custom Outline</a>
+    <a href="#custom-ghost" class="sidebar-link" data-level="3">Custom Ghost</a>
+    <a href="#custom-plain" class="sidebar-link" data-level="3">Custom Plain</a>
+    <a href="#customize-for-brand-colors" class="sidebar-link" data-level="2">Customize for Brand Colors</a>
+    <a href="#disabled-button" class="sidebar-link" data-level="2">Disabled Button</a>
+<% end %>
 
 
-<div class="container">
-  <h1>Wilday UI Button Component</h1>
+<div>
+  <h1 id="wilday-ui-button">Wilday UI Button Component</h1>
 
-  <h2>Default Variants</h2>
+  <h2 id="default-variants">Default Variants</h2>
 
-  <div>
+  <div class="component-item">
     <%# Solid - Default, high emphasis actions %>
     <%= w_button "Save Changes", variant: :solid %>
 
@@ -39,197 +48,191 @@
 
   <div class="separator"></div>
 
-  <h2>Themed Variants</h2>
+  <h2 id="themed-variants">Themed Variants</h2>
 
   <div>
     <div>
-      <h3>Solid</h3>
-      <%# Primary button %>
-      <%= w_button "Primary", variant: :solid, theme: { name: :primary } %>
+      <h3 id="solid">Solid</h3>
+      <div class="component-item">
+        <%# Primary button %>
+        <%= w_button "Primary", variant: :solid, theme: { name: :primary } %>
 
-      <%# Secondary button %>
-      <%= w_button "Secondary", variant: :solid, theme: { name: :secondary } %>
+        <%# Secondary button %>
+        <%= w_button "Secondary", variant: :solid, theme: { name: :secondary } %>
 
-      <%# Success button %>
-      <%= w_button "Success", variant: :solid, theme: { name: :success } %>
+        <%# Success button %>
+        <%= w_button "Success", variant: :solid, theme: { name: :success } %>
 
-      <%# Danger button %>
-      <%= w_button "Danger", variant: :solid, theme: { name: :danger } %>
+        <%# Danger button %>
+        <%= w_button "Danger", variant: :solid, theme: { name: :danger } %>
 
-      <%# Warning button %>
-      <%= w_button "Warning", variant: :solid, theme: { name: :warning } %>
+        <%# Warning button %>
+        <%= w_button "Warning", variant: :solid, theme: { name: :warning } %>
 
-      <%# Info button %>
-      <%= w_button "Info", variant: :solid, theme: { name: :info } %>
+        <%# Info button %>
+        <%= w_button "Info", variant: :solid, theme: { name: :info } %>
 
-      <%# Light button %>
-      <%= w_button "Light", variant: :solid, theme: { name: :light } %>
+        <%# Light button %>
+        <%= w_button "Light", variant: :solid, theme: { name: :light } %>
 
-      <%# Dark button %>
-      <%= w_button "Dark", variant: :solid, theme: { name: :dark } %>
-
-      <%# Link button %>
-      <%= w_button "Link", variant: :solid, theme: { name: :link } %>
+        <%# Dark button %>
+        <%= w_button "Dark", variant: :solid, theme: { name: :dark } %>
+      </div>
     </div>
 
     <div>
-      <h3>Subtle</h3>
-      <%# Primary button %>
-      <%= w_button "Primary", variant: :subtle, theme: { name: :primary } %>
+      <h3 id="subtle">Subtle</h3>
+      <div class="component-item">
+        <%# Primary button %>
+        <%= w_button "Primary", variant: :subtle, theme: { name: :primary } %>
 
-      <%# Secondary button %>
-      <%= w_button "Secondary", variant: :subtle, theme: { name: :secondary } %>
+        <%# Secondary button %>
+        <%= w_button "Secondary", variant: :subtle, theme: { name: :secondary } %>
 
-      <%# Success button %>
-      <%= w_button "Success", variant: :subtle, theme: { name: :success } %>
+        <%# Success button %>
+        <%= w_button "Success", variant: :subtle, theme: { name: :success } %>
 
-      <%# Danger button %>
-      <%= w_button "Danger", variant: :subtle, theme: { name: :danger } %>
+        <%# Danger button %>
+        <%= w_button "Danger", variant: :subtle, theme: { name: :danger } %>
 
-      <%# Warning button %>
-      <%= w_button "Warning", variant: :subtle, theme: { name: :warning } %>
+        <%# Warning button %>
+        <%= w_button "Warning", variant: :subtle, theme: { name: :warning } %>
 
-      <%# Info button %>
-      <%= w_button "Info", variant: :subtle, theme: { name: :info } %>
+        <%# Info button %>
+        <%= w_button "Info", variant: :subtle, theme: { name: :info } %>
 
-      <%# Light button %>
-      <%= w_button "Light", variant: :subtle, theme: { name: :light } %>
+        <%# Light button %>
+        <%= w_button "Light", variant: :subtle, theme: { name: :light } %>
 
-      <%# Dark button %>
-      <%= w_button "Dark", variant: :subtle, theme: { name: :dark } %>
-
-      <%# Link button %>
-      <%= w_button "Link", variant: :subtle, theme: { name: :link } %>
+        <%# Dark button %>
+        <%= w_button "Dark", variant: :subtle, theme: { name: :dark } %>
+      </div>
     </div>
 
     <div>
-      <h3>Surface</h3>
-      <%# Primary button %>
-      <%= w_button "Primary", variant: :surface, theme: { name: :primary } %>
+      <h3 id="surface">Surface</h3>
+      <div class="component-item">
+        <%# Primary button %>
+        <%= w_button "Primary", variant: :surface, theme: { name: :primary } %>
 
-      <%# Secondary button %>
-      <%= w_button "Secondary", variant: :surface, theme: { name: :secondary } %>
+        <%# Secondary button %>
+        <%= w_button "Secondary", variant: :surface, theme: { name: :secondary } %>
 
-      <%# Success button %>
-      <%= w_button "Success", variant: :surface, theme: { name: :success } %>
+        <%# Success button %>
+        <%= w_button "Success", variant: :surface, theme: { name: :success } %>
 
-      <%# Danger button %>
-      <%= w_button "Danger", variant: :surface, theme: { name: :danger } %>
+        <%# Danger button %>
+        <%= w_button "Danger", variant: :surface, theme: { name: :danger } %>
 
-      <%# Warning button %>
-      <%= w_button "Warning", variant: :surface, theme: { name: :warning } %>
+        <%# Warning button %>
+        <%= w_button "Warning", variant: :surface, theme: { name: :warning } %>
 
-      <%# Info button %>
-      <%= w_button "Info", variant: :surface, theme: { name: :info } %>
+        <%# Info button %>
+        <%= w_button "Info", variant: :surface, theme: { name: :info } %>
 
-      <%# Light button %>
-      <%= w_button "Light", variant: :surface, theme: { name: :light } %>
+        <%# Light button %>
+        <%= w_button "Light", variant: :surface, theme: { name: :light } %>
 
-      <%# Dark button %>
-      <%= w_button "Dark", variant: :surface, theme: { name: :dark } %>
-
-      <%# Link button %>
-      <%= w_button "Link", variant: :surface, theme: { name: :link } %>
+        <%# Dark button %>
+        <%= w_button "Dark", variant: :surface, theme: { name: :dark } %>
+      </div>
     </div>
 
     <div>
-      <h3>Outline</h3>
-      <%# Primary button %>
-      <%= w_button "Primary", variant: :outline, theme: { name: :primary } %>
+      <h3 id="outline">Outline</h3> 
+      <div class="component-item">
+        <%# Primary button %>
+        <%= w_button "Primary", variant: :outline, theme: { name: :primary } %>
 
-      <%# Secondary button %>
-      <%= w_button "Secondary", variant: :outline, theme: { name: :secondary } %>
+        <%# Secondary button %>
+        <%= w_button "Secondary", variant: :outline, theme: { name: :secondary } %>
 
-      <%# Success button %>
-      <%= w_button "Success", variant: :outline, theme: { name: :success } %>
+        <%# Success button %>
+        <%= w_button "Success", variant: :outline, theme: { name: :success } %>
 
-      <%# Danger button %>
-      <%= w_button "Danger", variant: :outline, theme: { name: :danger } %>
+        <%# Danger button %>
+        <%= w_button "Danger", variant: :outline, theme: { name: :danger } %>
 
-      <%# Warning button %>
-      <%= w_button "Warning", variant: :outline, theme: { name: :warning } %>
+        <%# Warning button %>
+        <%= w_button "Warning", variant: :outline, theme: { name: :warning } %>
 
-      <%# Info button %>
-      <%= w_button "Info", variant: :outline, theme: { name: :info } %>
+        <%# Info button %>
+        <%= w_button "Info", variant: :outline, theme: { name: :info } %>
 
-      <%# Light button %>
-      <%= w_button "Light", variant: :outline, theme: { name: :light } %>
+        <%# Light button %>
+        <%= w_button "Light", variant: :outline, theme: { name: :light } %>
 
-      <%# Dark button %>
-      <%= w_button "Dark", variant: :outline, theme: { name: :dark } %>
-
-      <%# Link button %>
-      <%= w_button "Link", variant: :outline, theme: { name: :link } %>
+        <%# Dark button %>
+        <%= w_button "Dark", variant: :outline, theme: { name: :dark } %>
+      </div>
     </div>
 
     <div>
-      <h3>Ghost</h3>
-      <%# Primary button %>
-      <%= w_button "Primary", variant: :ghost, theme: { name: :primary } %>
+      <h3 id="ghost">Ghost</h3>
+      <div class="component-item">
+        <%# Primary button %>
+        <%= w_button "Primary", variant: :ghost, theme: { name: :primary } %>
 
-      <%# Secondary button %>
-      <%= w_button "Secondary", variant: :ghost, theme: { name: :secondary } %>
+        <%# Secondary button %>
+        <%= w_button "Secondary", variant: :ghost, theme: { name: :secondary } %>
 
-      <%# Success button %>
-      <%= w_button "Success", variant: :ghost, theme: { name: :success } %>
+        <%# Success button %>
+        <%= w_button "Success", variant: :ghost, theme: { name: :success } %>
 
-      <%# Danger button %>
-      <%= w_button "Danger", variant: :ghost, theme: { name: :danger } %>
+        <%# Danger button %>
+        <%= w_button "Danger", variant: :ghost, theme: { name: :danger } %>
 
-      <%# Warning button %>
-      <%= w_button "Warning", variant: :ghost, theme: { name: :warning } %>
+        <%# Warning button %>
+        <%= w_button "Warning", variant: :ghost, theme: { name: :warning } %>
 
-      <%# Info button %>
-      <%= w_button "Info", variant: :ghost, theme: { name: :info } %>
+        <%# Info button %>
+        <%= w_button "Info", variant: :ghost, theme: { name: :info } %>
 
-      <%# Light button %>
-      <%= w_button "Light", variant: :ghost, theme: { name: :light } %>
+        <%# Light button %>
+        <%= w_button "Light", variant: :ghost, theme: { name: :light } %>
 
-      <%# Dark button %>
-      <%= w_button "Dark", variant: :ghost, theme: { name: :dark } %>
-
-      <%# Link button %>
-      <%= w_button "Link", variant: :ghost, theme: { name: :link } %>
+        <%# Dark button %>
+        <%= w_button "Dark", variant: :ghost, theme: { name: :dark } %>
+      </div>
     </div>
 
     <div>
       <h3>Plain</h3>
-      <%# Primary button %>
-      <%= w_button "Primary", variant: :plain, theme: { name: :primary } %>
+      <div class="component-item">
+        <%# Primary button %>
+        <%= w_button "Primary", variant: :plain, theme: { name: :primary } %>
 
-      <%# Secondary button %>
-      <%= w_button "Secondary", variant: :plain, theme: { name: :secondary } %>
+        <%# Secondary button %>
+        <%= w_button "Secondary", variant: :plain, theme: { name: :secondary } %>
 
-      <%# Success button %>
-      <%= w_button "Success", variant: :plain, theme: { name: :success } %>
+        <%# Success button %>
+        <%= w_button "Success", variant: :plain, theme: { name: :success } %>
 
-      <%# Danger button %>
-      <%= w_button "Danger", variant: :plain, theme: { name: :danger } %>
+        <%# Danger button %>
+        <%= w_button "Danger", variant: :plain, theme: { name: :danger } %>
 
-      <%# Warning button %>
-      <%= w_button "Warning", variant: :plain, theme: { name: :warning } %>
+        <%# Warning button %>
+        <%= w_button "Warning", variant: :plain, theme: { name: :warning } %>
 
-      <%# Info button %>
-      <%= w_button "Info", variant: :plain, theme: { name: :info } %>
+        <%# Info button %>
+        <%= w_button "Info", variant: :plain, theme: { name: :info } %>
 
-      <%# Light button %>
-      <%= w_button "Light", variant: :plain, theme: { name: :light } %>
+        <%# Light button %>
+        <%= w_button "Light", variant: :plain, theme: { name: :light } %>
 
-      <%# Dark button %>
-      <%= w_button "Dark", variant: :plain, theme: { name: :dark } %>
-
-      <%# Link button %>
-      <%= w_button "Link", variant: :plain, theme: { name: :link } %>
+        <%# Dark button %>
+        <%= w_button "Dark", variant: :plain, theme: { name: :dark } %>
+      </div>
     </div>
   </div>
 
   <div class="separator"></div>
 
-  <h2>Customize Variants and Themes </h2>
+  <h2 id="custom-variants">Customize Variants and Themes </h2>
   <div>
     <div>
-      <h3>Solid Variant</h3>
-      <div>
+      <h3 id="custom-solid">Solid Variant</h3>
+      <div class="component-item">
         <%# Dark text on light background %>
         <%= w_button "Light", 
             variant: :solid, 
@@ -262,9 +265,9 @@
     </div>
 
     <div>
-      <h3>Subtle Variant</h3>
+      <h3 id="custom-subtle">Subtle Variant</h3>
 
-      <div>
+      <div class="component-item">
         <%# Custom background with opacity %>
         <%= w_button "Subtle", 
             variant: :subtle, 
@@ -282,9 +285,9 @@
     </div>
 
     <div>
-      <h3>Surface Variant</h3>
+      <h3 id="custom-surface">Surface Variant</h3>
 
-      <div class="example">
+      <div class="component-item">
         <%# Custom elevated style %>
         <%= w_button "Surface", 
             variant: :surface, 
@@ -304,9 +307,9 @@
     </div>
 
     <div>
-      <h3>Outline Variant</h3>
+      <h3 id="custom-outline">Outline Variant</h3>
 
-      <div class="example">
+      <div class="component-item">
         <%# Custom border with hover fill %>
         <%= w_button "Outline", 
             variant: :outline, 
@@ -325,9 +328,9 @@
     </div>
 
     <div>
-      <h3>Ghost Variant</h3>
+      <h3 id="custom-ghost">Ghost Variant</h3>
 
-      <div class="example">
+      <div class="component-item">
         <%# Custom transparent with hover background %>
         <%= w_button "Ghost", 
             variant: :ghost, 
@@ -344,9 +347,9 @@
     </div>
 
     <div>
-      <h3>Plain Variant</h3>
+      <h3 id="custom-plain">Plain Variant</h3>
 
-      <div class="example">
+      <div class="component-item">
         <%# Custom underline on hover %>
         <%= w_button "Plain", 
             variant: :plain, 
@@ -364,9 +367,9 @@
     </div>
     
     <div>
-      <h3>Mixed Theme and Variant</h3>
+      <h3 id="mixed-theme-and-variant">Mixed Theme and Variant</h3>
 
-      <div class="example">
+      <div class="component-item">
         <%# Using theme name with custom overrides %>
         <%= w_button "Mixed", 
             variant: :solid, 
@@ -388,12 +391,12 @@
 
   <div class="separator"></div>
 
-  <h2>Customize for Brand Colors</h2>
+  <h2 id="customize-for-brand-colors">Customize for Brand Colors</h2>
 
   <%# Spotify Buttons %>
   <h3>Spotify</h3>
   <div>
-    <div class="example">
+    <div class="component-item">
       <%# Solid - Main CTA buttons %>
       <%= w_button "Play Now", 
           variant: :solid, 
@@ -441,7 +444,7 @@
       %>
     </div>
 
-    <div class="example">
+    <div class="component-item">
       <h3>Spotify Secondary Actions</h3>
       <%# Outline - Alternative actions %>
       <%= w_button "Follow", 
@@ -488,44 +491,46 @@
       %>
     </div>
 
-    <div class="example">
+    <div>
       <h3>Spotify Icon Buttons</h3>
-      <%= w_button "", 
-          variant: :ghost,
-          icon: "fa-solid fa-heart",
-          icon_only: true,
-          theme: { 
-            custom: { 
-              color: "#b3b3b3",
-              hover: {
-                color: "#1ed760",  # Green on hover
-                background: "rgba(30, 215, 96, 0.1)"
-              }
+      <div class="component-item">
+        <%= w_button "", 
+            variant: :ghost,
+            icon: "fa-solid fa-heart",
+            icon_only: true,
+            theme: { 
+              custom: { 
+                color: "#b3b3b3",
+                hover: {
+                  color: "#1ed760",  # Green on hover
+                  background: "rgba(30, 215, 96, 0.1)"
+                }
+              } 
             } 
-          } 
-      %>
+        %>
 
-      <%= w_button "", 
-          variant: :ghost,
-          icon: "fa-solid fa-ellipsis",
-          icon_only: true,
-          theme: { 
-            custom: { 
-              color: "#b3b3b3",
-              hover: {
-                color: "#1ed760",  # Green on hover
-                background: "rgba(30, 215, 96, 0.1)"
-              }
+        <%= w_button "", 
+            variant: :ghost,
+            icon: "fa-solid fa-ellipsis",
+            icon_only: true,
+            theme: { 
+              custom: { 
+                color: "#b3b3b3",
+                hover: {
+                  color: "#1ed760",  # Green on hover
+                  background: "rgba(30, 215, 96, 0.1)"
+                }
+              } 
             } 
-          } 
-      %>
+        %>
+      </div>
     </div>
   </div>
 
   <%# Netflix Buttons %>
   <h3>Netflix</h3>
   <div>
-    <div class="example">
+    <div class="component-item">
       <%# Solid - Main CTA buttons %>
       <%= w_button "Play Now", 
           variant: :solid, 
@@ -573,91 +578,95 @@
       %>
     </div>
 
-    <div class="example">
+    <div>
       <h3>Netflix Secondary Actions</h3>
-      <%# Outline - Alternative actions %>
-      <%= w_button "Rate", 
-          variant: :outline, 
-          theme: { 
-            custom: { 
-              color: "#808080",  # Netflix Gray
-              border: "#404040",
-              hover: {
-                color: "#e50914",  # Red on hover
-                border: "#e50914",
-                background: "rgba(229, 9, 20, 0.1)"
-              }
+      <div class="component-item">
+        <%# Outline - Alternative actions %>
+        <%= w_button "Rate", 
+            variant: :outline, 
+            theme: { 
+              custom: { 
+                color: "#808080",  # Netflix Gray
+                border: "#404040",
+                hover: {
+                  color: "#e50914",  # Red on hover
+                  border: "#e50914",
+                  background: "rgba(229, 9, 20, 0.1)"
+                }
+              } 
             } 
-          } 
-      %>
+        %>
 
-      <%# Ghost - Minimal actions %>
-      <%= w_button "Episodes", 
-          variant: :ghost, 
-          theme: { 
-            custom: { 
-              color: "#808080",  # Netflix Gray
-              hover: {
-                color: "#e50914",  # Red on hover
-                background: "rgba(229, 9, 20, 0.1)"
-              }
+        <%# Ghost - Minimal actions %>
+        <%= w_button "Episodes", 
+            variant: :ghost, 
+            theme: { 
+              custom: { 
+                color: "#808080",  # Netflix Gray
+                hover: {
+                  color: "#e50914",  # Red on hover
+                  background: "rgba(229, 9, 20, 0.1)"
+                }
+              } 
             } 
-          } 
-      %>
+        %>
 
-      <%# Plain - Link-style actions %>
-      <%= w_button "See All", 
-          variant: :plain, 
-          theme: { 
-            custom: { 
-              color: "#e50914",  # Netflix Red
-              hover: {
-                color: "#b30710",  # Darker red
-                text_decoration: "underline"
-              }
+        <%# Plain - Link-style actions %>
+        <%= w_button "See All", 
+            variant: :plain, 
+            theme: { 
+              custom: { 
+                color: "#e50914",  # Netflix Red
+                hover: {
+                  color: "#b30710",  # Darker red
+                  text_decoration: "underline"
+                }
+              } 
             } 
-          } 
-      %>
+        %>
+      </div>
     </div>
 
-    <div class="example">
+    <div>
       <h3>Netflix Icon Buttons</h3>
-      <%= w_button "", 
-          variant: :ghost,
-          icon: "fa-solid fa-thumbs-up",
-          icon_only: true,
-          theme: { 
-            custom: { 
-              color: "#808080",
-              hover: {
-                color: "#e50914",  # Red on hover
-                background: "rgba(229, 9, 20, 0.1)"
-              }
+      <div class="component-item">
+        <%= w_button "", 
+            variant: :ghost,
+            icon: "fa-solid fa-thumbs-up",
+            icon_only: true,
+            theme: { 
+              custom: { 
+                color: "#808080",
+                hover: {
+                  color: "#e50914",  # Red on hover
+                  background: "rgba(229, 9, 20, 0.1)"
+                }
+              } 
             } 
-          } 
-      %>
+        %>
 
-      <%= w_button "", 
-          variant: :ghost,
-          icon: "fa-solid fa-bell",
-          icon_only: true,
-          theme: { 
-            custom: { 
-              color: "#808080",
-              hover: {
-                color: "#e50914",  # Red on hover
-                background: "rgba(229, 9, 20, 0.1)"
-              }
+        <%= w_button "", 
+            variant: :ghost,
+            icon: "fa-solid fa-bell",
+            icon_only: true,
+            theme: { 
+              custom: { 
+                color: "#808080",
+                hover: {
+                  color: "#e50914",  # Red on hover
+                  background: "rgba(229, 9, 20, 0.1)"
+                }
+              } 
             } 
-          } 
-      %>
+        %>
+      </div>
     </div>
   </div>
 
   <%# Discord Buttons %>
   <h3>Discord</h3>
   <div>
-    <div class="example">
+    <div class="component-item">
       <%# Solid - Main CTA buttons %>
       <%= w_button "Join Server", 
           variant: :solid, 
@@ -705,167 +714,173 @@
       %>
     </div>
 
-    <div class="example">
+    <div>
       <h3>Discord Secondary Actions</h3>
-      <%# Outline - Alternative actions %>
-      <%= w_button "Roles", 
-          variant: :outline, 
-          theme: { 
-            custom: { 
-              color: "#b9bbbe",  # Discord Gray
-              border: "#404040",
-              hover: {
-                color: "#5865f2",  # Blue on hover
-                border: "#5865f2",
-                background: "rgba(88, 101, 242, 0.1)"
-              }
+      <div class="component-item">
+          <%# Outline - Alternative actions %>
+          <%= w_button "Roles", 
+            variant: :outline, 
+            theme: { 
+              custom: { 
+                color: "#b9bbbe",  # Discord Gray
+                border: "#404040",
+                hover: {
+                  color: "#5865f2",  # Blue on hover
+                  border: "#5865f2",
+                  background: "rgba(88, 101, 242, 0.1)"
+                }
+              } 
             } 
-          } 
-      %>
+        %>
 
-      <%# Ghost - Minimal actions %>
-      <%= w_button "Members", 
-          variant: :ghost, 
-          theme: { 
-            custom: { 
-              color: "#b9bbbe",  # Discord Gray
-              hover: {
-                color: "#5865f2",  # Blue on hover
-                background: "rgba(88, 101, 242, 0.1)"
-              }
+        <%# Ghost - Minimal actions %>
+        <%= w_button "Members", 
+            variant: :ghost, 
+            theme: { 
+              custom: { 
+                color: "#b9bbbe",  # Discord Gray
+                hover: {
+                  color: "#5865f2",  # Blue on hover
+                  background: "rgba(88, 101, 242, 0.1)"
+                }
+              } 
             } 
-          } 
-      %>
+        %>
 
-      <%# Plain - Link-style actions %>
-      <%= w_button "View All", 
-          variant: :plain, 
-          theme: { 
-            custom: { 
-              color: "#5865f2",  # Discord Blue
-              hover: {
-                color: "#4752c4",  # Darker blue
-                text_decoration: "underline"
-              }
+        <%# Plain - Link-style actions %>
+        <%= w_button "View All", 
+            variant: :plain, 
+            theme: { 
+              custom: { 
+                color: "#5865f2",  # Discord Blue
+                hover: {
+                  color: "#4752c4",  # Darker blue
+                  text_decoration: "underline"
+                }
+              } 
             } 
-          } 
-      %>
+        %>
+      </div>
     </div>
 
-    <div class="example">
+    <div>
       <h3>Discord Icon Buttons</h3>
-      <%= w_button "", 
-          variant: :ghost,
-          icon: "fa-solid fa-at",
-          icon_only: true,
-          theme: { 
-            custom: { 
-              color: "#b9bbbe",
-              hover: {
-                color: "#5865f2",  # Blue on hover
-                background: "rgba(88, 101, 242, 0.1)"
-              }
+      <div class="component-item">
+        <%= w_button "", 
+            variant: :ghost,
+            icon: "fa-solid fa-at",
+            icon_only: true,
+            theme: { 
+              custom: { 
+                color: "#b9bbbe",
+                hover: {
+                  color: "#5865f2",  # Blue on hover
+                  background: "rgba(88, 101, 242, 0.1)"
+                }
+              } 
             } 
-          } 
-      %>
+        %>
 
-      <%= w_button "", 
-          variant: :ghost,
-          icon: "fa-solid fa-hashtag",
-          icon_only: true,
-          theme: { 
-            custom: { 
-              color: "#b9bbbe",
-              hover: {
-                color: "#5865f2",  # Blue on hover
-                background: "rgba(88, 101, 242, 0.1)"
-              }
+        <%= w_button "", 
+            variant: :ghost,
+            icon: "fa-solid fa-hashtag",
+            icon_only: true,
+            theme: { 
+              custom: { 
+                color: "#b9bbbe",
+                hover: {
+                  color: "#5865f2",  # Blue on hover
+                  background: "rgba(88, 101, 242, 0.1)"
+                }
+              } 
             } 
-          } 
-      %>
+        %>
+      </div>
     </div>
   </div>
 
   <div class="separator"></div>
-  <h2>Create Your Own Theme</h2>
-    <%= w_button "Neon Button",
-        variant: :solid,
-        additional_classes: "w-button-neon",
-        icon: "fa-solid fa-bolt"
-    %>
 
-    <%= w_button "Retro Style",
-        variant: :solid,
-        additional_classes: "w-button-retro"
-    %>
   <div>
+    <h2>Create Your Own Theme</h2>
+    <div class="component-item">
+        <%= w_button "Neon Button",
+            variant: :solid,
+            additional_classes: "w-button-neon",
+            icon: "fa-solid fa-bolt"
+        %>
 
+        <%= w_button "Retro Style",
+            variant: :solid,
+            additional_classes: "w-button-retro"
+        %>
+    </div>
   </div>
 
   <div class="separator"></div>
 
-  <h2>Disabled Buttons</h2>
   <div>
-    <%# Solid disabled button %>
-    <%= w_button "Disabled Solid", 
-        variant: :solid, 
-        disabled: true
-    %>
+    <h2 id="disabled-button">Disabled Buttons</h2>
+    <div class="component-item">
+      <%# Solid disabled button %>
+      <%= w_button "Disabled Solid", 
+          variant: :solid, 
+          disabled: true
+      %>
 
-    <%# Subtle disabled button %>
-    <%= w_button "Disabled Subtle", 
-        variant: :subtle, 
-        disabled: true,
-        theme: { name: :primary } 
-    %>
+      <%# Subtle disabled button %>
+      <%= w_button "Disabled Subtle", 
+          variant: :subtle, 
+          disabled: true,
+          theme: { name: :primary } 
+      %>
 
-    <%# Surface disabled button %>
-    <%= w_button "Disabled Surface", 
-        variant: :surface, 
-        disabled: true,
-        theme: { name: :primary } 
-    %>
+      <%# Surface disabled button %>
+      <%= w_button "Disabled Surface", 
+          variant: :surface, 
+          disabled: true,
+          theme: { name: :primary } 
+      %>
 
-    <%# Outline disabled button %>
-    <%= w_button "Disabled Outline", 
-        variant: :outline, 
-        disabled: true,
-        theme: { name: :primary } 
-    %>
+      <%# Outline disabled button %>
+      <%= w_button "Disabled Outline", 
+          variant: :outline, 
+          disabled: true,
+          theme: { name: :primary } 
+      %>
 
-    <%# Ghost disabled button %>
-    <%= w_button "Disabled Ghost", 
-        variant: :ghost, 
-        disabled: true,
-        theme: { name: :primary } 
-    %>
+      <%# Ghost disabled button %>
+      <%= w_button "Disabled Ghost", 
+          variant: :ghost, 
+          disabled: true,
+          theme: { name: :primary } 
+      %>
 
-    <%# Plain disabled button %>
-    <%= w_button "Disabled Plain", 
-        variant: :plain, 
-        disabled: true,
-        theme: { name: :primary } 
-    %>
+      <%# Plain disabled button %>
+      <%= w_button "Disabled Plain", 
+          variant: :plain, 
+          disabled: true,
+          theme: { name: :primary } 
+      %>
 
-    <%# Disabled button with icon %>
-    <%= w_button "Disabled with Icon", 
-        variant: :solid, 
-        disabled: true,
-        icon: "fa-solid fa-save",
-        theme: { name: :primary } 
-    %>
+      <%# Disabled button with icon %>
+      <%= w_button "Disabled with Icon", 
+          variant: :solid, 
+          disabled: true,
+          icon: "fa-solid fa-save",
+          theme: { name: :primary } 
+      %>
 
-    <%# Disabled icon-only button %>
-    <%= w_button "", 
-        variant: :ghost,
-        disabled: true,
-        icon: "fa-solid fa-heart",
-        icon_only: true,
-        theme: { name: :primary } 
-    %>
+      <%# Disabled icon-only button %>
+      <%= w_button "", 
+          variant: :ghost,
+          disabled: true,
+          icon: "fa-solid fa-heart",
+          icon_only: true,
+          theme: { name: :primary } 
+      %>
+    </div>
   </div>
-
-  <div class="separator"></div>
 </div>
 
 

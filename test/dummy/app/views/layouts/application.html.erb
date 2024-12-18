@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Dummy" %></title>
+    <title><%= content_for(:title) || "WildayUI Demo" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
@@ -19,6 +19,157 @@
   </head>
 
   <body>
-    <%= yield %>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="<%= components_button_path %>" class="navbar-brand">WildayUI</a>
+
+            <%# Add navbar toggle button %>
+            <button class="navbar-toggle" aria-label="Toggle navigation">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-16 6h16"/>
+                </svg>
+            </button>
+            
+            <div class="navbar-nav">
+                <div class="nav-item nav-dropdown">
+                    <a href="#" class="nav-link">Components</a>
+                    <div class="nav-dropdown-content">
+                        <a href="/components/button" class="nav-dropdown-item">Button</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="https://davidwinalda.github.io/wildayui" class="nav-link" target="_blank">Documentation</a>
+                </div>
+                <div class="nav-item">
+                    <a href="https://github.com/davidwinalda/wildayui" class="nav-link" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <%# Add backdrop for mobile menu %>
+    <div class="sidebar-backdrop"></div>
+
+    <%# Add mobile menu button %>
+    <button class="mobile-menu-button" aria-label="Toggle navigation menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-16 6h16"/>
+        </svg>
+    </button>
+
+    <div class="page-wrapper">
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <%= yield :sidebar %>
+            </nav>
+        </aside>
+
+        <div class="container">
+            <%= yield %>
+        </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          // Sidebar elements
+          const sidebar = document.querySelector('.sidebar');
+          const backdrop = document.querySelector('.sidebar-backdrop');
+          const mobileMenuButton = document.querySelector('.mobile-menu-button');
+          
+          // Navbar elements
+          const navbarToggle = document.querySelector('.navbar-toggle');
+          const navbarNav = document.querySelector('.navbar-nav');
+          
+          // Toggle mobile sidebar
+          mobileMenuButton?.addEventListener('click', () => {
+              sidebar.classList.toggle('show');
+              backdrop.classList.toggle('show');
+          });
+
+          // Toggle mobile navbar
+          navbarToggle?.addEventListener('click', () => {
+              navbarNav.classList.toggle('show');
+          });
+
+          // Close mobile menu when clicking backdrop
+          backdrop?.addEventListener('click', () => {
+              sidebar.classList.remove('show');
+              backdrop.classList.remove('show');
+          });
+
+          // Handle navigation links
+          document.querySelectorAll('.sidebar-link').forEach(link => {
+              link.addEventListener('click', function(e) {
+                  e.preventDefault();
+                  const targetId = this.getAttribute('href');
+                  const targetElement = document.querySelector(targetId);
+                  
+                  // Smooth scroll
+                  targetElement.scrollIntoView({ behavior: 'smooth' });
+                  
+                  // Close mobile menu
+                  if (window.innerWidth <= 768) {
+                      sidebar.classList.remove('show');
+                      backdrop.classList.remove('show');
+                  }
+              });
+          });
+
+          // Close menus when clicking outside
+          document.addEventListener('click', (e) => {
+              if (window.innerWidth <= 768) {
+                  // Close navbar if clicking outside
+                  if (!navbarNav?.contains(e.target) && !navbarToggle?.contains(e.target)) {
+                      navbarNav?.classList.remove('show');
+                  }
+                  
+                  // Close sidebar if clicking outside
+                  if (!sidebar?.contains(e.target) && !mobileMenuButton?.contains(e.target) && !backdrop?.contains(e.target)) {
+                      sidebar?.classList.remove('show');
+                      backdrop?.classList.remove('show');
+                  }
+              }
+          });
+
+          // Active link highlighting
+          const observerOptions = {
+              root: null,
+              rootMargin: '10% 0px -90% 0px',
+              threshold: 0
+          };
+
+          const observer = new IntersectionObserver((entries) => {
+              entries.forEach(entry => {
+                  if (entry.isIntersecting) {
+                      const id = entry.target.id;
+                      document.querySelectorAll('.sidebar-link').forEach(link => {
+                          link.classList.remove('active');
+                          if (link.getAttribute('href') === `#${id}`) {
+                              link.classList.add('active');
+                          }
+                      });
+                  }
+              });
+          }, observerOptions);
+
+          // Observe all section headings
+          document.querySelectorAll('h1[id], h2[id], h3[id], h4[id]').forEach(heading => {
+              observer.observe(heading);
+          });
+
+          // Handle window resize
+          let resizeTimer;
+          window.addEventListener('resize', () => {
+              clearTimeout(resizeTimer);
+              resizeTimer = setTimeout(() => {
+                  if (window.innerWidth > 768) {
+                      sidebar?.classList.remove('show');
+                      backdrop?.classList.remove('show');
+                      navbarNav?.classList.remove('show');
+                  }
+              }, 250);
+          });
+      });
+    </script>
   </body>
 </html>

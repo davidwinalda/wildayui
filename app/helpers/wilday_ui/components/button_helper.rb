@@ -25,6 +25,7 @@ module WildayUi
         variant: :solid,
         size: :medium,
         radius: :rounded,
+        gradient: nil,
         icon: nil,
         icon_position: :left,
         icon_only: false,
@@ -49,6 +50,12 @@ module WildayUi
         wrapper_data = {}
         wrapper_options = nil
 
+        # Process gradient styles if present
+        if gradient.present?
+          gradient_styles = process_gradient(gradient)
+          options[:style] = [ options[:style], gradient_styles ].compact.join(";") if gradient_styles.present?
+        end
+
         # Process theme styles
         if theme.present?
           theme_styles = process_theme(variant, theme)
@@ -58,16 +65,12 @@ module WildayUi
         variant_class = get_variant_class(variant)
         size_class = get_size_class(size)
         radius_class = get_radius_class(radius)
+        gradient_class = get_gradient_class(gradient)
 
         # Setup features that require Stimulus controllers
         active_features = determine_active_features(loading, dropdown, loading_text, use_default_controller)
 
-        Rails.logger.debug "Active Features: #{active_features.inspect}"
-        Rails.logger.debug "Options before setup: #{options.inspect}"
-
         setup_features(active_features, options, use_default_controller, loading_text)
-
-        Rails.logger.debug "Options after setup: #{options.inspect}"
 
         setup_link_options(options, href, target, method)
 
@@ -93,6 +96,7 @@ module WildayUi
           variant_class,
           size_class,
           radius_class,
+          gradient_class,
           icon,
           icon_position,
           icon_only,
@@ -147,6 +151,26 @@ module WildayUi
         }[radius] || "w-button-rounded"
       end
 
+      def get_gradient_class(gradient)
+        return nil unless gradient
+
+        if gradient.is_a?(Hash) && gradient[:from] && gradient[:to]
+          "w-button-gradient-custom"
+        else
+          "w-button-gradient-#{gradient}"
+        end
+      end
+
+      def process_gradient(gradient)
+        return nil unless gradient.is_a?(Hash) && gradient[:from] && gradient[:to]
+
+        if gradient[:via]
+          "background: linear-gradient(135deg, #{gradient[:from]}, #{gradient[:via]}, #{gradient[:to]})"
+        else
+          "background: linear-gradient(135deg, #{gradient[:from]}, #{gradient[:to]})"
+        end
+      end
+
       def process_theme(variant, theme)
         return nil unless theme[:name] || theme[:custom]
 
@@ -180,36 +204,43 @@ module WildayUi
           {
             "--w-button-color": "#FFFFFF",
             "--w-button-bg": colors["500"],
-            "--w-button-hover-bg": colors["600"]
+            "--w-button-hover-bg": colors["600"],
+            "--w-button-active-bg": colors["700"]
           }
         when :subtle
           {
-            "--w-button-color": colors["500"],
+            "--w-button-color": colors["700"],
             "--w-button-bg": colors["50"],
-            "--w-button-hover-bg": colors["100"]
+            "--w-button-hover-bg": colors["100"],
+            "--w-button-hover-color": colors["800"]
           }
         when :surface
           {
-            "--w-button-color": colors["500"],
+            "--w-button-color": colors["700"],
             "--w-button-bg": colors["50"],
             "--w-button-hover-bg": colors["100"],
-            "--w-button-border": colors["100"]
+            "--w-button-border": colors["200"],
+            "--w-button-hover-border": colors["300"]
           }
         when :outline
           {
-            "--w-button-color": colors["500"],
-            "--w-button-border": colors["200"],
-            "--w-button-hover-bg": colors["50"]
+            "--w-button-color": colors["600"],
+            "--w-button-border": colors["300"],
+            "--w-button-hover-bg": colors["50"],
+            "--w-button-hover-border": colors["400"],
+            "--w-button-hover-color": colors["700"]
           }
         when :ghost
           {
-            "--w-button-color": colors["500"],
-            "--w-button-hover-bg": colors["50"]
+            "--w-button-color": colors["600"],
+            "--w-button-hover-bg": colors["50"],
+            "--w-button-hover-color": colors["700"]
           }
         when :plain
           {
-            "--w-button-color": colors["500"],
-            "--w-button-hover-color": colors["600"]
+            "--w-button-color": colors["600"],
+            "--w-button-hover-color": colors["700"],
+            "--w-button-active-color": colors["800"]
           }
         else
           {}
@@ -358,7 +389,7 @@ module WildayUi
         "#{base}#{index}"
       end
 
-      def render_button(content, variant_class, size_class, radius_class, icon, icon_position, icon_only,
+      def render_button(content, variant_class, size_class, radius_class, gradient_class, icon, icon_position, icon_only,
                        loading, loading_text, additional_classes, disabled, options, href, underline,
                        dropdown, dropdown_items, dropdown_icon, wrapper_options)
 
@@ -368,6 +399,7 @@ module WildayUi
             variant_class: variant_class,
             size_class: size_class,
             radius_class: radius_class,
+            gradient_class: gradient_class,
             icon: icon,
             icon_position: icon_position,
             icon_only: icon_only,
