@@ -11,6 +11,11 @@ module WildayUi
           wrapper_required: false,
           stimulus_controller: "button",
           default_stimulus_action: "click->button#toggleLoading"
+        },
+        copy_to_clipboard: {
+          wrapper_required: true,
+          stimulus_controller: "clipboard button",
+          default_stimulus_action: "click->clipboard#copy click->button#toggleLoading"
         }
         # Add more features here as needed
         # tooltip: {
@@ -42,6 +47,7 @@ module WildayUi
         dropdown_items: nil,
         dropdown_icon: nil,
         theme: nil,
+        copy_to_clipboard: nil,
         **options
       )
         content_for(:head) { stylesheet_link_tag "wilday_ui/components/button/index", media: "all" }
@@ -68,7 +74,7 @@ module WildayUi
         gradient_class = get_gradient_class(gradient)
 
         # Setup features that require Stimulus controllers
-        active_features = determine_active_features(loading, dropdown, loading_text, use_default_controller)
+        active_features = determine_active_features(loading, dropdown, loading_text, copy_to_clipboard, use_default_controller)
 
         setup_features(active_features, options, use_default_controller, loading_text)
 
@@ -80,6 +86,15 @@ module WildayUi
             additional_classes,
             dropdown,
             dropdown_items,
+            wrapper_data
+          )
+        end
+
+        if copy_to_clipboard
+          setup_clipboard_options(
+            options,
+            additional_classes,
+            copy_to_clipboard,
             wrapper_data
           )
         end
@@ -267,10 +282,11 @@ module WildayUi
         styles.map { |k, v| "#{k}: #{v}" }.join(";")
       end
 
-      def determine_active_features(loading, dropdown, loading_text = nil, use_default_controller = true)
+      def determine_active_features(loading, dropdown, loading_text = nil, copy_to_clipboard = nil, use_default_controller = true)
         features = {}
         features[:loading] = true if (loading || loading_text.present?) && use_default_controller
         features[:dropdown] = true if dropdown && use_default_controller
+        features[:copy_to_clipboard] = true if copy_to_clipboard.present? && use_default_controller
         features
       end
 
@@ -387,6 +403,41 @@ module WildayUi
       def generate_item_id(parent_id, index)
         base = parent_id ? "#{parent_id}-" : "dropdown-item-"
         "#{base}#{index}"
+      end
+
+      def setup_clipboard_options(options, additional_classes, copy_to_clipboard, wrapper_data)
+        return unless copy_to_clipboard.present?
+
+        clipboard_config = normalize_clipboard_options(copy_to_clipboard)
+
+        wrapper_data.merge!(
+          controller: "clipboard button",
+          clipboard_text_value: clipboard_config[:text],
+          clipboard_feedback_text_value: clipboard_config[:feedback_text],
+          clipboard_feedback_position_value: clipboard_config[:position],
+          clipboard_feedback_duration_value: clipboard_config[:duration]
+        )
+
+        options[:data][:clipboard_target] = "button"
+        options[:data][:button_target] = "button"
+      end
+
+      def normalize_clipboard_options(options)
+        if options.is_a?(Hash)
+          {
+            text: options[:text],
+            feedback_text: options[:feedback_text] || "Copied!",
+            position: options[:position] || "top",
+            duration: options[:duration] || 2000
+          }
+        else
+          {
+            text: options.to_s,
+            feedback_text: "Copied!",
+            position: "top",
+            duration: 2000
+          }
+        end
       end
 
       def render_button(content, variant_class, size_class, radius_class, gradient_class, icon, icon_position, icon_only,

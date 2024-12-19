@@ -1,0 +1,221 @@
+
+<% content_for :sidebar do %>
+    <a href="#wilday-ui-button" class="sidebar-link" data-level="1">Wilday UI - Button Component</a>
+    <a href="#copy-to-clipboard" class="sidebar-link" data-level="2">Copy to Clipboard</a>
+    <a href="#basic-usage-default" class="sidebar-link" data-level="3">Basic usage - Default</a>
+    <a href="#basic-usage-custom" class="sidebar-link" data-level="3">Basic usage - Custom</a>
+    <a href="#advanced-usage" class="sidebar-link" data-level="3">Advanced usage</a>
+    <a href="#covered-all-the-cases" class="sidebar-link" data-level="3">Covered All The Cases</a>
+<% end %>
+
+<div>
+    <h1 id="wilday-ui-button">Wilday UI Button Component</h1>
+
+    <h2 id="copy-to-clipboard">Copy to Clipboard</h2>
+    <p>Copy text to clipboard with a feedback message.</p>
+
+    <div class="separator"></div>
+
+    <h3 id="api-reference">API Reference</h3>
+    <div class="api-reference">
+        <p>The <code>copy_to_clipboard</code> option accepts either a string or a hash with the following properties:</p>
+        <ul>
+            <li><code>text</code> (String) - The text to be copied</li>
+            <li><code>feedback_text</code> (String, optional) - Custom feedback message (default: "Copied!")</li>
+            <li><code>position</code> (String, optional) - Position of the feedback tooltip. Options:
+                <ul>
+                    <li><code>top</code>, <code>top-start</code>, <code>top-center</code>, <code>top-end</code></li>
+                    <li><code>bottom</code>, <code>bottom-start</code>, <code>bottom-center</code>, <code>bottom-end</code></li>
+                    <li><code>left</code>, <code>right</code></li>
+                </ul>
+            </li>
+            <li><code>duration</code> (Number, optional) - Duration in milliseconds to show feedback (default: 2000)</li>
+        </ul>
+    </div>
+
+    <div class="separator"></div>
+
+    <h3 id="basic-usage-default">Basic usage - Default</h3>
+    <div class="component-example">
+        <div class="component-preview">
+            <%= w_button "Copy",
+                copy_to_clipboard: "Text to copy",
+                variant: :outline,
+                icon: "fa-solid fa-clipboard"
+            %>
+        </div>
+
+        <div class="component-code">
+<pre><code class="language-ruby"><%%= w_button "Copy",
+    copy_to_clipboard: "Text to copy",
+    variant: :outline,
+    icon: "fa-solid fa-clipboard"
+%></code></pre>
+        </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <h3 id="basic-usage-custom">Basic usage - Custom</h3>
+    <div>
+        <p>Customize the position, duration, and feedback text.</p>
+        <div class="component-example">
+            <div class="component-preview">
+                <%= w_button "Copy Text",
+                    copy_to_clipboard: {
+                        text: "Text to be copied",
+                        feedback_text: "Copied to clipboard!",
+                        position: "bottom-center",
+                        duration: 3000
+                    },
+                    variant: :outline,
+                    icon: "fa-solid fa-clipboard"
+                %>
+            </div>
+
+            <div class="component-code">
+<pre><code class="language-ruby"><%%= w_button "Copy Text",
+    copy_to_clipboard: {
+    text: "Text to be copied",
+    feedback_text: "Copied to clipboard!",
+    position: "bottom-center",
+    duration: 3000
+    },
+    variant: :outline,
+    icon: "fa-solid fa-clipboard"
+%></code></pre>
+            </div>
+        </div>
+        <div>
+            <h4>Examples</h4>
+            <div class="component-item">
+                <%# Full configuration %>
+                <%= w_button "Bottom Center",
+                    copy_to_clipboard: {
+                        text: "Text to be copied",
+                        feedback_text: "Copied to clipboard!",
+                        position: "bottom-center",
+                        duration: 3000
+                    },
+                    variant: :outline,
+                    icon: "fa-solid fa-clipboard"
+                %>
+
+                <%# Full configuration %>
+                <%= w_button "Top Center",
+                    copy_to_clipboard: {
+                        text: "Text to be copied",
+                        feedback_text: "You can customize this feedback text.",
+                        position: "top-center",
+                        duration: 5000
+                    },
+                    variant: :outline,
+                    icon: "fa-solid fa-clipboard"
+                %>
+
+                <%# Full configuration %>
+                <%= w_button "Left",
+                    copy_to_clipboard: {
+                        text: "Text to be copied",
+                        feedback_text: "Copied to clipboard!",
+                        position: "left",
+                        duration: 3000
+                    },
+                    variant: :outline,
+                    icon: "fa-solid fa-clipboard"
+                %>
+
+                <%# Full configuration %>
+                <%= w_button "Right",
+                    copy_to_clipboard: {
+                        text: "Text to be copied",
+                        feedback_text: "Copied to clipboard!",
+                        position: "right",
+                        duration: 3000
+                    },
+                    variant: :outline,
+                    icon: "fa-solid fa-clipboard"
+                %>
+            </div>
+        </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <h3 id="advanced-usage">Advanced usage</h3>
+    <div>
+        <p>You can combine the clipboard component with other features like loading state.</p>
+        <div class="component-example">
+            <div class="component-preview">
+                <% fake_api_key = "pk_live_#{SecureRandom.hex(24)}" %>
+
+                <%= w_button "Copy API Key",
+                    copy_to_clipboard: {
+                        text: fake_api_key,
+                        feedback_text: "API key copied!",
+                        position: "bottom-start"
+                    },
+                    loading_text: "Copying...",
+                    variant: :solid,
+                    icon: "fa-solid fa-key"
+                %>
+            </div>
+
+            <div class="component-code">
+<pre><code class="language-ruby"><%%= w_button "Copy API Key",
+    copy_to_clipboard: {
+    text: fake_api_key,
+    feedback_text: "API key copied!",
+    position: "bottom-start"
+    },
+    loading_text: "Copying...",
+    variant: :solid,
+    icon: "fa-solid fa-key"
+%></code></pre>
+</div>
+        </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <h3 id="covered-all-the-cases">Covered All The Cases</h3>
+    <div>
+        <p>You can copy any text, including JSON, Ruby code, and more.</p>
+        <div>
+            <div class="component-example">
+                <div class="component-preview">
+                    <%# Test 3: JSON Data %>
+                    <% sample_json = {
+                    api_key: "abc123",
+                    secret_key: "xyz789",
+                    environment: "development"
+                    }.to_json %>
+
+                    <%= w_button "Copy JSON Config",
+                        copy_to_clipboard: {
+                            text: sample_json,
+                            feedback_text: "JSON copied!",
+                            position: "top-center",
+                            duration: 3000
+                        },
+                        variant: :ghost,
+                        icon: "fa-solid fa-code"
+                    %>
+                </div>
+
+                <div class="component-code">
+<pre><code class="language-ruby"><%%= w_button "Copy JSON Config",
+    copy_to_clipboard: {
+        text: sample_json,
+        feedback_text: "JSON copied!",
+        position: "top-center",
+        duration: 3000
+    },
+    variant: :ghost,
+    icon: "fa-solid fa-code"
+%></code></pre>
+    </div>
+            </div>
+        </div>
+    </div>
+</div>

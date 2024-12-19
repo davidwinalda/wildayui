@@ -36,6 +36,10 @@ module Components
       def gradient
         render "components/button/gradient"
       end
+
+      def clipboard
+        render "components/button/clipboard"
+      end
     end
   end
 end

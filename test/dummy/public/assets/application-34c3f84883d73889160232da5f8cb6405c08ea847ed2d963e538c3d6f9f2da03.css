@@ -16,6 +16,14 @@
 
 /* app/assets/stylesheets/application.css */
 
+p {
+  font-size: 1.2em;
+}
+
+ul li {
+  font-size: 1.2rem;
+}
+
 /* Custom neon variant */
 .w-button-neon {
   background-color: transparent;
@@ -105,7 +113,7 @@
   padding: 0.5rem;
   border-radius: 4px;
   transition: all 0.2s;
-  font-size: 0.875rem;
+  font-size: 1rem;
 }
 
 .sidebar-link:hover {
@@ -133,6 +141,16 @@
 .container {
   flex: 1;
   max-width: 800px;
+  padding: 0;
+}
+
+/* Content typography adjustments */
+.container h1:first-child {
+  margin-top: 0; /* Remove top margin from first heading */
+}
+
+.container > *:first-child {
+  margin-top: 0; /* Remove top margin from first element */
 }
 
 .separator {
@@ -303,7 +321,7 @@
 .nav-link {
   color: #4b5563;
   text-decoration: none;
-  font-size: 0.875rem;
+  font-size: 1rem;
   padding: 0.5rem;
   border-radius: 4px;
   transition: all 0.2s;
@@ -346,7 +364,7 @@
   padding: 0.5rem;
   color: #4b5563;
   text-decoration: none;
-  font-size: 0.875rem;
+  font-size: 1rem;
   border-radius: 4px;
   transition: all 0.2s;
 }

@@ -8,6 +8,7 @@
  *= require ./features/loading
  *= require ./features/dropdown
  *= require ./features/gradients
+ *= require ./features/clipboard
 */
 
 /* Your direct CSS code can go here */

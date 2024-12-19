@@ -1,0 +1,108 @@
+.w-button-feedback {
+  position: absolute;
+  padding: 0.5rem 1rem;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 50;
+  white-space: nowrap;
+}
+
+/* Basic positions */
+.w-button-feedback-top {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 0.5rem;
+}
+
+.w-button-feedback-bottom {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 0.5rem;
+}
+
+.w-button-feedback-left {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-right: 0.5rem;
+}
+
+.w-button-feedback-right {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 0.5rem;
+}
+
+/* Start/End modifiers */
+.w-button-feedback-top.w-button-feedback-start,
+.w-button-feedback-bottom.w-button-feedback-start {
+  left: 0;
+  transform: translateX(0);
+}
+
+.w-button-feedback-top.w-button-feedback-end,
+.w-button-feedback-bottom.w-button-feedback-end {
+  left: auto;
+  right: 0;
+  transform: translateX(0);
+}
+
+.w-button-feedback-left.w-button-feedback-start,
+.w-button-feedback-right.w-button-feedback-start {
+  top: 0;
+  transform: translateY(0);
+}
+
+.w-button-feedback-left.w-button-feedback-end,
+.w-button-feedback-right.w-button-feedback-end {
+  top: auto;
+  bottom: 0;
+  transform: translateY(0);
+}
+
+/* Show state */
+.w-button-feedback-show {
+  opacity: 1;
+}
+
+/* Optional: Add arrow indicators */
+.w-button-feedback::before {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: inherit;
+  transform: rotate(45deg);
+}
+
+.w-button-feedback-top::before {
+  bottom: -4px;
+  left: 50%;
+  margin-left: -4px;
+}
+
+.w-button-feedback-bottom::before {
+  top: -4px;
+  left: 50%;
+  margin-left: -4px;
+}
+
+.w-button-feedback-left::before {
+  right: -4px;
+  top: 50%;
+  margin-top: -4px;
+}
+
+.w-button-feedback-right::before {
+  left: -4px;
+  top: 50%;
+  margin-top: -4px;
+}

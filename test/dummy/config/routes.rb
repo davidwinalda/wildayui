@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       get "loading", to: "buttons#loading"
       get "dropdown", to: "buttons#dropdown"
       get "gradient", to: "buttons#gradient"
+      get "clipboard", to: "buttons#clipboard"
     end
   end
 end
