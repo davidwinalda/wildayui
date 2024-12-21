@@ -16,6 +16,11 @@ module WildayUi
           wrapper_required: true,
           stimulus_controller: "clipboard button",
           default_stimulus_action: "click->clipboard#copy click->button#toggleLoading"
+        },
+        confirm: {
+          wrapper_required: true,
+          stimulus_controller: "confirmation",
+          default_stimulus_action: "click->confirmation#showDialog"
         }
         # Add more features here as needed
         # tooltip: {
@@ -48,6 +53,7 @@ module WildayUi
         dropdown_icon: nil,
         theme: nil,
         copy_to_clipboard: nil,
+        confirm: nil,
         **options
       )
         content_for(:head) { stylesheet_link_tag "wilday_ui/components/button/index", media: "all" }
@@ -74,7 +80,7 @@ module WildayUi
         gradient_class = get_gradient_class(gradient)
 
         # Setup features that require Stimulus controllers
-        active_features = determine_active_features(loading, dropdown, loading_text, copy_to_clipboard, use_default_controller)
+        active_features = determine_active_features(loading, dropdown, loading_text, copy_to_clipboard, confirm, use_default_controller)
 
         setup_features(active_features, options, use_default_controller, loading_text)
 
@@ -95,6 +101,15 @@ module WildayUi
             options,
             additional_classes,
             copy_to_clipboard,
+            wrapper_data
+          )
+        end
+
+        if confirm
+          setup_confirmation_options(
+            options,
+            additional_classes,
+            confirm,
             wrapper_data
           )
         end
@@ -282,11 +297,12 @@ module WildayUi
         styles.map { |k, v| "#{k}: #{v}" }.join(";")
       end
 
-      def determine_active_features(loading, dropdown, loading_text = nil, copy_to_clipboard = nil, use_default_controller = true)
+      def determine_active_features(loading, dropdown, loading_text = nil, copy_to_clipboard = nil, confirm = nil, use_default_controller = true)
         features = {}
         features[:loading] = true if (loading || loading_text.present?) && use_default_controller
         features[:dropdown] = true if dropdown && use_default_controller
         features[:copy_to_clipboard] = true if copy_to_clipboard.present? && use_default_controller
+        features[:confirm] = true if confirm.present? && use_default_controller
         features
       end
 
@@ -436,6 +452,57 @@ module WildayUi
             feedback_text: "Copied!",
             position: "top",
             duration: 2000
+          }
+        end
+      end
+
+      def setup_confirmation_options(options, additional_classes, confirm, wrapper_data)
+        return unless confirm.present?
+
+        confirm_config = normalize_confirmation_options(confirm)
+
+        # Use the same theme processing as regular buttons
+        confirm_theme_styles = process_theme(:solid, { name: confirm_config[:variant] })
+        cancel_theme_styles = process_theme(:subtle, { name: :secondary })
+
+        wrapper_data.merge!(
+          controller: "confirmation",
+          confirmation_title_value: confirm_config[:title],
+          confirmation_message_value: confirm_config[:message],
+          confirmation_icon_color_value: confirm_config[:variant],
+          confirmation_confirm_text_value: confirm_config[:confirm_text],
+          confirmation_cancel_text_value: confirm_config[:cancel_text],
+          confirmation_confirm_styles_value: confirm_theme_styles,
+          confirmation_cancel_styles_value: cancel_theme_styles
+        )
+
+        # Only add loading state if enabled
+        if confirm_config[:loading]
+          wrapper_data.merge!(
+            confirmation_loading_value: "true",
+            confirmation_loading_text_value: confirm_config[:loading_text]
+          )
+        end
+      end
+
+      def normalize_confirmation_options(options)
+        if options.is_a?(String)
+          {
+            title: "Confirm Action",
+            message: options,
+            variant: :info,
+            confirm_text: "Confirm",
+            cancel_text: "Cancel"
+          }
+        else
+          {
+            title: options[:title] || "Confirm Action",
+            message: options[:message],
+            variant: options[:variant] || :info,
+            confirm_text: options[:confirm_text] || "Confirm",
+            cancel_text: options[:cancel_text] || "Cancel",
+            loading: options[:loading] || false,
+            loading_text: options[:loading_text] || "Processing..."
           }
         end
       end

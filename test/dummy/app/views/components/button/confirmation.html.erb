@@ -1,0 +1,327 @@
+
+<% content_for :sidebar do %>
+    <a href="#wilday-ui-button" class="sidebar-link" data-level="1">Wilday UI - Button Component</a>
+    <a href="#confirmation-button" class="sidebar-link" data-level="2">Confirmation Button</a>
+    <a href="#api-reference" class="sidebar-link" data-level="3">API Reference</a>
+    <a href="#basic-usage-default" class="sidebar-link" data-level="3">Basic Usage - Default</a>
+    <a href="#variants" class="sidebar-link" data-level="3">Variants</a>
+    <a href="#danger" class="sidebar-link" data-level="4">Danger</a>
+    <a href="#info" class="sidebar-link" data-level="4">Info</a>
+    <a href="#success" class="sidebar-link" data-level="4">Success</a>
+    <a href="#warning" class="sidebar-link" data-level="4">Warning</a>
+    <a href="#form-submit-with-confirmation" class="sidebar-link" data-level="3">Form Submit with Confirmation</a>
+    <a href="#regular-link-with-confirmation" class="sidebar-link" data-level="3">Regular Link with Confirmation</a>
+<% end %>
+
+
+<div>
+  <h1 id="wilday-ui-button">Wilday UI Button Component</h1>
+
+  <h2 id="confirmation-button">Confirmation Button</h2>
+  <p>Confirmation buttons are used to confirm actions.</p>
+
+  <div class="separator"></div>
+
+  <h3 id="api-reference">API Reference</h3>
+  <div class="api-reference">
+    <p>The <code>confirm</code> option accepts either a string or a hash with the following properties:</p>
+    <ul>
+      <li><code>title</code> (String, optional) - The title of the confirmation dialog (default: "Confirm Action")</li>
+      <li><code>message</code> (String) - The message to display in the confirmation dialog. If a string is passed directly to <code>confirm</code>, it will be used as the message.</li>
+      <li><code>variant</code> (Symbol, optional) - The variant style for the confirmation dialog. Options:
+          <ul>
+              <li><code>:info</code> - Blue theme, used for general information (default)</li>
+              <li><code>:success</code> - Green theme, used for successful actions</li>
+              <li><code>:warning</code> - Yellow theme, used for cautionary actions</li>
+              <li><code>:danger</code> - Red theme, used for destructive actions</li>
+          </ul>
+      </li>
+      <li><code>confirm_text</code> (String, optional) - Text for the confirm button (default: "Confirm")</li>
+      <li><code>cancel_text</code> (String, optional) - Text for the cancel button (default: "Cancel")</li>
+    </ul>
+
+    <div>
+      <h4>Dialog Styling:</h4>
+      <ul>
+          <li>The dialog is centered on screen with a backdrop overlay</li>
+          <li>Maximum width of 28rem (448px) with responsive padding</li>
+          <li>Rounded corners and shadow for elevation</li>
+          <li>Variant colors are applied to both the icon and confirm button</li>
+          <li>Cancel button always uses the secondary theme</li>
+          <li>Mobile responsive with full-width buttons on small screens</li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Behavior:</h4>
+      <ul>
+          <li>Dialog can be closed by:
+              <ul>
+                  <li>Clicking the cancel button</li>
+                  <li>Clicking outside the dialog</li>
+                  <li>Pressing the Escape key</li>
+              </ul>
+          </li>
+          <li>Focus is automatically set to the confirm button when dialog opens</li>
+          <li>Original button action is executed only after confirmation</li>
+          <li>Works with both link (<code>href</code>) and form submit actions</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="separator"></div>
+
+  <div>
+    <div>
+      <h3 id="basic-usage-default">Basic Usage - Default</h3>
+      <div class="component-example">
+          <div class="component-preview">
+            <%# Basic confirmation with default settings %>
+            <%= w_button "Basic Action",
+                confirm: "Are you sure you want to proceed?" %>
+          </div>
+
+          <div class="component-code">
+  <pre><code class="language-ruby"><%%= w_button "Basic Action",
+    confirm: "Are you sure you want to proceed?"
+  %></code></pre>
+          </div>
+      </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <div>
+      <h3 id="variants">Variants</h3>
+      <div>
+        <h4 id="danger">Danger</h4>
+        <div class="component-example">
+          <div class="component-preview">
+            <%# Danger confirmation - commonly used for destructive actions %>
+            <%= w_button "Delete Account",
+                variant: :ghost,
+                theme: { name: :danger },
+                confirm: {
+                  title: "Delete Account",
+                  message: "This action cannot be undone. All your data will be permanently deleted.",
+                  variant: :danger,
+                  confirm_text: "Yes, delete my account",
+                  cancel_text: "No, keep my account"
+                }
+            %>
+          </div>
+
+          <div class="component-code">
+  <pre><code class="language-ruby"><%%= w_button "Delete Account",
+    variant: :ghost,
+    theme: { name: :danger },
+    confirm: {
+      title: "Delete Account",
+      message: "This action cannot be undone. All your data will be permanently deleted.",
+      variant: :danger,
+      confirm_text: "Yes, delete my account",
+      cancel_text: "No, keep my account"
+    }
+  %></code></pre>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h4 id="info">Info</h4>
+        <div class="component-example">
+          <div class="component-preview">
+            <%# Info confirmation - commonly used for important actions %>
+            <%= w_button "Submit Application",
+                variant: :solid,
+                theme: { name: :primary },
+                confirm: {
+                  title: "Submit Application",
+                  message: "Please review your application before submitting. You won't be able to edit it after submission.",
+                  variant: :info,
+                  confirm_text: "Yes, submit now",
+                  cancel_text: "Review again"
+                }
+            %>
+          </div>
+
+          <div class="component-code">
+  <pre><code class="language-ruby"><%%= w_button "Submit Application",
+    variant: :solid,
+    theme: { name: :primary },
+    confirm: {
+      title: "Submit Application",
+      message: "Please review your application before submitting. 
+      You won't be able to edit it after submission.",
+      variant: :info,
+      confirm_text: "Yes, submit now",
+      cancel_text: "Review again"
+    }
+  %></code></pre>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h4 id="success">Success</h4>
+        <div class="component-example">
+          <div class="component-preview">
+            <%# Success confirmation - commonly used for positive actions %>
+            <%= w_button "Publish Article",
+                variant: :solid,
+                theme: { name: :success },
+                confirm: {
+                  title: "Publish Article",
+                  message: "Your article will be visible to the public immediately.",
+                  variant: :success,
+                  confirm_text: "Publish now",
+                  cancel_text: "Save as draft"
+                }
+            %>
+          </div>
+
+          <div class="component-code">
+  <pre><code class="language-ruby"><%%= w_button "Publish Article",
+    variant: :solid,
+    theme: { name: :success },
+    confirm: {
+      title: "Publish Article",
+      message: "Your article will be visible to the public immediately.",
+      variant: :success,
+      confirm_text: "Publish now",
+      cancel_text: "Save as draft"
+    }
+  %></code></pre>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h4 id="warning">Warning</h4>
+        <div class="component-example">
+          <div class="component-preview">
+            <%# Warning confirmation - commonly used for cautionary actions %>
+            <%= w_button "Archive Project",
+                variant: :subtle,
+                confirm: {
+                  title: "Archive Project",
+                  message: "This project will be moved to archives and team members will lose access.",
+                  variant: :warning,
+                  confirm_text: "Yes, archive it",
+                  cancel_text: "No, keep it active"
+                }
+            %>
+          </div>
+
+          <div class="component-code">
+  <pre><code class="language-ruby"><%%= w_button "Archive Project",
+    variant: :subtle,
+    confirm: {
+      title: "Archive Project",
+      message: "This project will be moved to archives and team members will lose access.",
+      variant: :warning,
+      confirm_text: "Yes, archive it",
+      cancel_text: "No, keep it active"
+    }
+  %></code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="separator"></div>
+    <div>
+      <h3>Case Examples</h3>
+      <div>
+        <h4 id="form-submit-with-confirmation">Form Submit with Confirmation</h4>
+        <div class="component-example">
+          <div class="component-preview">
+            <%# Regular form submission %>
+            <%= form_with(url: "/test_submit", method: :post) do |f| %>
+              <%= w_button "Submit Form",
+                  variant: :solid,
+                  theme: { name: :primary },
+                  confirm: {
+                    title: "Submit Form",
+                    message: "This will submit the form. Continue?",
+                    variant: :info,
+                    confirm_text: "Yes, submit",
+                    cancel_text: "No, cancel",
+                  } %>
+            <% end %>
+          </div>
+
+          <div class="component-code">
+  <pre><code class="language-ruby"><%%= form_with(url: "/test_submit", method: :post) do |f| %>
+    <%%= w_button "Submit Form",
+        variant: :solid,
+        theme: { name: :primary },
+        confirm: {
+          title: "Submit Form",
+          message: "This will submit the form. Continue?",
+          variant: :info,
+          confirm_text: "Yes, submit",
+          cancel_text: "No, cancel",
+        }
+    %>
+  <%% end %>
+  </code></pre>
+          </div>
+          <div class="component-code">
+  <pre><code class="language-js"><%= h('<script>
+    // Listen for form submissions
+    document.addEventListener("submit", (e) => {
+      if (e.target.action.includes("/test_submit")) {
+        e.preventDefault();
+        alert("Form submitted successfully!");
+      }
+    });
+  </script>') %>
+  </code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h4 id="regular-link-with-confirmation">Regular Link with Confirmation</h4>
+        <div class="component-example">
+          <div class="component-preview">
+            <%= w_button "Visit Page",
+              variant: :plain,
+              href: "https://www.google.com",
+              target: "_blank",
+              confirm: {
+              title: "Navigate Away",
+              message: "You will be redirected to another page.",
+              variant: :warning,
+              confirm_text: "Continue",
+              cancel_text: "Stay here"
+            } %>
+          </div>
+
+          <div class="component-code">
+  <pre><code class="language-ruby"><%%= w_button "Visit Page",
+    variant: :plain,
+    href: "https://www.google.com",
+    target: "_blank",
+    confirm: {
+      title: "Navigate Away",
+      message: "You will be redirected to another page.",
+      variant: :warning,
+      confirm_text: "Continue",
+      cancel_text: "Stay here"
+    }
+  %></code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Listen for form submissions
+  document.addEventListener('submit', (e) => {
+    if (e.target.action.includes('/test_submit')) {
+      e.preventDefault();
+      alert('Form submitted successfully!');
+    }
+  });
+</script>

@@ -9,6 +9,8 @@
  *= require ./features/dropdown
  *= require ./features/gradients
  *= require ./features/clipboard
+ *= require ./features/confirmation
+ *= require ../../tokens/colors
 */
 
 /* Your direct CSS code can go here */

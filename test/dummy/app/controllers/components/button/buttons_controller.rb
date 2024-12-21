@@ -40,6 +40,10 @@ module Components
       def clipboard
         render "components/button/clipboard"
       end
+
+      def confirmation
+        render "components/button/confirmation"
+      end
     end
   end
 end

@@ -492,6 +492,142 @@
   top: 50%;
   margin-top: -4px;
 }
+.w-button-confirmation-dialog {
+  padding: 0;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+  max-width: 28rem;
+  width: 90vw;
+  background: var(--w-color-light-50, #ffffff);
+}
+
+.w-button-confirmation-dialog::backdrop {
+  background-color: rgb(0 0 0 / 0.4);
+  backdrop-filter: blur(4px);
+}
+
+.w-button-confirmation-dialog-content {
+  padding: 1.5rem;
+}
+
+.w-button-confirmation-dialog-icon {
+  margin-bottom: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.w-button-confirmation-dialog-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.w-button-confirmation-dialog-icon.info {
+  color: var(--w-color-info-500);
+}
+
+.w-button-confirmation-dialog-icon.success {
+  color: var(--w-color-success-500);
+}
+
+.w-button-confirmation-dialog-icon.warning {
+  color: var(--w-color-warning-500);
+}
+
+.w-button-confirmation-dialog-icon.danger {
+  color: var(--w-color-danger-500);
+}
+
+.w-button-confirmation-dialog-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--w-color-dark-800, #1f2937); /* Darker text for better contrast */
+  margin-bottom: 0.5rem;
+}
+
+.w-button-confirmation-dialog-message {
+  color: var(--w-color-dark-600, #4b5563); /* Adjusted for better readability */
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.w-button-confirmation-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 640px) {
+  .w-button-confirmation-dialog {
+    width: 95vw; /* Slightly wider on mobile */
+    margin: 1rem;
+    max-height: 90vh; /* Prevent overflow on small screens */
+    overflow-y: auto; /* Allow scrolling if content is too tall */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+  }
+
+  .w-button-confirmation-dialog-content {
+    padding: 1rem; /* Slightly smaller padding on mobile */
+  }
+
+  .w-button-confirmation-dialog-actions {
+    flex-direction: column-reverse; /* Stack buttons vertically */
+    gap: 0.5rem; /* Smaller gap between buttons */
+    padding: 1rem; /* Add padding around buttons */
+  }
+
+  .w-button-confirmation-dialog-actions button {
+    width: 100%; /* Full width buttons */
+    margin: 0; /* Remove any margins */
+  }
+
+  .w-button-confirmation-dialog-icon {
+    margin-bottom: 0.75rem; /* Slightly reduced spacing */
+    width: 2rem; /* Slightly smaller icon */
+    height: 2rem;
+  }
+
+  .w-button-confirmation-dialog-title {
+    font-size: 1rem; /* Slightly smaller title */
+  }
+
+  .w-button-confirmation-dialog-message {
+    font-size: 0.875rem; /* Slightly smaller message text */
+  }
+}
+
+/* Handle very small screens */
+@media (max-width: 360px) {
+  .w-button-confirmation-dialog {
+    width: 98vw;
+    margin: 0.5rem;
+  }
+}
+
+/* Handle landscape orientation */
+@media (max-height: 600px) and (orientation: landscape) {
+  .w-button-confirmation-dialog {
+    max-height: 95vh;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .w-button-confirmation-dialog-content {
+    flex: 1;
+    padding: 1rem;
+  }
+
+  .w-button-confirmation-dialog-actions {
+    padding: 1rem;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
 /* Dropdown Wrapper */
 .w-button-wrapper {
   position: relative !important;
@@ -1167,9 +1303,120 @@ a.w-button.w-button-no-underline:hover {
 
 
 
+
+
 */
 
 /* Your direct CSS code can go here */
+:root {
+  /* Primary Colors */
+  --w-color-primary-50: #e5f0ff;
+  --w-color-primary-100: #cce0ff;
+  --w-color-primary-200: #99c2ff;
+  --w-color-primary-300: #66a3ff;
+  --w-color-primary-400: #3385ff;
+  --w-color-primary-500: #0066ff;
+  --w-color-primary-600: #0052cc;
+  --w-color-primary-700: #003d99;
+  --w-color-primary-800: #002966;
+  --w-color-primary-900: #001433;
+
+  /* Secondary Colors */
+  --w-color-secondary-50: #f8f9fa;
+  --w-color-secondary-100: #e9ecef;
+  --w-color-secondary-200: #dee2e6;
+  --w-color-secondary-300: #ced4da;
+  --w-color-secondary-400: #adb5bd;
+  --w-color-secondary-500: #6c757d;
+  --w-color-secondary-600: #5a6268;
+  --w-color-secondary-700: #495057;
+  --w-color-secondary-800: #343a40;
+  --w-color-secondary-900: #212529;
+
+  /* Success Colors */
+  --w-color-success-50: #ecfdf5;
+  --w-color-success-100: #d1fae5;
+  --w-color-success-200: #a7f3d0;
+  --w-color-success-300: #6ee7b7;
+  --w-color-success-400: #34d399;
+  --w-color-success-500: #10b981;
+  --w-color-success-600: #059669;
+  --w-color-success-700: #047857;
+  --w-color-success-800: #065f46;
+  --w-color-success-900: #064e3b;
+
+  /* Danger Colors */
+  --w-color-danger-50: #fee2e2;
+  --w-color-danger-100: #fecaca;
+  --w-color-danger-200: #fca5a5;
+  --w-color-danger-300: #f87171;
+  --w-color-danger-400: #ef4444;
+  --w-color-danger-500: #dc2626;
+  --w-color-danger-600: #b91c1c;
+  --w-color-danger-700: #991b1b;
+  --w-color-danger-800: #7f1d1d;
+  --w-color-danger-900: #450a0a;
+
+  /* Warning Colors */
+  --w-color-warning-50: #fffbeb;
+  --w-color-warning-100: #fef3c7;
+  --w-color-warning-200: #fde68a;
+  --w-color-warning-300: #fcd34d;
+  --w-color-warning-400: #fbbf24;
+  --w-color-warning-500: #f59e0b;
+  --w-color-warning-600: #d97706;
+  --w-color-warning-700: #b45309;
+  --w-color-warning-800: #92400e;
+  --w-color-warning-900: #78350f;
+
+  /* Info Colors */
+  --w-color-info-50: #eff6ff;
+  --w-color-info-100: #dbeafe;
+  --w-color-info-200: #bfdbfe;
+  --w-color-info-300: #93c5fd;
+  --w-color-info-400: #60a5fa;
+  --w-color-info-500: #3b82f6;
+  --w-color-info-600: #2563eb;
+  --w-color-info-700: #1d4ed8;
+  --w-color-info-800: #1e40af;
+  --w-color-info-900: #1e3a8a;
+
+  /* Light Colors */
+  --w-color-light-50: #ffffff;
+  --w-color-light-100: #f8f9fa;
+  --w-color-light-200: #f1f3f5;
+  --w-color-light-300: #e9ecef;
+  --w-color-light-400: #dee2e6;
+  --w-color-light-500: #ced4da;
+  --w-color-light-600: #adb5bd;
+  --w-color-light-700: #868e96;
+  --w-color-light-800: #495057;
+  --w-color-light-900: #212529;
+
+  /* Dark Colors */
+  --w-color-dark-50: #f9fafb;
+  --w-color-dark-100: #f3f4f6;
+  --w-color-dark-200: #e5e7eb;
+  --w-color-dark-300: #d1d5db;
+  --w-color-dark-400: #1f2937;
+  --w-color-dark-500: #111827;
+  --w-color-dark-600: #0f172a;
+  --w-color-dark-700: #0a0f1a;
+  --w-color-dark-800: #060912;
+  --w-color-dark-900: #030509;
+
+  /* Link Colors */
+  --w-color-link-50: #eff6ff;
+  --w-color-link-100: #dbeafe;
+  --w-color-link-200: #bfdbfe;
+  --w-color-link-300: #93c5fd;
+  --w-color-link-400: #60a5fa;
+  --w-color-link-500: #2563eb;
+  --w-color-link-600: #1d4ed8;
+  --w-color-link-700: #1e40af;
+  --w-color-link-800: #1e3a8a;
+  --w-color-link-900: #1e3a8a;
+}
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.

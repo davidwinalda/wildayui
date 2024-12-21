@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       get "dropdown", to: "buttons#dropdown"
       get "gradient", to: "buttons#gradient"
       get "clipboard", to: "buttons#clipboard"
+      get "confirmation", to: "buttons#confirmation"
     end
   end
 end

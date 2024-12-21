@@ -1,0 +1,136 @@
+.w-button-confirmation-dialog {
+  padding: 0;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+  max-width: 28rem;
+  width: 90vw;
+  background: var(--w-color-light-50, #ffffff);
+}
+
+.w-button-confirmation-dialog::backdrop {
+  background-color: rgb(0 0 0 / 0.4);
+  backdrop-filter: blur(4px);
+}
+
+.w-button-confirmation-dialog-content {
+  padding: 1.5rem;
+}
+
+.w-button-confirmation-dialog-icon {
+  margin-bottom: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.w-button-confirmation-dialog-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.w-button-confirmation-dialog-icon.info {
+  color: var(--w-color-info-500);
+}
+
+.w-button-confirmation-dialog-icon.success {
+  color: var(--w-color-success-500);
+}
+
+.w-button-confirmation-dialog-icon.warning {
+  color: var(--w-color-warning-500);
+}
+
+.w-button-confirmation-dialog-icon.danger {
+  color: var(--w-color-danger-500);
+}
+
+.w-button-confirmation-dialog-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--w-color-dark-800, #1f2937); /* Darker text for better contrast */
+  margin-bottom: 0.5rem;
+}
+
+.w-button-confirmation-dialog-message {
+  color: var(--w-color-dark-600, #4b5563); /* Adjusted for better readability */
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.w-button-confirmation-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 640px) {
+  .w-button-confirmation-dialog {
+    width: 95vw; /* Slightly wider on mobile */
+    margin: 1rem;
+    max-height: 90vh; /* Prevent overflow on small screens */
+    overflow-y: auto; /* Allow scrolling if content is too tall */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+  }
+
+  .w-button-confirmation-dialog-content {
+    padding: 1rem; /* Slightly smaller padding on mobile */
+  }
+
+  .w-button-confirmation-dialog-actions {
+    flex-direction: column-reverse; /* Stack buttons vertically */
+    gap: 0.5rem; /* Smaller gap between buttons */
+    padding: 1rem; /* Add padding around buttons */
+  }
+
+  .w-button-confirmation-dialog-actions button {
+    width: 100%; /* Full width buttons */
+    margin: 0; /* Remove any margins */
+  }
+
+  .w-button-confirmation-dialog-icon {
+    margin-bottom: 0.75rem; /* Slightly reduced spacing */
+    width: 2rem; /* Slightly smaller icon */
+    height: 2rem;
+  }
+
+  .w-button-confirmation-dialog-title {
+    font-size: 1rem; /* Slightly smaller title */
+  }
+
+  .w-button-confirmation-dialog-message {
+    font-size: 0.875rem; /* Slightly smaller message text */
+  }
+}
+
+/* Handle very small screens */
+@media (max-width: 360px) {
+  .w-button-confirmation-dialog {
+    width: 98vw;
+    margin: 0.5rem;
+  }
+}
+
+/* Handle landscape orientation */
+@media (max-height: 600px) and (orientation: landscape) {
+  .w-button-confirmation-dialog {
+    max-height: 95vh;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .w-button-confirmation-dialog-content {
+    flex: 1;
+    padding: 1rem;
+  }
+
+  .w-button-confirmation-dialog-actions {
+    padding: 1rem;
+    flex-direction: column;
+    justify-content: center;
+  }
+}

@@ -5,8 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/),
 and this project adheres to [Semantic Versioning](https://semver.org/).
 
-## [TO BE RELEASED]
+## [0.7.0] - 2024-12-21
+
 - Added `copy_to_clipboard` feature for `w_button` component to copy text to clipboard with a feedback message.
+- Added `confirm` feature for `w_button` component to show confirmation dialog before executing the action.
 
 ## [0.6.0] - 2024-12-18
 
