@@ -10,6 +10,8 @@ nav_order: 1
 1. TOC
 {:toc}
 
+---
+
 # What is WildayUI
 WildayUI is a simple, minimalist, and customizable library of pre-built components for Ruby on Rails applications. It empowers developers to quickly build user interfaces, enabling them to focus on bringing their ideas to life and creating impactful websites.
 
@@ -48,9 +50,11 @@ Place it in the `<head>` section, before your application's JavaScript:
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     
-    <%= w_js %>  # Add this line in head
     
     <%= stylesheet_link_tag "application" %>
+    <%= javascript_importmap_tags %>
+
+    <%= w_js %>  # Add this line in head
   </head>
   <body>
     <%= yield %>

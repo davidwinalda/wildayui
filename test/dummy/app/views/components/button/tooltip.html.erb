@@ -1,0 +1,541 @@
+
+<% content_for :sidebar do %>
+    <a href="#wilday-ui-button" class="sidebar-link" data-level="1">Wilday UI - Button Component</a>
+    <a href="#tooltip" class="sidebar-link" data-level="2">Tooltip</a>
+    <a href="#basic-usage" class="sidebar-link" data-level="3">Basic usage</a>
+    <a href="#tooltip-position" class="sidebar-link" data-level="3">Tooltip Position</a>
+    <a href="#tooltip-align" class="sidebar-link" data-level="3">Tooltip Align</a>
+    <a href="#arrows" class="sidebar-link" data-level="3">Arrows</a>
+    <a href="#themes" class="sidebar-link" data-level="3">Themes</a>
+    <a href="#sizes" class="sidebar-link" data-level="3">Sizes</a>
+    <a href="#trigger" class="sidebar-link" data-level="3">Trigger</a>
+    <a href="#with-html-content" class="sidebar-link" data-level="3">With HTML Content</a>
+    <a href="#with-custom-delays" class="sidebar-link" data-level="3">With Custom Delays</a>
+    <a href="#different-variants-or-themes" class="sidebar-link" data-level="3">Different Variants or Themes</a>
+    <a href="#icon-only" class="sidebar-link" data-level="3">Icon Only</a>
+    <a href="#with-dropdown" class="sidebar-link" data-level="3">With Dropdown</a>
+    <a href="#with-copy-to-clipboard" class="sidebar-link" data-level="3">With Copy to Clipboard</a>
+    <a href="#custom-offset" class="sidebar-link" data-level="3">Custom Offset</a>
+    <a href="#very-long-text" class="sidebar-link" data-level="3">Very Long Text</a>
+<% end %>
+
+<div>
+    <h1 id="wilday-ui-button">Wilday UI Button Component</h1>
+
+    <h2 id="tooltip">Tooltip</h2>
+    <p>Tooltips are used to display additional information about a button.</p>
+
+    <div class="separator"></div>
+
+    <h3 id="api-reference">API Reference</h3>
+    <div class="api-reference">
+        <p>The <code>tooltip</code> option accepts either a string (for simple tooltips) or a hash with the following properties:</p>
+        <ul>
+            <li><code>content</code> (String) - The text content of the tooltip</li>
+            <li><code>position</code> (String, optional) - Position of the tooltip relative to the button. Options:
+                <ul>
+                    <li><code>top</code> (default), <code>bottom</code>, <code>left</code>, <code>right</code></li>
+                </ul>
+            </li>
+            <li><code>align</code> (String, optional) - Alignment of the tooltip. Options:
+                <ul>
+                    <li><code>start</code>, <code>center</code> (default), <code>end</code></li>
+                </ul>
+            </li>
+            <li><code>trigger</code> (String, optional) - How the tooltip is triggered. Options:
+                <ul>
+                    <li><code>hover</code> (default) - Shows on mouseenter/focus</li>
+                    <li><code>click</code> - Shows on click</li>
+                </ul>
+            </li>
+            <li><code>delay</code> (Hash, optional) - Delay times for showing/hiding the tooltip
+                <ul>
+                    <li><code>show</code> (Number) - Delay before showing (default: 0)</li>
+                    <li><code>hide</code> (Number) - Delay before hiding (default: 0)</li>
+                </ul>
+            </li>
+            <li><code>offset</code> (Number, optional) - Space between button and tooltip (default: 8)</li>
+            <li><code>theme</code> (String/Hash, optional) - Tooltip theme. Options:
+                <ul>
+                    <li>String: <code>light</code> (default), <code>dark</code>, <code>transparent</code></li>
+                    <li>Hash: Custom theme with:
+                        <ul>
+                            <li><code>custom: { color: String, background: String }</code></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><code>size</code> (String, optional) - Size of the tooltip. Options:
+                <ul>
+                    <li><code>sm</code>, <code>md</code> (default), <code>lg</code></li>
+                </ul>
+            </li>
+            <li><code>arrow</code> (Boolean, optional) - Whether to show an arrow pointer (default: false)</li>
+        </ul>
+    </div>
+
+    <div class="separator"></div>
+
+    <div>
+        <h3 id="basic-usage">Basic usage</h3>
+        <div class="component-example">
+          <div class="component-preview">
+            <%# Basic tooltip %>
+            <%= w_button "Hover me", tooltip: "Simple tooltip" %>
+          </div>
+
+          <div class="component-code">
+  <pre><code class="language-ruby"><%%= w_button "Hover me", tooltip: "Simple tooltip" %></code></pre>
+          </div>
+      </div>
+
+      <div class="component-example">
+          <div class="component-preview">
+            <%# Basic tooltip with options and icon %>
+            <%= w_button "Help",
+                icon: "fa-solid fa-question-circle",
+                variant: :ghost,
+                tooltip: {
+                    content: "Need help? Click here for more information",
+                    position: "right",
+                    align: "center",
+                    theme: "dark",
+                    delay: { show: 200, hide: 100 },
+                    arrow: true
+                }
+            %>
+          </div>
+
+          <div class="component-code">
+<pre><code class="language-ruby"><%%=w_button "Help",
+    icon: "fa-solid fa-question-circle",
+    variant: :ghost,
+    tooltip: {
+        content: "Need help? Click here for more information",
+        position: "right",
+        align: "center",
+        theme: "dark",
+        delay: { show: 200, hide: 100 },
+        arrow: true
+    }
+%></code></pre>
+          </div>
+      </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <div>
+        <h3 id="tooltip-position">Tooltip Position</h3>
+        <div class="component-item">
+            <%= w_button "Top Tooltip", tooltip: { content: "I'm on top!", position: "top" } %>
+            <%= w_button "Bottom Tooltip", tooltip: { content: "I'm at bottom!", position: "bottom" } %>
+            <%= w_button "Left Tooltip", tooltip: { content: "I'm on left!", position: "left" } %>
+            <%= w_button "Right Tooltip", tooltip: { content: "I'm on right!", position: "right" } %>
+    </div>
+
+    <div class="separator"></div>
+    
+    <div>
+        <h3 id="tooltip-align">Tooltip Align</h3>
+        <div class="component-item">
+            <%= w_button "Start Aligned", 
+                tooltip: { 
+                    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    position: "bottom",
+                    align: "start"
+                } 
+            %>
+
+            <%= w_button "Center Aligned", 
+                tooltip: { 
+                    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    position: "bottom",
+                    align: "center"
+                } 
+            %>
+
+            <%= w_button "End Aligned", 
+                tooltip: { 
+                    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    position: "bottom",
+                    align: "end"
+                } 
+            %>
+        </div>
+    </div>
+
+    <div class="separator"></div>
+
+     <div>
+        <h3 id="arrows">Arrows</h3>
+        <div class="component-item">
+            <%= w_button "With Arrow", 
+                tooltip: { 
+                    content: "I have an arrow!",
+                    position: "bottom",
+                    arrow: true
+                } 
+            %>
+
+            <%= w_button "Arrow Dark", 
+                tooltip: { 
+                    content: "Dark theme with arrow",
+                    theme: "dark",
+                    arrow: true
+                } 
+            %>
+
+            <%= w_button "Arrow Position", 
+                tooltip: { 
+                    content: "Arrow follows position",
+                    position: "right",
+                    arrow: true
+                } 
+            %>
+        </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <div>
+        <h3 id="themes">Themes</h3>
+        <div class="component-item">
+            <%= w_button "Light Theme", 
+                tooltip: { 
+                    content: "Light themed tooltip",
+                    theme: "light"
+                } 
+            %>
+
+            <%= w_button "Dark Theme", 
+                tooltip: { 
+                    content: "Dark themed tooltip",
+                    theme: "dark"
+                } 
+            %>
+
+            <%= w_button "Transparent Theme", 
+                tooltip: { 
+                    content: "Transparent themed tooltip",
+                    theme: "transparent"
+                } 
+            %>
+        </div>
+
+        <h3 id="custom-theme">Custom Theme</h3>
+        <div class="component-item">
+            <%# Neon Blue %>
+            <%= w_button "Neon Blue", 
+                tooltip: { 
+                    content: "Glowing blue tooltip",
+                    theme: {
+                        custom: {
+                            color: "#ffffff",
+                            background: "#0099ff"
+                        }
+                    },
+                    arrow: true
+                } 
+            %>
+
+            <%# Gradient Pink %>
+            <%= w_button "Gradient Pink", 
+                tooltip: { 
+                    content: "Soft pink tooltip",
+                    theme: {
+                        custom: {
+                            color: "#ffffff",
+                            background: "#ff69b4"
+                        }
+                    },
+                    arrow: true
+                } 
+            %>
+
+            <%# Forest Green %>
+            <%= w_button "Nature Theme", 
+                tooltip: { 
+                    content: "Earthy green tooltip",
+                    theme: {
+                        custom: {
+                            color: "#ffffff",
+                            background: "#228B22"
+                        }
+                    },
+                    arrow: true
+                } 
+            %>
+
+            <%# Dark Purple %>
+            <%= w_button "Royal Purple", 
+                tooltip: { 
+                    content: "Elegant purple tooltip",
+                    theme: {
+                        custom: {
+                            color: "#ffffff",
+                            background: "#4B0082"
+                        }
+                    },
+                    arrow: true
+                } 
+            %>
+
+            <%# Sunset Orange %>
+            <%= w_button "Sunset", 
+                tooltip: { 
+                    content: "Warm orange tooltip",
+                    theme: {
+                        custom: {
+                            color: "#ffffff",
+                            background: "#FF4500"
+                        }
+                    },
+                    arrow: true
+                } 
+            %>
+
+            <%# Modern Gray %>
+            <%= w_button "Modern", 
+                tooltip: { 
+                    content: "Sleek gray tooltip",
+                    theme: {
+                        custom: {
+                            color: "#ffffff",
+                            background: "#36454F"
+                        }
+                    },
+                    arrow: true
+                } 
+            %>
+
+            <%# GitHub Dark Theme %>
+            <%= w_button "GitHub Style", 
+                tooltip: { 
+                    content: "Developer-friendly tooltip",
+                    theme: {
+                        custom: {
+                            color: "#ffffff",
+                            background: "#24292e"
+                        }
+                    },
+                    arrow: true
+                } 
+            %>
+
+            <%# Material Design Blue %>
+            <%= w_button "Material Design", 
+                tooltip: { 
+                    content: "Material design tooltip",
+                    theme: {
+                        custom: {
+                            color: "#ffffff",
+                            background: "#1976d2"
+                        }
+                    },
+                    arrow: true
+                } 
+            %>
+
+            <%# Danger Red %>
+            <%= w_button "Warning", 
+                tooltip: { 
+                    content: "⚠️ Important warning message",
+                    theme: {
+                        custom: {
+                            color: "#ffffff",
+                            background: "#dc2626"
+                        }
+                    },
+                    arrow: true
+                } 
+            %>
+        </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <div>
+        <h3 id="sizes">Sizes</h3>
+        <div class="component-item">
+            <%= w_button "Small", 
+                tooltip: { 
+                    content: "Small tooltip",
+                    size: "sm",
+                    position: "bottom",
+                } 
+            %>
+
+            <%= w_button "Medium", 
+                tooltip: { 
+                    content: "Medium tooltip (default)",
+                    size: "md"
+                } 
+            %>
+
+            <%= w_button "Large", 
+                tooltip: { 
+                    content: "Large tooltip with more content space",
+                    size: "lg"
+                } 
+            %>
+        </div>
+  </div>
+
+  <div class="separator"></div>
+
+  <div>
+    <h3 id="trigger">Trigger</h3>
+    <div class="component-item">
+      <%= w_button "Click", tooltip: { content: "Click to show tooltip", trigger: "click" } %>
+      <%= w_button "Hover", tooltip: { content: "Hover to show tooltip", trigger: "hover" } %>
+    </div>
+  </div>
+
+  <div class="separator"></div>
+
+  <div>
+    <h3 id="with-html-content">With HTML Content</h3>
+    <div class="component-item">
+      <%= w_button "HTML Content", tooltip: { content: "<strong>Hello</strong> <i>World</i>", position: "bottom" } %>
+    </div>
+  </div>
+
+  <div class="separator"></div>
+
+  <div>
+    <h3 id="with-custom-delays">With Custom Delays</h3>
+    <div class="component-item">
+      <%= w_button "Slow Tooltip", tooltip: { content: "I appear slowly...", delay: { show: 1000, hide: 200 } } %>
+      <%= w_button "Fast Tooltip", tooltip: { content: "I appear quickly...", delay: { show: 100, hide: 100 } } %>
+      <%= w_button "No Delay", tooltip: { content: "I appear immediately...", delay: { show: 0, hide: 0 } } %>
+      <%= w_button "Hide Slowly", tooltip: { content: "I hide slowly...", delay: { show: 200, hide: 3000 } } %>
+    </div>
+  </div>
+
+  <div class="separator"></div>
+
+    <div>
+        <h3 id="different-variants-or-themes">Different Variants or Themes</h3>
+        <div class="component-item">
+        <%= w_button "Solid with Tooltip", 
+                variant: :solid,
+                tooltip: "I'm a solid button with tooltip" 
+            %>
+
+            <%= w_button "Outline with Tooltip", 
+                variant: :outline,
+                tooltip: "I'm an outline button with tooltip" 
+            %>
+
+            <%= w_button "Ghost with Tooltip", 
+                variant: :ghost,
+                tooltip: "I'm a ghost button with tooltip" 
+            %>
+        </div>
+        <div class="component-item">
+        <%= w_button "Primary with Tooltip", 
+                theme: {
+                    name: :primary
+                },
+                tooltip: "I'm a primary button with tooltip" 
+            %>
+
+            <%= w_button "Secondary with Tooltip", 
+                theme: {
+                    name: :secondary
+                },
+                tooltip: "I'm a secondary button with tooltip" 
+            %>
+
+            <%= w_button "Warning with Tooltip", 
+                theme: {
+                    name: :warning
+                },
+                tooltip: "I'm a warning button with tooltip" 
+            %>
+        </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <div>
+        <h3 id="icon-only">Icon Only</h3>
+        <div class="component-item">
+            <%= w_button "Icon Only", icon: "fa-solid fa-bell", icon_only: true, tooltip: {content: "Notifications"} %>
+            <%= w_button "Icon Only", icon: "fa-solid fa-info", icon_only: true, tooltip: {content: "Information", position: "right", arrow: true} %>
+            <%= w_button "Icon Only", icon: "fa-solid fa-question", icon_only: true, tooltip: {content: "Help"} %>
+        </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <div>
+        <h3 id="with-dropdown">With Dropdown</h3>
+        <div class="component-item">
+            <%= w_button "Options",
+                icon: "fa-solid fa-bars",
+                dropdown: true,
+                dropdown_items: [
+                    { text: "Edit", href: "#" },
+                    { text: "Delete", href: "#" }
+                ],
+                tooltip: { content: "Click to see more options", position: "left", trigger: "click" }
+            %>
+        </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <div>
+        <h3 id="with-copy-to-clipboard">With Copy to Clipboard</h3>
+        <div class="component-item">
+            <%= w_button "Copy Token",
+                icon: "fa-solid fa-clipboard",
+                copy_to_clipboard: { 
+                text: "secret-token-123",
+                feedback_text: "Token copied!" 
+                },
+                tooltip: { 
+                content: "Copy API token to clipboard",
+                position: "right",
+                arrow: true,
+                theme: "dark" 
+                } 
+            %>
+        </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <div>
+        <h3 id="custom-offset">Custom Offset</h3>
+        <div class="component-item">
+            <%= w_button "Custom Spacing",
+                tooltip: { 
+                content: "I'm further away!",
+                offset: 20 # Default is 8
+                } 
+            %>
+        </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <div>
+        <h3 id="very-long-text">Very Long Text</h3>
+        <div class="component-item">
+            <%= w_button "Very Long Text", 
+            tooltip: { 
+                content: "
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                " 
+            } %>
+        </div>
+    </div>
+</div>
+

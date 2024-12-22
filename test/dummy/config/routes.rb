@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       get "gradient", to: "buttons#gradient"
       get "clipboard", to: "buttons#clipboard"
       get "confirmation", to: "buttons#confirmation"
+      get "tooltip", to: "buttons#tooltip"
     end
   end
 end

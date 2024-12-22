@@ -21,6 +21,14 @@ module WildayUi
           wrapper_required: true,
           stimulus_controller: "confirmation",
           default_stimulus_action: "click->confirmation#showDialog"
+        },
+        tooltip: {
+          wrapper_required: true,
+          stimulus_controller: "tooltip",
+          default_stimulus_action: {
+            hover: "mouseenter->tooltip#show mouseleave->tooltip#hide focusin->tooltip#show focusout->tooltip#hide",
+            click: "click->tooltip#toggle"
+          }
         }
         # Add more features here as needed
         # tooltip: {
@@ -54,6 +62,7 @@ module WildayUi
         theme: nil,
         copy_to_clipboard: nil,
         confirm: nil,
+        tooltip: nil,
         **options
       )
         content_for(:head) { stylesheet_link_tag "wilday_ui/components/button/index", media: "all" }
@@ -80,7 +89,7 @@ module WildayUi
         gradient_class = get_gradient_class(gradient)
 
         # Setup features that require Stimulus controllers
-        active_features = determine_active_features(loading, dropdown, loading_text, copy_to_clipboard, confirm, use_default_controller)
+        active_features = determine_active_features(loading, dropdown, loading_text, copy_to_clipboard, confirm, tooltip, use_default_controller)
 
         setup_features(active_features, options, use_default_controller, loading_text)
 
@@ -110,6 +119,15 @@ module WildayUi
             options,
             additional_classes,
             confirm,
+            wrapper_data
+          )
+        end
+
+        if tooltip
+          setup_tooltip_options(
+            options,
+            additional_classes,
+            tooltip,
             wrapper_data
           )
         end
@@ -297,12 +315,13 @@ module WildayUi
         styles.map { |k, v| "#{k}: #{v}" }.join(";")
       end
 
-      def determine_active_features(loading, dropdown, loading_text = nil, copy_to_clipboard = nil, confirm = nil, use_default_controller = true)
+      def determine_active_features(loading, dropdown, loading_text = nil, copy_to_clipboard = nil, confirm = nil, tooltip = nil, use_default_controller = true)
         features = {}
         features[:loading] = true if (loading || loading_text.present?) && use_default_controller
         features[:dropdown] = true if dropdown && use_default_controller
         features[:copy_to_clipboard] = true if copy_to_clipboard.present? && use_default_controller
         features[:confirm] = true if confirm.present? && use_default_controller
+        features[:tooltip] = true if tooltip.present? && use_default_controller
         features
       end
 
@@ -503,6 +522,120 @@ module WildayUi
             cancel_text: options[:cancel_text] || "Cancel",
             loading: options[:loading] || false,
             loading_text: options[:loading_text] || "Processing..."
+          }
+        end
+      end
+
+      def setup_tooltip_options(options, additional_classes, tooltip, wrapper_data)
+        tooltip_config = normalize_tooltip_options(tooltip)
+
+        # Check if dropdown is present
+        has_dropdown = wrapper_data[:controller]&.include?("dropdown")
+        has_clipboard = wrapper_data[:controller]&.include?("clipboard")
+
+        # Get the appropriate action based on trigger type
+        # Force hover behavior if dropdown is present
+        trigger_type = (has_dropdown || has_clipboard) ? :hover : tooltip_config[:trigger].to_sym
+        tooltip_action = BUTTON_FEATURES[:tooltip][:default_stimulus_action][trigger_type]
+
+        # Merge controllers
+        existing_controller = wrapper_data[:controller]
+        wrapper_data[:controller] = [
+          existing_controller,
+          "tooltip"
+        ].compact.join(" ")
+
+        # Merge actions
+        existing_action = wrapper_data[:action]
+        if has_dropdown
+          # Keep the dropdown toggle action and add tooltip hover actions
+          wrapper_data[:action] = [
+            "click->dropdown#toggle",  # Ensure dropdown action comes first
+            tooltip_action
+          ].compact.join(" ")
+        elsif has_clipboard
+          # Keep the clipboard copy action and add tooltip hover actions
+          wrapper_data[:action] = [
+            "click->clipboard#copy click->button#toggleLoading",
+            tooltip_action
+          ].compact.join(" ")
+        else
+          wrapper_data[:action] = [
+            existing_action,
+            tooltip_action
+          ].compact.join(" ")
+        end
+
+        # Handle theme data
+        theme = tooltip_config[:theme]
+        theme_name = theme.is_a?(Hash) ? theme[:name] : theme
+
+        wrapper_data.merge!(
+          tooltip_content_value: tooltip_config[:content],
+          tooltip_position_value: tooltip_config[:position],
+          tooltip_align_value: tooltip_config[:align],
+          tooltip_trigger_value: trigger_type,
+          tooltip_show_delay_value: tooltip_config[:delay][:show],
+          tooltip_hide_delay_value: tooltip_config[:delay][:hide],
+          tooltip_offset_value: tooltip_config[:offset],
+          tooltip_theme_value: theme_name,
+          tooltip_size_value: tooltip_config[:size],
+          tooltip_arrow_value: tooltip_config[:arrow]
+        )
+
+        # Add custom theme styles if present
+        if theme.is_a?(Hash) && theme[:custom]
+          custom_styles = []
+          custom_styles << "--tooltip-text-color: #{theme[:custom][:color]}" if theme[:custom][:color]
+          custom_styles << "--tooltip-bg-color: #{theme[:custom][:background]}" if theme[:custom][:background]
+          wrapper_data[:tooltip_custom_style_value] = custom_styles.join(";")
+        end
+
+        options[:data][:tooltip_target] = "trigger"
+        options[:aria] ||= {}
+        options[:aria][:describedby] = "tooltip-#{SecureRandom.hex(4)}"
+      end
+
+      def normalize_tooltip_options(options)
+        if options.is_a?(String)
+          {
+            content: options,
+            position: "top",
+            align: "center",
+            trigger: "hover",
+            delay: { show: 0, hide: 0 },
+            offset: 8,
+            theme: "light",
+            size: "md",
+            arrow: false
+          }
+        else
+          theme = options[:theme]
+          theme_data = if theme.is_a?(Hash) && theme[:custom]
+            {
+              name: "custom",
+              custom: {
+                color: theme.dig(:custom, :color),
+                background: theme.dig(:custom, :background)
+              }
+            }
+          else
+            { name: theme || "light" }
+          end
+
+          {
+            content: options[:content],
+            position: options[:position] || "top",
+            align: options[:align] || "center",
+            trigger: options[:trigger] || "hover",
+            delay: {
+              show: options.dig(:delay, :show) || 0,
+              hide: options.dig(:delay, :hide) || 0
+            },
+            offset: options[:offset] || 8,
+            theme: theme_data,
+            size: options[:size] || "md",
+            arrow: options[:arrow] || false
           }
         end
       end

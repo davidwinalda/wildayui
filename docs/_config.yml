@@ -16,7 +16,7 @@ nav_sort: case_sensitive # backwards compatible with old configs
 
 aux_links:
   "Edit this page on GitHub":
-    - "//github.com/davidwinalda/wildayui/docs"
+    - "//github.com/davidwinalda/wildayui/tree/main/docs"
 
 # Makes Aux links open in a new tab
 aux_links_new_tab: true

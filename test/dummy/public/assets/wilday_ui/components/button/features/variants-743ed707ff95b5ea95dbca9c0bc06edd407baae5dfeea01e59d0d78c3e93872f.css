@@ -152,6 +152,11 @@ a.w-button.w-button-no-underline:hover {
   color: #000000;
 }
 
+/* Override underline for plain buttons */
+a.w-button-plain.w-button-underline {
+  text-decoration: none;
+}
+
 .w-button-plain:focus-visible {
   outline: 2px solid #1a1a1a;
   outline-offset: 2px;

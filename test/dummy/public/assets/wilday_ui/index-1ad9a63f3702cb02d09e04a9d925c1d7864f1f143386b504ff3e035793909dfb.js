@@ -2794,7 +2794,6 @@ var confirmation_controller_default = class extends Controller {
       this.isConfirmed = false;
       return;
     }
-    console.log("Show dialog triggered", event);
     event.preventDefault();
     this.originalEvent = {
       type: event.type,
@@ -2802,17 +2801,14 @@ var confirmation_controller_default = class extends Controller {
       ctrlKey: event.ctrlKey,
       metaKey: event.metaKey
     };
-    console.log("Original event stored:", this.originalEvent);
     this.dialogTarget.showModal();
     this.focusConfirmButton();
   }
   confirm(event) {
-    console.log("Confirm clicked");
     event.preventDefault();
     this.dialogTarget.close();
     if (this.originalEvent?.element) {
       const element = this.originalEvent.element;
-      console.log("Processing element:", element);
       if (this.hasTurbo && !element.hasAttribute("data-turbo") && !element.hasAttribute("data-turbo-method")) {
         this.resumeOriginalEvent();
         return;
@@ -2833,11 +2829,9 @@ var confirmation_controller_default = class extends Controller {
   resumeOriginalEvent() {
     if (!this.originalEvent) return;
     const element = this.originalEvent.element;
-    console.log("Resuming original event for:", element);
     this.isConfirmed = true;
     if (element.closest("form")) {
       const form = element.closest("form");
-      console.log("Submitting form:", form);
       const submitEvent = new Event("submit", {
         bubbles: true,
         cancelable: true
@@ -2847,7 +2841,6 @@ var confirmation_controller_default = class extends Controller {
       return;
     }
     if (element.tagName === "A" || element.hasAttribute("href")) {
-      console.log("Processing link click");
       const click = new MouseEvent("click", {
         bubbles: true,
         cancelable: true,
@@ -2859,7 +2852,6 @@ var confirmation_controller_default = class extends Controller {
       return;
     }
     if (!element.closest("form") && !(element.tagName === "A" || element.hasAttribute("href"))) {
-      console.log("Processing button click");
       element.click();
       this.originalEvent = null;
       return;
@@ -2937,6 +2929,220 @@ var confirmation_controller_default = class extends Controller {
   }
 };
 
+// app/javascript/wilday_ui/controllers/tooltip_controller.js
+var tooltip_controller_default = class extends Controller {
+  static targets = ["trigger"];
+  static values = {
+    content: String,
+    position: { type: String, default: "top" },
+    align: { type: String, default: "center" },
+    trigger: { type: String, default: "hover" },
+    showDelay: { type: Number, default: 0 },
+    hideDelay: { type: Number, default: 0 },
+    offset: { type: Number, default: 8 },
+    theme: { type: String, default: "light" },
+    size: { type: String, default: "md" },
+    arrow: { type: Boolean, default: false }
+  };
+  connect() {
+    this.tooltipElement = null;
+    this.showTimeoutId = null;
+    this.hideTimeoutId = null;
+    this.setupTooltip();
+  }
+  disconnect() {
+    if (this.clickOutsideHandler) {
+      document.removeEventListener("click", this.clickOutsideHandler);
+    }
+    this.removeTooltip();
+  }
+  setupTooltip() {
+    this.tooltipElement = this.createTooltipElement();
+    document.body.appendChild(this.tooltipElement);
+    if (this.triggerValue === "hover") {
+      this.triggerTarget.addEventListener("mouseenter", () => this.show());
+      this.triggerTarget.addEventListener("mouseleave", () => this.hide());
+      this.triggerTarget.addEventListener("focusin", () => this.show());
+      this.triggerTarget.addEventListener("focusout", () => this.hide());
+    } else if (this.triggerValue === "click") {
+      const hasDropdown = this.element.hasAttribute("data-controller") && this.element.getAttribute("data-controller").includes("dropdown");
+      if (hasDropdown) {
+        this.triggerTarget.addEventListener("mouseenter", () => this.show());
+        this.triggerTarget.addEventListener("mouseleave", () => this.hide());
+      } else {
+        this.triggerTarget.addEventListener("click", (e) => {
+          e.stopPropagation();
+          this.toggle();
+        });
+        this.clickOutsideHandler = (e) => {
+          if (!this.triggerTarget.contains(e.target) && !this.tooltipElement.contains(e.target)) {
+            this.hide();
+          }
+        };
+        document.addEventListener("click", this.clickOutsideHandler);
+      }
+    }
+  }
+  createTooltipElement() {
+    const tooltip = document.createElement("div");
+    tooltip.id = this.triggerTarget.getAttribute("aria-describedby");
+    tooltip.className = `w-tooltip w-tooltip-${this.themeValue} w-tooltip-size-${this.sizeValue}`;
+    if (this.arrowValue) tooltip.classList.add("w-tooltip-arrow");
+    tooltip.setAttribute("role", "tooltip");
+    tooltip.setAttribute("data-position", this.positionValue);
+    tooltip.setAttribute("data-align", this.alignValue);
+    tooltip.innerHTML = this.contentValue;
+    tooltip.style.display = "none";
+    return tooltip;
+  }
+  show() {
+    clearTimeout(this.hideTimeoutId);
+    this.showTimeoutId = setTimeout(() => {
+      this.tooltipElement.style.transform = "none";
+      this.tooltipElement.style.visibility = "hidden";
+      this.tooltipElement.style.display = "block";
+      this.tooltipElement.offsetHeight;
+      this.position();
+      this.tooltipElement.style.visibility = "visible";
+      requestAnimationFrame(() => {
+        this.tooltipElement.classList.add("w-tooltip-visible");
+      });
+    }, this.showDelayValue);
+  }
+  hide() {
+    clearTimeout(this.showTimeoutId);
+    this.hideTimeoutId = setTimeout(() => {
+      this.tooltipElement.classList.remove("w-tooltip-visible");
+      setTimeout(() => {
+        this.tooltipElement.style.display = "none";
+      }, 150);
+    }, this.hideDelayValue);
+  }
+  toggle() {
+    if (this.tooltipElement.style.display === "none") {
+      this.show();
+    } else {
+      this.hide();
+    }
+  }
+  position() {
+    const triggerRect = this.triggerTarget.getBoundingClientRect();
+    const tooltipRect = this.tooltipElement.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+    const viewportWidth = window.innerWidth;
+    const arrowOffset = this.arrowValue ? 2 : 0;
+    console.log("=== Initial Values ===");
+    console.log("Viewport Height:", viewportHeight);
+    console.log("Viewport Width:", viewportWidth);
+    console.log("Trigger Top:", triggerRect.top);
+    console.log("Trigger Bottom:", triggerRect.bottom);
+    console.log("Trigger Left:", triggerRect.left);
+    console.log("Trigger Right:", triggerRect.right);
+    console.log("Tooltip Height:", tooltipRect.height);
+    console.log("Tooltip Width:", tooltipRect.width);
+    let position = this.positionValue;
+    let top, left;
+    const spaceBelow = viewportHeight - triggerRect.bottom;
+    const spaceAbove = triggerRect.top;
+    const spaceRight = viewportWidth - triggerRect.right;
+    const spaceLeft = triggerRect.left;
+    const requiredSpaceVertical = tooltipRect.height + this.offsetValue + arrowOffset;
+    const requiredSpaceHorizontal = tooltipRect.width + this.offsetValue + arrowOffset;
+    console.log("\n=== Space Calculation ===");
+    console.log("Space Above:", spaceAbove);
+    console.log("Space Below:", spaceBelow);
+    console.log("Space Left:", spaceLeft);
+    console.log("Space Right:", spaceRight);
+    console.log("Required Space Vertical:", requiredSpaceVertical);
+    console.log("Required Space Horizontal:", requiredSpaceHorizontal);
+    if (position === "right" && spaceRight >= requiredSpaceHorizontal) {
+      position = "right";
+      console.log("Using right - sufficient space");
+    } else if (position === "left" && spaceLeft >= requiredSpaceHorizontal) {
+      position = "left";
+      console.log("Using left - sufficient space");
+    } else if (position === "top" && spaceAbove >= requiredSpaceVertical) {
+      position = "top";
+      console.log("Using top - sufficient space");
+    } else if (position === "bottom" && spaceBelow >= requiredSpaceVertical) {
+      position = "bottom";
+      console.log("Using bottom - sufficient space");
+    } else if (spaceBelow >= requiredSpaceVertical) {
+      position = "bottom";
+      console.log("Fallback to bottom - sufficient space");
+    } else {
+      position = "top";
+      console.log("Fallback to top - insufficient space below");
+    }
+    switch (position) {
+      case "top":
+        top = triggerRect.top - tooltipRect.height - this.offsetValue - arrowOffset;
+        if (this.alignValue === "end") {
+          left = triggerRect.right - tooltipRect.width;
+        } else if (this.alignValue === "center") {
+          left = triggerRect.left + triggerRect.width / 2 - tooltipRect.width / 2;
+        } else {
+          left = triggerRect.left;
+        }
+        break;
+      case "bottom":
+        top = triggerRect.bottom + this.offsetValue + arrowOffset;
+        if (this.alignValue === "end") {
+          left = triggerRect.right - tooltipRect.width;
+        } else if (this.alignValue === "center") {
+          left = triggerRect.left + triggerRect.width / 2 - tooltipRect.width / 2;
+        } else {
+          left = triggerRect.left;
+        }
+        break;
+      case "left":
+        left = triggerRect.left - tooltipRect.width - this.offsetValue - arrowOffset;
+        if (this.alignValue === "end") {
+          top = triggerRect.bottom - tooltipRect.height;
+        } else if (this.alignValue === "center") {
+          top = triggerRect.top + triggerRect.height / 2 - tooltipRect.height / 2;
+        } else {
+          top = triggerRect.top;
+        }
+        break;
+      case "right":
+        left = triggerRect.right + this.offsetValue + arrowOffset;
+        if (this.alignValue === "end") {
+          top = triggerRect.bottom - tooltipRect.height;
+        } else if (this.alignValue === "center") {
+          top = triggerRect.top + triggerRect.height / 2 - tooltipRect.height / 2;
+        } else {
+          top = triggerRect.top;
+        }
+        break;
+    }
+    if (top < 0) {
+      top = this.offsetValue;
+    } else if (top + tooltipRect.height > viewportHeight) {
+      top = viewportHeight - tooltipRect.height - this.offsetValue;
+    }
+    if (left < 0) {
+      left = this.offsetValue;
+    } else if (left + tooltipRect.width > viewportWidth) {
+      left = viewportWidth - tooltipRect.width - this.offsetValue;
+    }
+    console.log("\n=== Final Position ===");
+    console.log("Position:", position);
+    console.log("Top:", top);
+    console.log("Left:", left);
+    console.log("Alignment:", this.alignValue);
+    this.tooltipElement.setAttribute("data-position", position);
+    this.tooltipElement.style.top = `${top}px`;
+    this.tooltipElement.style.left = `${left}px`;
+  }
+  removeTooltip() {
+    if (this.tooltipElement) {
+      this.tooltipElement.remove();
+      this.tooltipElement = null;
+    }
+  }
+};
+
 // app/javascript/wilday_ui/controllers/index.js
 var application = Application.start();
 window.Stimulus = application;
@@ -2944,6 +3150,7 @@ application.register("button", ButtonController);
 application.register("dropdown", dropdown_controller_default);
 application.register("clipboard", clipboard_controller_default);
 application.register("confirmation", confirmation_controller_default);
+application.register("tooltip", tooltip_controller_default);
 
 // app/javascript/wilday_ui/components/button.js
 document.addEventListener("DOMContentLoaded", () => {

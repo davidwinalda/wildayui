@@ -44,6 +44,10 @@ module Components
       def confirmation
         render "components/button/confirmation"
       end
+
+      def tooltip
+        render "components/button/tooltip"
+      end
     end
   end
 end

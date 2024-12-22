@@ -132,6 +132,7 @@ ul li {
   flex-wrap: wrap;
   gap: 1rem;
   align-items: center;
+  margin: 10px 0;
 }
 
 .separator {
