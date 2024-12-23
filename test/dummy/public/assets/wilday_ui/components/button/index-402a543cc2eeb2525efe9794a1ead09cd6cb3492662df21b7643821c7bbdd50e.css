@@ -915,7 +915,7 @@ a.w-button-plain.w-button-underline {
   }
 }
 .w-tooltip {
-  position: fixed;
+  position: absolute;
   z-index: 1000;
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
@@ -1041,6 +1041,11 @@ a.w-button-plain.w-button-underline {
   color: white;
 }
 
+.w-tooltip-transparent {
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+}
+
 /* Add size variants */
 .w-tooltip-size-sm {
   max-width: 12rem; /* 192px */
@@ -1143,6 +1148,22 @@ a.w-button-plain.w-button-underline {
 .w-tooltip-arrow.w-tooltip-dark::before {
   background-color: #1f2937;
   border-color: #1f2937;
+}
+
+.w-tooltip-arrow.w-tooltip-transparent::before {
+  background-color: rgba(0, 0, 0, 0.75);
+  border-color: transparent;
+}
+
+/* Add custom theme support */
+.w-tooltip-custom {
+  background-color: var(--tooltip-bg-color);
+  color: var(--tooltip-text-color);
+}
+
+.w-tooltip-arrow.w-tooltip-custom::before {
+  background-color: var(--tooltip-bg-color);
+  border-color: var(--tooltip-bg-color);
 }
 
 /* Optional: Add different max-widths for different screen sizes */

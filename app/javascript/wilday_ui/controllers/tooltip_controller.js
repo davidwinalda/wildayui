@@ -167,17 +167,6 @@ export default class extends Controller {
     const scrollX = window.pageXOffset || document.documentElement.scrollLeft;
     const scrollY = window.pageYOffset || document.documentElement.scrollTop;
 
-    // Debug initial values
-    console.log("=== Initial Values ===");
-    console.log("Viewport Height:", viewportHeight);
-    console.log("Viewport Width:", viewportWidth);
-    console.log("Trigger Top:", triggerRect.top);
-    console.log("Trigger Bottom:", triggerRect.bottom);
-    console.log("Trigger Left:", triggerRect.left);
-    console.log("Trigger Right:", triggerRect.right);
-    console.log("Tooltip Height:", tooltipRect.height);
-    console.log("Tooltip Width:", tooltipRect.width);
-
     let position = this.positionValue;
     let top, left;
 
@@ -191,34 +180,19 @@ export default class extends Controller {
     const requiredSpaceHorizontal =
       tooltipRect.width + this.offsetValue + arrowOffset;
 
-    // Debug space
-    console.log("\n=== Space Calculation ===");
-    console.log("Space Above:", spaceAbove);
-    console.log("Space Below:", spaceBelow);
-    console.log("Space Left:", spaceLeft);
-    console.log("Space Right:", spaceRight);
-    console.log("Required Space Vertical:", requiredSpaceVertical);
-    console.log("Required Space Horizontal:", requiredSpaceHorizontal);
-
     // Determine position based on available viewport space
     if (position === "right" && spaceRight >= requiredSpaceHorizontal) {
       position = "right";
-      console.log("Using right - sufficient space");
     } else if (position === "left" && spaceLeft >= requiredSpaceHorizontal) {
       position = "left";
-      console.log("Using left - sufficient space");
     } else if (position === "top" && spaceAbove >= requiredSpaceVertical) {
       position = "top";
-      console.log("Using top - sufficient space");
     } else if (position === "bottom" && spaceBelow >= requiredSpaceVertical) {
       position = "bottom";
-      console.log("Using bottom - sufficient space");
     } else if (spaceBelow >= requiredSpaceVertical) {
       position = "bottom";
-      console.log("Fallback to bottom - sufficient space");
     } else {
       position = "top";
-      console.log("Fallback to top - insufficient space below");
     }
 
     // Calculate viewport-relative position
@@ -291,13 +265,6 @@ export default class extends Controller {
     } else if (left + tooltipRect.width > viewportWidth) {
       left = viewportWidth - tooltipRect.width - this.offsetValue;
     }
-
-    // Debug final position
-    console.log("\n=== Final Position ===");
-    console.log("Position:", position);
-    console.log("Top:", top);
-    console.log("Left:", left);
-    console.log("Alignment:", this.alignValue);
 
     // Add scroll position to final coordinates
     top += scrollY;

@@ -2942,18 +2942,32 @@ var tooltip_controller_default = class extends Controller {
     offset: { type: Number, default: 8 },
     theme: { type: String, default: "light" },
     size: { type: String, default: "md" },
-    arrow: { type: Boolean, default: false }
+    arrow: { type: Boolean, default: false },
+    customStyle: String
   };
   connect() {
     this.tooltipElement = null;
     this.showTimeoutId = null;
     this.hideTimeoutId = null;
     this.setupTooltip();
+    this.scrollHandler = () => {
+      if (this.tooltipElement.style.display !== "none") {
+        const triggerRect = this.triggerTarget.getBoundingClientRect();
+        const isInViewport = triggerRect.top >= 0 && triggerRect.left >= 0 && triggerRect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && triggerRect.right <= (window.innerWidth || document.documentElement.clientWidth);
+        if (isInViewport) {
+          this.position();
+        } else {
+          this.hide();
+        }
+      }
+    };
+    window.addEventListener("scroll", this.scrollHandler);
   }
   disconnect() {
     if (this.clickOutsideHandler) {
       document.removeEventListener("click", this.clickOutsideHandler);
     }
+    window.removeEventListener("scroll", this.scrollHandler);
     this.removeTooltip();
   }
   setupTooltip() {
@@ -2966,7 +2980,8 @@ var tooltip_controller_default = class extends Controller {
       this.triggerTarget.addEventListener("focusout", () => this.hide());
     } else if (this.triggerValue === "click") {
       const hasDropdown = this.element.hasAttribute("data-controller") && this.element.getAttribute("data-controller").includes("dropdown");
-      if (hasDropdown) {
+      const hasClipboard = this.element.hasAttribute("data-controller") && this.element.getAttribute("data-controller").includes("clipboard");
+      if (hasDropdown || hasClipboard) {
         this.triggerTarget.addEventListener("mouseenter", () => this.show());
         this.triggerTarget.addEventListener("mouseleave", () => this.hide());
       } else {
@@ -2992,6 +3007,9 @@ var tooltip_controller_default = class extends Controller {
     tooltip.setAttribute("data-position", this.positionValue);
     tooltip.setAttribute("data-align", this.alignValue);
     tooltip.innerHTML = this.contentValue;
+    if (this.hasCustomStyleValue && this.customStyleValue) {
+      tooltip.style.cssText += this.customStyleValue;
+    }
     tooltip.style.display = "none";
     return tooltip;
   }
@@ -3031,6 +3049,8 @@ var tooltip_controller_default = class extends Controller {
     const viewportHeight = window.innerHeight;
     const viewportWidth = window.innerWidth;
     const arrowOffset = this.arrowValue ? 2 : 0;
+    const scrollX = window.pageXOffset || document.documentElement.scrollLeft;
+    const scrollY = window.pageYOffset || document.documentElement.scrollTop;
     console.log("=== Initial Values ===");
     console.log("Viewport Height:", viewportHeight);
     console.log("Viewport Width:", viewportWidth);
@@ -3131,6 +3151,8 @@ var tooltip_controller_default = class extends Controller {
     console.log("Top:", top);
     console.log("Left:", left);
     console.log("Alignment:", this.alignValue);
+    top += scrollY;
+    left += scrollX;
     this.tooltipElement.setAttribute("data-position", position);
     this.tooltipElement.style.top = `${top}px`;
     this.tooltipElement.style.left = `${left}px`;
