@@ -7,6 +7,7 @@ module WildayUi
         include WildayUi::Components::Button::Features::CopyToClipboard
         include WildayUi::Components::Button::Features::ConfirmDialog
         include WildayUi::Components::Button::Features::Tooltip
+        include WildayUi::Components::Button::Features::Animation
 
         BUTTON_FEATURES = begin
           {}
@@ -15,6 +16,7 @@ module WildayUi
           .merge(Features::Dropdown.feature_config)
           .merge(Features::CopyToClipboard.feature_config)
           .merge(Features::ConfirmDialog.feature_config)
+          .merge(Features::Animation.feature_config)
           .freeze
         end
 
@@ -22,13 +24,14 @@ module WildayUi
           BUTTON_FEATURES
         end
 
-        def determine_active_features(loading, dropdown, loading_text = nil, copy_to_clipboard = nil, confirm = nil, tooltip = nil, use_default_controller = true)
+        def determine_active_features(loading, dropdown, loading_text = nil, copy_to_clipboard = nil, confirm = nil, tooltip = nil, animation = nil, use_default_controller = true)
           features = {}
           features[:loading] = true if (loading || loading_text.present?) && use_default_controller
           features[:dropdown] = true if dropdown && use_default_controller
           features[:copy_to_clipboard] = true if copy_to_clipboard.present? && use_default_controller
           features[:confirm] = true if confirm.present? && use_default_controller
           features[:tooltip] = true if tooltip.present? && use_default_controller
+          features[:animation] = true if animation.present? && use_default_controller
           features
         end
 

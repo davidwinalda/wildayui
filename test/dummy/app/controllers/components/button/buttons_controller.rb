@@ -48,6 +48,10 @@ module Components
       def tooltip
         render "components/button/tooltip"
       end
+
+      def animation
+        render "components/button/animation"
+      end
     end
   end
 end

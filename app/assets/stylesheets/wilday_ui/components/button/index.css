@@ -11,6 +11,7 @@
  *= require ./features/clipboard
  *= require ./features/confirmation
  *= require ./features/tooltip
+ *= require ./features/animation
  *= require ../../tokens/colors
 */
 

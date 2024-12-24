@@ -29,6 +29,7 @@ module WildayUi
           copy_to_clipboard: nil,
           confirm: nil,
           tooltip: nil,
+          animation: nil,
           **options
         )
           content_for(:head) { stylesheet_link_tag "wilday_ui/components/button/index", media: "all" }
@@ -55,7 +56,7 @@ module WildayUi
           gradient_class = get_gradient_class(gradient)
 
           # Setup features that require Stimulus controllers
-          active_features = determine_active_features(loading, dropdown, loading_text, copy_to_clipboard, confirm, tooltip, use_default_controller)
+          active_features = determine_active_features(loading, dropdown, loading_text, copy_to_clipboard, confirm, tooltip, animation, use_default_controller)
 
           setup_features(active_features, options, use_default_controller)
           setup_loading_data_attributes(options, loading_text) if active_features[:loading]
@@ -95,6 +96,15 @@ module WildayUi
               options,
               additional_classes,
               tooltip,
+              wrapper_data
+            )
+          end
+
+          if animation
+            setup_animation_options(
+              options,
+              additional_classes,
+              animation,
               wrapper_data
             )
           end

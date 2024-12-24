@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       get "clipboard", to: "buttons#clipboard"
       get "confirmation", to: "buttons#confirmation"
       get "tooltip", to: "buttons#tooltip"
+      get "animation", to: "buttons#animation"
     end
   end
 end

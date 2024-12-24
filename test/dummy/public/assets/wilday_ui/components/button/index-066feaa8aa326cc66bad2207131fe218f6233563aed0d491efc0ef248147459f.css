@@ -12,6 +12,7 @@
 
 
 
+
 */
 
 /* Your direct CSS code can go here */
@@ -1170,6 +1171,104 @@ a.w-button-plain.w-button-underline {
 @media (max-width: 640px) {
   .w-tooltip {
     max-width: 16rem; /* 256px */
+  }
+}
+.w-button-animated {
+  animation-duration: var(--animation-duration);
+  animation-delay: var(--animation-delay);
+  animation-timing-function: var(--animation-timing);
+  animation-iteration-count: var(--animation-iteration);
+  animation-direction: var(--animation-direction);
+  animation-fill-mode: var(--animation-fill-mode);
+}
+
+/* Hover triggered animations */
+.w-button[data-animation*="hover"] {
+  animation-name: var(--animation-name);
+}
+
+/* Click triggered animations */
+.w-button[data-animation*="click"]:active {
+  animation-name: var(--animation-name);
+}
+
+/* Load triggered animations */
+.w-button[data-animation*="load"].is-animating {
+  animation-name: var(--animation-name);
+}
+
+/* Animation keyframes */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes scale {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(10px);
+  }
+}
+
+@keyframes ripple {
+  0% {
+    box-shadow: 0 0 0 0 rgba(var(--w-button-ripple-color, 0, 0, 0), 0.1);
+  }
+  100% {
+    box-shadow: 0 0 0 15px rgba(var(--w-button-ripple-color, 0, 0, 0), 0);
   }
 }
 :root {
