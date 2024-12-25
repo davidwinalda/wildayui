@@ -13,12 +13,12 @@ export default class extends Controller {
     const {
       name,
       trigger,
-      duration,
-      timing,
+      duration = 0.3,
+      timing = "ease",
       delay = 0, // Add default value here
-      iteration,
-      direction,
-      fill_mode,
+      iteration = 1,
+      direction = "normal",
+      fill_mode = "none",
       properties,
     } = animationData;
 
@@ -43,7 +43,16 @@ export default class extends Controller {
       fill_mode.replace(/_/g, "-")
     );
 
-    if (trigger === "load") {
+    // Handle custom properties
+    if (properties && name === "custom") {
+      Object.entries(properties).forEach(([key, value]) => {
+        this.element.style.setProperty(`--animation-custom-${key}`, value);
+      });
+    }
+
+    if (trigger === "click") {
+      this.element.addEventListener("click", () => this.animate());
+    } else if (trigger === "load") {
       this.animate();
     }
   }
@@ -52,14 +61,37 @@ export default class extends Controller {
     const animationData = JSON.parse(this.element.dataset.animation || "{}");
     if (!animationData.name) return;
 
+    // Remove existing animation class to allow re-triggering
+    this.element.classList.remove("is-animating");
+    // Force a reflow to ensure the animation runs again
+    void this.element.offsetWidth;
+    // Add animation class
     this.element.classList.add("is-animating");
   }
 
   getTimingFunction(timing, properties) {
+    if (!timing) return "ease";
+
     if (timing === "cubic_bezier" && properties?.cubic_bezier) {
       const [x1, y1, x2, y2] = properties.cubic_bezier;
       return `cubic-bezier(${x1}, ${y1}, ${x2}, ${y2})`;
     }
     return timing.replace(/_/g, "-");
+  }
+
+  disableAfterAnimation() {
+    const animationConfig = JSON.parse(this.element.dataset.animation || "{}");
+    if (!animationConfig.disabled) return; // Only disable if config says so
+
+    const duration =
+      parseFloat(this.element.style.getPropertyValue("--animation-duration")) *
+      1000;
+    const delay =
+      parseFloat(this.element.style.getPropertyValue("--animation-delay")) *
+      1000;
+
+    setTimeout(() => {
+      this.element.disabled = true;
+    }, duration + delay);
   }
 }

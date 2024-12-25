@@ -99,6 +99,10 @@
     background: linear-gradient(135deg, #eef2ff, #e0e7ff);
   }
 
+  .animation .card-content {
+    background: linear-gradient(135deg, #e0f2fe, #bfdbfe);
+  }
+
   .card-icon {
     color: #2563eb;
     margin-bottom: 0.5rem;
@@ -282,6 +286,18 @@
           </div>
           <h3 class="card-title">Tooltip</h3>
           <p class="card-description">With tooltips</p>
+        </div>
+      <% end %>
+
+      <%= link_to components_button_animation_path, class: "feature-card animation" do %>
+        <div class="card-content">
+          <div class="card-icon">
+            <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <h3 class="card-title">Animation</h3>
+          <p class="card-description">Motion effects</p>
         </div>
       <% end %>
     </div>

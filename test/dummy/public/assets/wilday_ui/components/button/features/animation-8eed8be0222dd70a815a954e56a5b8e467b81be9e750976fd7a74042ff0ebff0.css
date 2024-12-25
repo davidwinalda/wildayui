@@ -22,25 +22,6 @@
   animation-name: var(--animation-name);
 }
 
-/* Custom animation handler */
-.w-button-animation-custom {
-  transition-property: transform, background, color, box-shadow, opacity; /* Add all properties we want to transition */
-  transition-duration: var(--animation-custom-duration);
-  transition-timing-function: var(--animation-custom-timing);
-  transition-delay: var(--animation-custom-delay, 0s);
-}
-
-/* Handle hover, click, and load triggers */
-.w-button-animation-trigger-hover:hover.w-button-animation-custom,
-.w-button-animation-trigger-click.is-animating.w-button-animation-custom,
-.w-button-animation-trigger-load.is-animating.w-button-animation-custom {
-  transform: var(--animation-custom-transform);
-  background: var(--animation-custom-background);
-  color: var(--animation-custom-color);
-  box-shadow: var(--animation-custom-box-shadow);
-  opacity: var(--animation-custom-opacity);
-}
-
 /* Animation keyframes */
 @keyframes pulse {
   0% {

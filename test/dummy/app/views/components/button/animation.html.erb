@@ -1,6 +1,1151 @@
+<% content_for :sidebar do %>
+    <a href="#wilday-ui-button" class="sidebar-link" data-level="1">Wilday UI - Button Component</a>
+    <a href="#animation" class="sidebar-link" data-level="2">Animation</a>
+    <a href="#api-reference" class="sidebar-link" data-level="2">API Reference</a>
+    <a href="#usage-examples" class="sidebar-link" data-level="2">Usage Examples</a>
+    <a href="#add-more-parameters" class="sidebar-link" data-level="3">Add More Parameters</a>
+    <a href="#custom-animation" class="sidebar-link" data-level="3">Custom Animation</a>
+    <a href="#all-usage-examples" class="sidebar-link" data-level="2">All Usage Examples</a>
+    <a href="#basic-usage-default" class="sidebar-link" data-level="3">Basic usage - Default</a>
+    <a href="#click-trigger-examples" class="sidebar-link" data-level="3">Click Trigger Examples</a>
+    <a href="#load-trigger-examples" class="sidebar-link" data-level="3">Load Trigger Examples</a>
+    <a href="#timing" class="sidebar-link" data-level="3">Timing</a>
+    <a href="#delay" class="sidebar-link" data-level="3">Delay</a>
+    <a href="#iteration" class="sidebar-link" data-level="3">Iteration</a>
+    <a href="#direction" class="sidebar-link" data-level="3">Direction</a>
+    <a href="#fill-mode" class="sidebar-link" data-level="3">Fill Mode</a>
+    <a href="#custom-animation" class="sidebar-link" data-level="3">Custom Animation</a>
+    <a href="#combined-with-other-button-features" class="sidebar-link" data-level="3">Combined with Other Button Features</a>
+    <a href="#valid-css-properties-for-custom-animations" class="sidebar-link" data-level="2">Valid CSS Properties for Custom Animations</a>
+<% end %>
 
 
+<div>
+    <h1 id="wilday-ui-button">Wilday UI Button Component</h1>
+    <h2 id="animation">Animation</h2>
+    <p>
+        Animation features for a button. 
+        Animation is a way to add movement and visual effects to components.
+        It is a powerful way to make components more engaging and interactive.
+    </p>
 
-<%= w_button "Hover me", animation: :pulse %>
-<%= w_button "Click me", animation: :bounce %>
-<%= w_button "Load", animation: :shake %>
+    <div class="separator"></div>
+
+    <h2 id="api-reference">API Reference</h2>
+    <div class="api-reference">
+        <p>The <code>animation</code> option accepts either a symbol (predefined animation name) or a hash with the following properties:</p>
+        <ul>
+            <li><code>name</code> (Symbol or String) - Animation name. Options:
+                <ul>
+                    <li><code>:bounce</code>, <code>:pulse</code>, <code>:scale</code>, <code>:shake</code></li>
+                    <li><code>:fade</code>, <code>:slide</code>, <code>:ripple</code>, <code>:rotate</code></li>
+                    <li><code>:swing</code>, <code>:pop</code>, <code>:jello</code>, <code>:wobble</code></li>
+                    <li><code>:heartbeat</code>, <code>:rubberBand</code>, <code>:flash</code>, <code>:tada</code></li>
+                    <li><code>:custom</code> - For custom animations with properties</li>
+                </ul>
+            </li>
+            <li><code>trigger</code> (Symbol, optional) - When to start the animation. Options:
+                <ul>
+                    <li><code>:hover</code> (default) - On mouse hover</li>
+                    <li><code>:click</code> - On button click</li>
+                    <li><code>:load</code> - When component loads</li>
+                </ul>
+            </li>
+            <li><code>duration</code> (Number, optional) - Animation duration in seconds (default: 1.0)</li>
+            <li><code>delay</code> (Number, optional) - Delay before animation starts in seconds (default: 0)</li>
+            <li><code>timing</code> (Symbol, optional) - Timing function. Options:
+                <ul>
+                    <li><code>:linear</code>, <code>:ease</code>, <code>:ease_in</code>, <code>:ease_out</code>, <code>:ease_in_out</code></li>
+                    <li><code>:cubic_bezier</code> - Requires additional properties</li>
+                </ul>
+            </li>
+            <li><code>iteration</code> (Symbol or Number, optional) - Number of times to play. Options:
+                <ul>
+                    <li>Number (1, 2, 3, etc.) - Play specific number of times</li>
+                    <li><code>:infinite</code> - Loop forever</li>
+                </ul>
+            </li>
+            <li><code>direction</code> (Symbol, optional) - Animation direction. Options:
+                <ul>
+                    <li><code>:normal</code> (default) - Play forward</li>
+                    <li><code>:reverse</code> - Play backward</li>
+                    <li><code>:alternate</code> - Forward then backward</li>
+                    <li><code>:alternate_reverse</code> - Backward then forward</li>
+                </ul>
+            </li>
+            <li><code>fill_mode</code> (Symbol, optional) - What to do when animation ends. Options:
+                <ul>
+                    <li><code>:none</code> (default) - Return to initial state</li>
+                    <li><code>:forwards</code> - Keep final state</li>
+                    <li><code>:backwards</code> - Apply first keyframe during delay</li>
+                    <li><code>:both</code> - Combine forwards & backwards</li>
+                </ul>
+            </li>
+            <li><code>properties</code> (Hash, optional) - Custom animation properties:
+                <ul>
+                    <li><code>transform</code> - CSS transform value</li>
+                    <li><code>cubic_bezier</code> - Array of 4 numbers for custom timing</li>
+                    <li>Any valid CSS property for custom animations. You can see the list of valid CSS properties     <a href="#valid-css-properties-for-custom-animations" data-level="3">here</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="separator"></div>
+    
+    <div>
+        <h2 id="usage-examples">Usage Examples</h2>
+        <div>
+            <h3 id="basic-usage-default">Usage Example - Basic</h3>
+            <div class="component-example">
+                <div class="component-preview">
+                    <%= w_button "Hover Bounce", animation: :bounce %>
+                </div>
+
+                <div class="component-code">
+        <pre><code class="language-ruby"><%%= w_button "Hover Bounce", animation: :bounce %></code></pre>
+                </div>
+        </div>
+        </div>
+        
+        <div>
+            <h3 id="add-more-parameters">Usage Example - Add More Parameters</h3>
+            <div class="component-example">
+                <div class="component-preview">
+                    <%= w_button "Click Me!",
+                    animation: {
+                        name: :bounce,                 # Predefined animation name
+                        trigger: :click,               # When animation starts
+                        duration: 1.5,                 # Animation duration in seconds
+                        delay: 0.2,                    # Delay before animation starts
+                        timing: :ease_in_out,          # Timing function
+                        iteration: 2,                  # Number of times to play
+                        direction: :alternate,         # Play forward then backward
+                        fill_mode: :forwards           # Keep final state
+                    }
+                    %>
+                </div>
+
+                <div class="component-code">
+        <pre><code class="language-ruby"><%%= w_button "Click Me!",
+        animation: {
+            name: :bounce,                 # Predefined animation name
+            trigger: :click,               # When animation starts
+            duration: 1.5,                 # Animation duration in seconds
+            delay: 0.2,                    # Delay before animation starts
+            timing: :ease_in_out,          # Timing function
+            iteration: 2,                  # Number of times to play
+            direction: :alternate,         # Play forward then backward
+            fill_mode: :forwards           # Keep final state
+        } 
+    %></code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h3 id="custom-animation">Usage Example - Custom Animation</h3>
+            <div class="component-example">
+                <div class="component-preview">
+                    <%= w_button "3D Flip Effect",
+                        animation: {
+                            name: :custom,
+                            trigger: :hover,            # Triggers on click
+                            duration: 0.6,             # Quick flip
+                            delay: 0.1,                # Slight delay
+                            timing: :cubic_bezier,     # Custom timing
+                            iteration: 1,              # Once per click
+                            direction: :normal,        # One direction only
+                            fill_mode: :both,         # Smooth start/end
+                            properties: {
+                            transform: "perspective(1000px) rotateY(180deg)",  # 3D rotation
+                            background: "#2dd4bf",                            # Teal background
+                            color: "#ffffff",                                 # White text
+                            box_shadow: "0 15px 25px rgba(45, 212, 191, 0.3)", # Depth shadow
+                            border_color: "#14b8a6",                          # Border color
+                            cubic_bezier: [0.4, 0, 0.2, 1]                    # Smooth curve
+                            }
+                        }
+                    %>
+                </div>
+
+                <div class="component-code">
+        <pre><code class="language-ruby"><%%= w_button "3D Flip Effect",
+        animation: {
+            name: :custom,
+            trigger: :hover,            # Triggers on click
+            duration: 0.6,              # Quick flip
+            delay: 0.1,                 # Slight delay
+            timing: :cubic_bezier,      # Custom timing
+            iteration: 1,               # Once per click
+            direction: :normal,         # One direction only
+            fill_mode: :both,           # Smooth start/end
+            properties: {
+                transform: "perspective(1000px) rotateY(180deg)",  # 3D rotation
+                background: "#2dd4bf",                             # Teal background
+                color: "#ffffff",                                  # White text
+                box_shadow: "0 15px 25px rgba(45, 212, 191, 0.3)", # Depth shadow
+                border_color: "#14b8a6",                           # Border color
+                cubic_bezier: [0.4, 0, 0.2, 1]                     # Smooth curve
+            }
+        } 
+    %></code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="separator"></div>
+
+    <div>
+        <h2 id="all-usage-examples">All Usage Examples</h2>
+        <div>
+                <h2 id="basic-usage-default">Basic Usage (defaults to hover trigger)</h2>
+                <div class="component-item">
+                    <%# Basic Usage (defaults to hover trigger) %>
+                    <%= w_button "Hover Bounce", animation: :bounce %>
+                    <%= w_button "Hover Pulse", animation: :pulse %>
+                    <%= w_button "Hover Scale", animation: :scale %>
+                    <%= w_button "Hover Shake", animation: :shake %>
+                    <%= w_button "Hover Fade", animation: :fade %>
+                    <%= w_button "Hover Slide", animation: :slide %>
+                    <%= w_button "Hover Ripple", animation: :ripple %>
+                    <%= w_button "Rotate", animation: :rotate %>
+                    <%= w_button "Swing", animation: :swing %>
+                    <%= w_button "Pop", animation: :pop %>
+                    <%= w_button "Jello", animation: :jello %>
+                    <%= w_button "Wobble", animation: :wobble %>
+                    <%= w_button "Heartbeat", animation: :heartbeat %>
+                    <%= w_button "Rubber Band", animation: :rubberBand %>
+                    <%= w_button "Flash", animation: :flash %>
+                    <%= w_button "Tada", animation: :tada %>
+                </div>
+            </div>
+
+            <div class="separator"></div>
+            <div>
+                <h3 id="click-trigger-examples">Click Trigger Examples</h3>
+                <div class="component-item">
+                    <%= w_button "Click Bounce", animation: { name: :bounce, trigger: :click } %>
+                    <%= w_button "Click Pulse", animation: { name: :pulse, trigger: :click } %>
+                    <%= w_button "Click Scale", animation: { name: :scale, trigger: :click } %>
+                </div>
+            </div>
+
+            <div class="separator"></div>
+            <div>
+                <h3 id="load-trigger-examples">Load Trigger Examples (auto-plays - refresh page to see)</h3>
+                <div class="component-item">
+                    <%= w_button "Auto Bounce", animation: { name: :bounce, trigger: :load, duration: 2.0 } %>
+                    <%= w_button "Auto Fade", animation: { name: :fade, trigger: :load, duration: 2.0 } %>
+                </div>
+            </div>
+
+        <div class="separator"></div>
+        <div>
+            <h3 id="timing">Timing</h3>
+            <div>
+                <div class="component-item">
+                    <%# Timing Function Examples %>
+                    <%# Linear - Mechanical, robot-like movement %>
+                    <%= w_button "Linear Slide →", 
+                        animation: { 
+                        name: :slide, 
+                        duration: 3.0,
+                        timing: :linear,
+                        iteration: :infinite
+                        } 
+                    %>
+
+                    <%# Ease In - Starts slow, ends fast (like a car accelerating) %>
+                    <%= w_button "Ease In Slide →", 
+                        animation: { 
+                        name: :slide, 
+                        duration: 3.0,
+                        timing: :ease_in,
+                        iteration: :infinite
+                        } 
+                    %>
+
+                    <%# Ease Out - Starts fast, ends slow (like braking) %>
+                    <%= w_button "Ease Out Slide →", 
+                        animation: { 
+                        name: :slide, 
+                        duration: 3.0,
+                        timing: :ease_out,
+                        iteration: :infinite
+                        } 
+                    %>
+
+                    <%# Bouncy effect using cubic-bezier %>
+                    <%= w_button "Bouncy Slide →", 
+                        animation: { 
+                        name: :slide, 
+                        duration: 3.0,
+                        timing: :cubic_bezier,
+                        iteration: :infinite,
+                        properties: {
+                            cubic_bezier: [0.68, -0.55, 0.265, 1.55]  # Bouncy effect
+                        }
+                        } 
+                    %>
+
+                    <%# Elastic effect using cubic-bezier %>
+                    <%= w_button "Elastic Slide →", 
+                        animation: { 
+                        name: :slide, 
+                        duration: 3.0,
+                        timing: :cubic_bezier,
+                        iteration: :infinite,
+                        properties: {
+                            cubic_bezier: [0.68, -0.6, 0.32, 1.6]  # Elastic effect
+                        }
+                        } 
+                    %>
+                </div>
+            </div>
+
+            <div>
+                <%# Scale Examples %>
+                <div class="component-item">
+                    <%= w_button "Linear Scale", 
+                        animation: { 
+                        name: :scale, 
+                        duration: 2.0,
+                        timing: :linear,
+                        iteration: :infinite
+                        } 
+                    %>
+
+                    <%= w_button "Bouncy Scale", 
+                        animation: { 
+                        name: :scale, 
+                        duration: 2.0,
+                        timing: :cubic_bezier,
+                        iteration: :infinite,
+                        properties: {
+                            cubic_bezier: [0.68, -0.55, 0.265, 1.55]
+                        }
+                        } 
+                    %>
+                </div>
+            </div>
+
+            <div>
+                <%# Rotate Examples %>
+                <div class="component-item">
+                    <%= w_button "Linear Rotate", 
+                        animation: { 
+                        name: :rotate, 
+                        duration: 2.0,
+                        timing: :linear,
+                        iteration: :infinite
+                        } 
+                    %>
+
+                    <%= w_button "Ease In Out Rotate", 
+                        animation: { 
+                        name: :rotate, 
+                        duration: 2.0,
+                        timing: :ease_in_out,
+                        iteration: :infinite
+                        } 
+                    %>
+                </div>
+            </div>
+        </div>
+
+        <div class="separator"></div>
+
+        <div>
+            <h3 id="delay">Delay</h3>
+            <div>
+                <h4 id="instant-vs-delayed-animations">Instant vs Delayed Animations</h4>
+                <div class="component-item">
+                    <%= w_button "No Delay (0s)", 
+                        animation: { 
+                        name: :bounce,
+                        trigger: :click,
+                        delay: 0
+                        } 
+                    %>
+
+                    <%= w_button "Tiny Delay (0.1s)", 
+                        animation: { 
+                        name: :bounce,
+                        trigger: :click,
+                        delay: 0.1
+                        } 
+                    %>
+
+                    <%= w_button "Short Delay (0.3s)", 
+                        animation: { 
+                        name: :bounce,
+                        trigger: :click,
+                        delay: 0.3
+                        } 
+                    %>
+
+                    <%= w_button "Medium Delay (0.5s)", 
+                        animation: { 
+                        name: :bounce,
+                        trigger: :click,
+                        delay: 0.5
+                        } 
+                    %>
+
+                    <%= w_button "Long Delay (1.0s)", 
+                        animation: { 
+                        name: :bounce,
+                        trigger: :click,
+                        delay: 1.0
+                        } 
+                    %>
+                </div>
+            </div>
+
+            <div>
+                <h4 id="sequential-loading-example">Sequential Loading Example</h4>
+                <div class="component-item">
+                    <%= w_button "First (0s)", 
+                        animation: { 
+                        name: :fade,
+                        trigger: :load,
+                        delay: 0
+                        } 
+                    %>
+
+                    <%= w_button "Second (0.5s)", 
+                        animation: { 
+                        name: :fade,
+                        trigger: :load,
+                        delay: 0.5
+                        } 
+                    %>
+
+                    <%= w_button "Third (1.0s)", 
+                        animation: { 
+                        name: :fade,
+                        trigger: :load,
+                        delay: 1.0
+                        } 
+                    %>
+                </div>
+            </div>
+
+            <div>
+                <h4 id="loading-indicators">Loading Indicators</h4>
+                <div class="component-item">
+                    <%= w_button "Dot 1 (0s)", 
+                        animation: { 
+                        name: :pulse,
+                        trigger: :load,
+                        delay: 0,
+                        iteration: :infinite
+                        } 
+                    %>
+
+                    <%= w_button "Dot 2 (0.3s)", 
+                        animation: { 
+                        name: :pulse,
+                        trigger: :load,
+                        delay: 0.3,
+                        iteration: :infinite
+                        } 
+                    %>
+
+                    <%= w_button "Dot 3 (0.6s)", 
+                        animation: { 
+                        name: :pulse,
+                        trigger: :load,
+                        delay: 0.6,
+                        iteration: :infinite
+                        } 
+                    %>
+                </div>
+            </div>
+            <div>
+                <h4 id="interaction-feedback">Interaction Feedback</h4>
+                <div class="component-item">
+                    <%= w_button "Quick Response (0.1s)", 
+                        animation: { 
+                        name: :shake,
+                        trigger: :click,
+                        delay: 0.1
+                        } 
+                    %>
+
+                    <%= w_button "Processing (0.3s)", 
+                        animation: { 
+                        name: :rotate,
+                        trigger: :click,
+                        delay: 0.3,
+                        iteration: :infinite
+                        } 
+                    %>
+
+                    <%= w_button "Success (1.0s)", 
+                        animation: { 
+                        name: :tada,
+                        trigger: :click,
+                        delay: 1.0,
+                        variant: :success
+                        } 
+                    %>
+                </div>
+            </div>
+        </div>
+
+        <div class="separator"></div>
+
+        <div>
+            <h3 id="iteration">Iteration</h3>
+            <div>
+                <h4 id="basic-iteration-counts">Basic Iteration Counts</h4>
+                <div class="component-item">
+                    <%= w_button "Once (1)", 
+                        animation: { 
+                        name: :bounce,
+                        trigger: :click,
+                        iteration: 1        # Default - plays once
+                        } 
+                    %>
+
+                    <%= w_button "Twice (2)", 
+                        animation: { 
+                        name: :bounce,
+                        trigger: :click,
+                        iteration: 2        # Plays two times
+                        } 
+                    %>
+
+                    <%= w_button "Three Times (3)", 
+                        animation: { 
+                        name: :bounce,
+                        trigger: :click,
+                        iteration: 3        # Plays three times
+                        } 
+                    %>
+
+                    <%= w_button "Infinite (∞)", 
+                        animation: { 
+                        name: :bounce,
+                        trigger: :click,
+                        iteration: :infinite  # Never stops
+                        } 
+                    %>
+                </div>
+            </div>
+
+            <div>
+                <h4 id="loading-states">Loading States</h4>
+                <div class="component-item">
+                    <%= w_button "Loading...", 
+                        animation: { 
+                        name: :rotate,
+                        trigger: :click,
+                        iteration: :infinite,  # Continuous rotation
+                        timing: :linear
+                        } 
+                    %>
+
+                    <%= w_button "Processing...", 
+                        animation: { 
+                        name: :pulse,
+                        trigger: :click,
+                        iteration: :infinite,  # Continuous pulse
+                        duration: 1.0
+                        } 
+                    %>
+                </div>
+            </div>
+
+            <div>
+                <h4 id="attention-grabbers">Attention Grabbers</h4>
+                <div class="component-item">
+                    <%= w_button "Notice Me! (3)", 
+                        animation: { 
+                        name: :shake,
+                        trigger: :load,
+                        iteration: 3,        # Shakes three times
+                        duration: 0.5
+                        } 
+                    %>
+
+                    <%= w_button "Important! (5)", 
+                        animation: { 
+                        name: :heartbeat,
+                        trigger: :load,
+                        iteration: 5,        # Five heartbeats
+                        duration: 0.8
+                        } 
+                    %>
+                </div>
+            </div>
+
+            <div>
+                <h4 id="success-error-states">Success/Error States</h4>
+                <div class="component-item">
+                    <%= w_button "Success! (2)", 
+                        animation: { 
+                        name: :tada,
+                        trigger: :click,
+                        iteration: 2,        # Celebrate twice
+                        variant: :success
+                        } 
+                    %>
+
+                    <%= w_button "Error (3)", 
+                        animation: { 
+                        name: :wobble,
+                        trigger: :click,
+                        iteration: 3,        # Three wobbles
+                        variant: :danger
+                        } 
+                    %>
+                </div>
+            </div>
+
+            <div>
+                <h4 id="combined-with-other-properties">Combined with Other Properties</h4>
+                <div class="component-item">
+                    <%= w_button "Slow Double (2)", 
+                        animation: { 
+                        name: :bounce,
+                        trigger: :click,
+                        iteration: 2,
+                        duration: 1.0,      # Slower animation
+                        timing: :ease_in_out
+                        } 
+                    %>
+
+                    <%= w_button "Quick Triple (3)", 
+                        animation: { 
+                        name: :bounce,
+                        trigger: :click,
+                        iteration: 3,
+                        duration: 0.3,      # Faster animation
+                        timing: :ease_out
+                        } 
+                    %>
+                </div>
+            </div>
+        </div>
+
+        <div class="separator"></div>
+
+        <div>
+            <h3 id="direction">Direction</h3>
+            <div>
+                <h4 id="basic-directions">Basic Directions</h4>
+                <div class="component-item">
+                    <%= w_button "Normal →", 
+                        animation: { 
+                        name: :slide,
+                        trigger: :click,
+                        direction: :normal,     # Default - plays forward
+                        iteration: 2
+                        } 
+                    %>
+
+                    <%= w_button "Reverse ←", 
+                        animation: { 
+                        name: :slide,
+                        trigger: :click,
+                        direction: :reverse,    # Plays backwards
+                        iteration: 2
+                        } 
+                    %>
+
+                    <%= w_button "Alternate ↔", 
+                        animation: { 
+                        name: :slide,
+                        trigger: :click,
+                        direction: :alternate,  # Forward then backward
+                        iteration: 4            # 2 complete cycles
+                        } 
+                    %>
+
+                    <%= w_button "Alternate Reverse ↔", 
+                        animation: { 
+                        name: :slide,
+                        trigger: :click,
+                        direction: :alternate_reverse,  # Backward then forward
+                        iteration: 4                    # 2 complete cycles
+                        } 
+                    %>
+                </div>
+            </div>
+
+            <div>
+                <h4 id="scale-examples">Scale Examples</h4>
+                <div class="component-item">
+                    <%= w_button "Grow & Shrink", 
+                        animation: { 
+                        name: :scale,
+                        trigger: :click,
+                        direction: :alternate,
+                        iteration: 2,
+                        duration: 1.0
+                        } 
+                    %>
+
+                    <%= w_button "Shrink & Grow", 
+                        animation: { 
+                        name: :scale,
+                        trigger: :click,
+                        direction: :alternate_reverse,
+                        iteration: 2,
+                        duration: 1.0
+                        } 
+                    %>
+                </div>
+            </div>
+
+            <div>
+                <h4 id="loading-indicators">Loading Indicators</h4>
+                <div class="component-item">
+                    <%= w_button "Forward Spin ↻", 
+                        animation: { 
+                        name: :rotate,
+                        trigger: :click,
+                        direction: :normal,
+                        iteration: :infinite,
+                        duration: 2.0
+                        } 
+                    %>
+
+                    <%= w_button "Reverse Spin ↺", 
+                        animation: { 
+                        name: :rotate,
+                        trigger: :click,
+                        direction: :reverse,
+                        iteration: :infinite,
+                        duration: 2.0
+                        } 
+                    %>
+
+                    <%= w_button "Back & Forth ↔", 
+                        animation: { 
+                        name: :rotate,
+                        trigger: :click,
+                        direction: :alternate,
+                        iteration: :infinite,
+                        duration: 2.0
+                        } 
+                    %>
+                </div>
+            </div>
+
+            <div>
+                <h4 id="practical-examples">Practical Examples</h4>
+                <div class="component-item">
+                    <%= w_button "Pulse In & Out", 
+                        animation: { 
+                        name: :pulse,
+                        trigger: :click,
+                        direction: :alternate,
+                        iteration: :infinite,
+                        duration: 1.0
+                        } 
+                    %>
+
+                    <%= w_button "Fade In & Out", 
+                        animation: { 
+                        name: :fade,
+                        trigger: :click,
+                        direction: :alternate,
+                        iteration: :infinite,
+                        duration: 1.0
+                        } 
+                    %>
+
+                    <%= w_button "Bounce Up & Down", 
+                        animation: { 
+                        name: :bounce,
+                        trigger: :click,
+                        direction: :alternate,
+                        iteration: 4,
+                        duration: 0.5
+                        } 
+                    %>
+                </div>
+            </div>
+
+            <div>
+                <h4 id="complex-combinations">Complex Combinations</h4>
+                <div class="component-item">
+                    <%= w_button "Loading Progress", 
+                        animation: { 
+                        name: :slide,
+                        trigger: :click,
+                        direction: :normal,     # Always move forward
+                        iteration: :infinite,
+                        duration: 1.0,
+                        timing: :linear
+                        } 
+                    %>
+
+                    <%= w_button "Attention Grabber", 
+                        animation: { 
+                        name: :shake,
+                        trigger: :click,
+                        direction: :alternate,  # Shake left & right
+                        iteration: 6,          # 3 complete cycles
+                        duration: 0.3,
+                        timing: :ease_in_out
+                        } 
+                    %>
+                </div>
+            </div>
+        </div>
+
+        <div class="separator"></div>
+
+        <div>
+            <h3 id="fill-mode">Fill Mode</h3>
+            <div>
+                <h4 id="basic-fill-modes">Basic Fill Modes</h4>
+                <div class="component-item">
+                    <%= w_button "None (Default)", 
+                        animation: { 
+                        name: :slide,
+                        trigger: :click,
+                        fill_mode: :none,      # Returns to original state
+                        duration: 2.0
+                        } 
+                    %>
+
+                    <%= w_button "Forwards →", 
+                        animation: { 
+                        name: :slide,
+                        trigger: :click,
+                        fill_mode: :forwards,  # Keeps final state
+                        duration: 2.0
+                        } 
+                    %>
+
+                    <%= w_button "Backwards ←", 
+                        animation: { 
+                        name: :slide,
+                        trigger: :click,
+                        fill_mode: :backwards, # Applies first frame before start
+                        delay: 1.0,           # Add delay to see backwards effect
+                        duration: 2.0
+                        } 
+                    %>
+
+                    <%= w_button "Both ↔", 
+                        animation: { 
+                        name: :slide,
+                        trigger: :click,
+                        fill_mode: :both,     # Combines forwards & backwards
+                        delay: 1.0,
+                        duration: 2.0
+                        } 
+                    %>
+                </div>
+            </div>
+            
+            <div>
+                <h4 id="scale-examples">Scale Examples</h4>
+                <div class="component-item">
+                    <%= w_button "Return to Normal", 
+                        animation: { 
+                        name: :scale,
+                        trigger: :click,
+                        fill_mode: :none,     # Will scale back to original size
+                        duration: 1.0
+                        } 
+                    %>
+
+                    <%= w_button "Stay Scaled", 
+                        animation: { 
+                        name: :scale,
+                        trigger: :click,
+                        fill_mode: :forwards, # Will stay at scaled size
+                        duration: 1.0
+                        } 
+                    %>
+                </div>
+            </div>
+
+            <div>
+                <h4 id="fade-examples">Fade Examples</h4>
+                <div class="component-item">
+                    <%= w_button "Fade & Return", 
+                        animation: { 
+                        name: :fade,
+                        trigger: :click,
+                        fill_mode: :none,     # Returns to full opacity
+                        duration: 1.0
+                        } 
+                    %>
+
+                    <%= w_button "Fade & Stay", 
+                        animation: { 
+                        name: :fade,
+                        trigger: :click,
+                        fill_mode: :forwards, # Stays at faded opacity
+                        duration: 1.0
+                        } 
+                    %>
+                </div>
+            </div>
+
+            <div>
+                <h4 id="practical-use-cases">Practical Use Cases</h4>
+                <div class="component-item">
+                    <%= w_button "Submit & Disable", 
+                        theme: {
+                            name: :primary,
+                        },
+                        animation: { 
+                        name: :pulse,
+                        trigger: :click,
+                        fill_mode: :forwards, # Stays in final state
+                        duration: 0.5,
+                        disabled: true
+                        }
+                    %>
+
+                    <%= w_button "Delete & Hide", 
+                        theme: {
+                            name: :danger,
+                        },
+                        animation: { 
+                        name: :fade,
+                        trigger: :click,
+                        fill_mode: :forwards, # Stays hidden
+                        duration: 1.0,
+                        } 
+                    %>
+
+                    <%= w_button "Delayed Success", 
+                        theme: {
+                            name: :success,
+                        },
+                        animation: { 
+                        name: :scale,
+                        trigger: :click,
+                        fill_mode: :both,    # Shows effect before and after
+                        delay: 1.0,
+                        duration: 0.5,
+                        }  
+                    %>
+                </div>
+            </div>
+
+            <div>
+                <h4 id="complex-examples">Complex Examples</h4>
+                <div class="component-item">
+                    <%= w_button "Processing State", 
+                        animation: { 
+                        name: :pulse,
+                        trigger: :click,
+                        fill_mode: :both,
+                        iteration: 3,
+                        duration: 0.5,
+                        delay: 0.2
+                        } 
+                    %>
+
+                    <%= w_button "Complete Sequence", 
+                        animation: { 
+                        name: :tada,
+                        trigger: :click,
+                        fill_mode: :forwards,
+                        duration: 1.0,
+                        delay: 0.5,
+                        timing: :ease_out
+                        } 
+                    %>
+                </div>
+            </div>
+        </div>
+
+        <div class="separator"></div>
+        <div>
+            <h3 id="custom-animation">Custom Animation</h3>
+            <%# Custom animation %>
+            <div class="component-item">
+                <%# Custom Rotate and Scale %>
+                <%= w_button "Rotate & Scale", 
+                    animation: { 
+                    name: :custom,
+                    trigger: :hover,
+                    properties: {
+                        transform: "rotate(360deg) scale(1.1)",
+                        duration: "0.5s",
+                        timing: "ease-in-out"
+                    }
+                    }
+                %>
+
+                <%# Color Transition %>
+                <%= w_button "Color Shift", 
+                    animation: { 
+                    name: :custom,
+                    trigger: :click,
+                    properties: {
+                        background: "linear-gradient(45deg, #ff6b6b, #4ecdc4)",
+                        color: "red",
+                        duration: "0.3s",
+                        timing: "ease-out"
+                    }
+                    }
+                %>
+
+                <%# 3D Transform %>
+                <%= w_button "3D Flip", 
+                    animation: { 
+                    name: :custom,
+                    trigger: :hover,
+                    properties: {
+                        transform: "perspective(400px) rotateY(180deg)",
+                        duration: "0.8s",
+                        timing: "cubic-bezier(0.4, 0, 0.2, 1)"
+                    }
+                    }
+                %>
+
+                <%# Multiple Properties %>
+                <%= w_button "Complex Animation", 
+                    animation: { 
+                    name: :custom,
+                    trigger: :click,
+                    properties: {
+                        transform: "translateY(-10px) rotate(5deg)",
+                        box_shadow: "0 10px 20px rgba(0,0,0,0.2)",
+                        background: "#4CAF50",
+                        color: "white",
+                        duration: "0.5s",
+                        timing: "ease-out"
+                    }
+                    }
+                %>
+
+                <%# Loading State %>
+                <%= w_button "Loading", 
+                    animation: { 
+                    name: :custom,
+                    trigger: :click,
+                    properties: {
+                        transform: "rotate(360deg)",
+                        opacity: "0.7",
+                        duration: "1s",
+                        timing: "linear",
+                        iteration: "infinite"
+                    }
+                    }
+                %>
+
+                <%# Bounce Effect %>
+                <%= w_button "Bounce", 
+                    animation: { 
+                    name: :custom,
+                    trigger: :hover,
+                    properties: {
+                        transform: "translateY(-15px)",
+                        timing: "cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+                        duration: "0.6s"
+                    }
+                    }
+                %>
+
+                <%# Shake with Color %>
+                <%= w_button "Error Shake", 
+                    animation: { 
+                    name: :custom,
+                    trigger: :click,
+                    properties: {
+                        transform: "translateX(-5px)",
+                        background: "#ff4444",
+                        color: "white",
+                        duration: "0.1s",
+                        timing: "linear",
+                        iteration: "3",
+                        direction: "alternate"
+                    }
+                    }
+                %>
+            </div>
+        </div>
+
+        <div class="separator"></div>
+
+        <div>
+            <h3 id="combined-with-other-button-features">Combined with Other Button Features</h3>
+            <div class="component-item">
+                <%# Combined with Other Button Features %>
+                <%= w_button "Animated with Large Button & Icon", 
+                    theme: {
+                        name: :primary,
+                    },
+                    icon: "fa-solid fa-arrow-right",
+                    size: :large,
+                    animation: { name: :bounce, trigger: :click }
+                %>
+            </div>
+        </div>
+    </div>
+    
+    <div class="separator"></div>
+
+    <h2 id="api-reference">CSS Properties</h2>
+    <div class="api-reference">
+        <h4 id="valid-css-properties-for-custom-animations">Valid CSS Properties for Custom Animations</h4>
+        <p>The <code>properties</code> hash accepts the following CSS properties:</p>
+        <ul>
+            <li><strong>Transform Properties:</strong>
+                <ul>
+                    <li><code>transform</code> - Accepts combinations of:
+                        <ul>
+                            <li><code>translateX(), translateY(), translateZ()</code> - Move in X, Y, or Z axis</li>
+                            <li><code>scale(), scaleX(), scaleY()</code> - Scale size</li>
+                            <li><code>rotate(), rotateX(), rotateY(), rotateZ()</code> - Rotation</li>
+                            <li><code>skew(), skewX(), skewY()</code> - Skew/tilt</li>
+                            <li><code>perspective()</code> - 3D depth perspective</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+            <li><strong>Color & Background:</strong>
+                <ul>
+                    <li><code>color</code> - Text color</li>
+                    <li><code>background</code> - Background color or gradient</li>
+                    <li><code>background_color</code> - Just the background color</li>
+                    <li><code>border_color</code> - Border color</li>
+                    <li><code>opacity</code> - Transparency (0 to 1)</li>
+                </ul>
+            </li>
+
+            <li><strong>Size & Position:</strong>
+                <ul>
+                    <li><code>width</code> - Element width</li>
+                    <li><code>height</code> - Element height</li>
+                    <li><code>margin</code> - Outer spacing</li>
+                    <li><code>padding</code> - Inner spacing</li>
+                </ul>
+            </li>
+
+            <li><strong>Visual Effects:</strong>
+                <ul>
+                    <li><code>box_shadow</code> - Shadow effects</li>
+                    <li><code>filter</code> - Visual filters like blur, brightness</li>
+                    <li><code>backdrop_filter</code> - Background blur effects</li>
+                </ul>
+            </li>
+
+            <li><strong>Animation Control:</strong>
+                <ul>
+                    <li><code>duration</code> - Animation length (e.g., "0.3s", "1s")</li>
+                    <li><code>timing</code> - Timing function (e.g., "ease", "linear")</li>
+                    <li><code>delay</code> - Start delay (e.g., "0.1s")</li>
+                    <li><code>iteration</code> - Number of repeats or "infinite"</li>
+                    <li><code>direction</code> - Animation direction</li>
+                </ul>
+            </li>
+        </ul>
+    </div>

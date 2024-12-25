@@ -14,3 +14,4 @@ The dynamic button component is a button that can be used to trigger actions.
 [Copy to Clipboard](./copy-to-clipboard){: .btn .btn-purple .mr-2 }
 [Confirmation Dialog](./confirmation-dialog){: .btn .btn-purple .mr-2 }
 [Tooltip](./tooltip){: .btn .btn-purple .mr-2 }
+[Animation](./animation){: .btn .btn-purple .mr-2 }

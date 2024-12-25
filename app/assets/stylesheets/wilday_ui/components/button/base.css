@@ -7,10 +7,22 @@
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .w-button:disabled {
   background-color: #e0e0e0;
   color: #6c757d;
   cursor: not-allowed;
+}
+
+/* Mobile base styles */
+@media screen and (max-width: 767px) {
+  .w-button {
+    white-space: normal;
+    min-height: 40px; /* Touch-friendly */
+  }
 }

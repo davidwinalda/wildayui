@@ -13,3 +13,39 @@
   font-size: 1.25rem;
   padding: 0.75rem 1.5rem;
 }
+
+/* Tablet sizes */
+@media screen and (max-width: 767px) {
+  .w-button-small {
+    font-size: 0.8125rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .w-button-medium {
+    font-size: 0.9375rem;
+    padding: 0.45rem 0.9rem;
+  }
+
+  .w-button-large {
+    font-size: 1.125rem;
+    padding: 0.6rem 1.2rem;
+  }
+}
+
+/* Mobile sizes */
+@media screen and (max-width: 479px) {
+  .w-button-small {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .w-button-medium {
+    font-size: 0.875rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .w-button-large {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
+}

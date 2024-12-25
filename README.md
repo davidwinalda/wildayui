@@ -36,9 +36,10 @@ Place it in the `<head>` section, before your application's JavaScript:
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     
-    <%= w_js %>  # Add this line in head
-    
     <%= stylesheet_link_tag "application" %>
+    <%= javascript_importmap_tags %>
+
+    <%= w_js %>  # Add this line in head
   </head>
   <body>
     <%= yield %>

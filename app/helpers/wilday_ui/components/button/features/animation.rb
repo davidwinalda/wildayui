@@ -6,7 +6,7 @@ module WildayUi
           FEATURE_CONFIG = {
             wrapper_required: false,
             stimulus_controller: "animation",
-            default_stimulus_action: "animation#animate"
+            default_stimulus_action: "animation#animate animation#disableAfterAnimation"
           }.freeze
 
           def self.feature_config
@@ -23,6 +23,7 @@ module WildayUi
             options[:data][:animation] = animation_config.to_json
             options[:data][:controller] = "animation"
             options[:data][:animation_target] = "button"
+            options[:data][:action] = FEATURE_CONFIG[:default_stimulus_action]
 
             additional_classes = [
               additional_classes,
@@ -43,19 +44,44 @@ module WildayUi
                 duration: 0.3,
                 iteration: 1,
                 direction: :normal,
-                fill_mode: :none
+                fill_mode: :none,
+                disabled: false
               }
             else
-              {
+              config = {
                 name: options[:name]&.to_sym,
                 trigger: options[:trigger]&.to_sym || :hover,
-                timing: options[:timing]&.to_sym || :ease,
+                timing: normalize_timing(options[:timing]),
                 direction: options[:direction]&.to_sym || :normal,
                 iteration: normalize_iteration(options[:iteration]),
                 fill_mode: options[:fill_mode]&.to_sym || :none,
                 duration: options[:duration] || 0.3,
-                delay: options[:delay] || 0
-              }.compact
+                delay: options[:delay] || 0,
+                disabled: options[:disabled] || false
+              }
+
+              # Handle properties based on animation type
+              if options[:properties]
+                if config[:name] == :custom
+                  config[:properties] = options[:properties]  # Pass through all properties for custom animations
+                elsif config[:timing] == :cubic_bezier
+                  config[:properties] = { cubic_bezier: options[:properties][:cubic_bezier] }  # Handle cubic-bezier timing
+                end
+              end
+
+              config.compact
+            end
+          end
+
+          def normalize_timing(timing)
+            return :ease unless timing
+
+            timing = timing.to_sym if timing.is_a?(String)
+            case timing
+            when :linear, :ease, :ease_in, :ease_out, :ease_in_out, :cubic_bezier
+              timing
+            else
+              :ease # default if invalid timing provided
             end
           end
 

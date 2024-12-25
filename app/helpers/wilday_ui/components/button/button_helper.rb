@@ -101,7 +101,7 @@ module WildayUi
           end
 
           if animation
-            setup_animation_options(
+            additional_classes = setup_animation_options(
               options,
               additional_classes,
               animation,

@@ -3150,13 +3150,13 @@ var animation_controller_default = class extends Controller {
     const {
       name,
       trigger,
-      duration,
-      timing,
+      duration = 0.3,
+      timing = "ease",
       delay = 0,
       // Add default value here
-      iteration,
-      direction,
-      fill_mode,
+      iteration = 1,
+      direction = "normal",
+      fill_mode = "none",
       properties
     } = animationData;
     this.element.style.setProperty("--animation-name", name);
@@ -3178,21 +3178,40 @@ var animation_controller_default = class extends Controller {
       "--animation-fill-mode",
       fill_mode.replace(/_/g, "-")
     );
-    if (trigger === "load") {
+    if (properties && name === "custom") {
+      Object.entries(properties).forEach(([key, value]) => {
+        this.element.style.setProperty(`--animation-custom-${key}`, value);
+      });
+    }
+    if (trigger === "click") {
+      this.element.addEventListener("click", () => this.animate());
+    } else if (trigger === "load") {
       this.animate();
     }
   }
   animate() {
     const animationData = JSON.parse(this.element.dataset.animation || "{}");
     if (!animationData.name) return;
+    this.element.classList.remove("is-animating");
+    void this.element.offsetWidth;
     this.element.classList.add("is-animating");
   }
   getTimingFunction(timing, properties) {
+    if (!timing) return "ease";
     if (timing === "cubic_bezier" && properties?.cubic_bezier) {
       const [x1, y1, x2, y2] = properties.cubic_bezier;
       return `cubic-bezier(${x1}, ${y1}, ${x2}, ${y2})`;
     }
     return timing.replace(/_/g, "-");
+  }
+  disableAfterAnimation() {
+    const animationConfig = JSON.parse(this.element.dataset.animation || "{}");
+    if (!animationConfig.disabled) return;
+    const duration = parseFloat(this.element.style.getPropertyValue("--animation-duration")) * 1e3;
+    const delay = parseFloat(this.element.style.getPropertyValue("--animation-delay")) * 1e3;
+    setTimeout(() => {
+      this.element.disabled = true;
+    }, duration + delay);
   }
 };
 
